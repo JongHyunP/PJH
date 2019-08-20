@@ -20,11 +20,10 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{1E4DFF1C-A3EA-4E7D-AD94-354D0C8A3763}</ProjectGuid>
+    <ProjectGuid>{56BEA3BB-56D0-46ED-A6F8-D990640B9957}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>NeoStudy</RootNamespace>
+    <RootNamespace>My0819STL04FuncObject</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
-    <ProjectName>0819_STL_01_Overloading</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -140,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Overloading.cpp" />
+    <ClCompile Include="FuncObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
