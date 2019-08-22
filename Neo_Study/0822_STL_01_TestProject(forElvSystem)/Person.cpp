@@ -1,24 +1,12 @@
 #include "Person.h"
-#include "PublicIncludeHeader.h"
-
-
-Person::Person()
-{
-}
-
 
 Person::~Person()
 {
 }
 
-int Person::GetNowFloor()
+void Person::CreateRamdomPerson()
 {
-	return nowFloor;
-}
-
-void Person::SetNowFloor(int pNowFloor)
-{
-	nowFloor = pNowFloor;
+	
 }
 
 int Person::GetTarget()

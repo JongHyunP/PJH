@@ -1,5 +1,5 @@
 #include "ElevatorManager.h"
-
+#include "PublicIncludeHeader.h"
 
 
 ElevatorManager::ElevatorManager()
@@ -11,27 +11,7 @@ ElevatorManager::~ElevatorManager()
 {
 }
 
-void ElevatorManager::ElvTargetFloorInsert()
-{
 
-}
+//체크 사람 추가 (사람클래스에서 알아서 리스트 구조로 생성)
 
-void ElevatorManager::ElvPassengerGet()
-{
-
-}
-
-void ElevatorManager::ElvPassengerGetOff()
-{
-
-}
-
-void ElevatorManager::RandomFloorGetPassenger()
-{
-
-}
-
-void ElevatorManager::InputFloorGetPassenger()
-{
-
-}
+//엘레베이터 콜
