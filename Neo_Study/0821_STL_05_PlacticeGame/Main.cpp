@@ -1,15 +1,13 @@
 #include <iostream>
-#include "ElevatorManager.h"
 #include "Scene.h"
 
 int main()
 {
-	ElevatorManager elvManager;
 	Scene scene;
 
-	while (true)
+	while (!scene.systemEnd)
 	{
 		scene.DrowMenu();
-		if()
 	}
+	return 0;
 }
