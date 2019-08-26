@@ -29,9 +29,9 @@ public:
 	void Initialized();
 	bool systemEnd = false;
 	bool backToMenu = false;
-	void DrowMenu();
+
 	void DrowFloor(Floor& mFloor);
-	int MenuSelect();
+	int ShowMenu();
 	void StartInputMode();
 	void StartRandomMode();
 	void RandomModeUpdate();

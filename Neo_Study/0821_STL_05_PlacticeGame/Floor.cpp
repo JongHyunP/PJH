@@ -25,7 +25,7 @@ void Floor::PushPerson(int floor, int destinate) // 사람을 넣어준다
 int Floor::PopPerson(int floor, int direction) // 목적지에 도달하면 사람을 빼준다.
 {
 	int temp;
-	if (direction == FloorDirection::UP )
+	if (direction == FLOOR_DIRECTION::UP )
 		temp = UpPerson[floor].Pop();
 	else
 		temp = DownPerson[floor].Pop();
@@ -37,7 +37,7 @@ int Floor::PopPerson(int floor, int direction) // 목적지에 도달하면 사람을 빼준�
 int Floor::GetPersonNumber(int floor, int direction) //
 {
 	int temp;
-	if (direction == FloorDirection::UP)
+	if (direction == FLOOR_DIRECTION::UP)
 		temp = UpPerson[floor].GetNumber();
 	else
 		temp = DownPerson[floor].GetNumber();
@@ -49,10 +49,10 @@ int Floor::GetButton(int floor)
 {
 	int returnValue = 0;
 
-	if (GetPersonNumber(floor, FloorDirection::UP) != 0)
+	if (GetPersonNumber(floor, FLOOR_DIRECTION::UP) != 0)
 		returnValue = 1;
 
-	if (GetPersonNumber(floor, FloorDirection::DOWN) != 0)
+	if (GetPersonNumber(floor, FLOOR_DIRECTION::DOWN) != 0)
 		returnValue = 1;
 
 	return returnValue;
@@ -61,11 +61,11 @@ int Floor::GetButton(int floor)
 void Floor::Display(int floor)
 {
 	Gotoxy(36, -2 * floor + 44);
-	cout << "▲:" << GetPersonNumber(floor, FloorDirection::UP);
+	cout << "▲:" << GetPersonNumber(floor, FLOOR_DIRECTION::UP);
 	Gotoxy(41, -2 * floor + 44);
 	cout << floor << "F";
 	Gotoxy(45, -2 * floor + 44);
-	cout << "▽:" << GetPersonNumber(floor, FloorDirection::DOWN);
+	cout << "▽:" << GetPersonNumber(floor, FLOOR_DIRECTION::DOWN);
 
 }
 

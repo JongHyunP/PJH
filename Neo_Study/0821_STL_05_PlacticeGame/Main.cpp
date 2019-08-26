@@ -6,7 +6,7 @@ int main()
 
 	while (!scene.systemEnd)
 	{
-		scene.DrowMenu();
+		scene.ShowMenu();
 	}
 
 	return 0;

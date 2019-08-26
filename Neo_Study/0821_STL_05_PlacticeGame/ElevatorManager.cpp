@@ -38,9 +38,9 @@ int ElevatorManager::DecideDirection()
 
 	returnValue = direction;
 
-	if (direction == Decide_Direction::DECIDE_UP)
+	if (direction == DECIDE_DIRECTION::DECIDE_UP)
 	{
-		if (pFloor->GetPersonNumber(floor, FloorDirection::DOWN) != 0)
+		if (pFloor->GetPersonNumber(floor, FLOOR_DIRECTION::DOWN) != 0)
 			returnValue = -1;
 
 		for (i = floor - 1; i >= 1; i--)
@@ -60,9 +60,9 @@ int ElevatorManager::DecideDirection()
 				returnValue = 1;
 		}
 	}
-	else if(direction == Decide_Direction::DECIDE_DOWN)
+	else if(direction == DECIDE_DIRECTION::DECIDE_DOWN)
 	{
-		if (pFloor->GetPersonNumber(floor, FloorDirection::UP) != 0)
+		if (pFloor->GetPersonNumber(floor, FLOOR_DIRECTION::UP) != 0)
 			returnValue = 1;
 
 		for (i = floor + 1; i <= maxFloor; i++)
@@ -107,8 +107,8 @@ int ElevatorManager::DecideMoving() // 사람이 있는층에 리턴값 1
 
 int ElevatorManager::DecideOperate() //엘레베이터/문 이(가) ~하는 상태면 이라면 멈추게함
 {
-	elvElevator elevator = pElevator->GetElevatorState();
-	elvDoor door = pElevator->GetDoorState();
+	ELEVATOR_STATE elevator = pElevator->GetElevatorState();
+	ELEVATOR_DOOR door = pElevator->GetDoorState();
 
 	int returnValue = 1;
 

@@ -14,16 +14,12 @@ Scene::~Scene()
 	delete pElvManager;
 }
 
-void Scene::DrowMenu()
+int Scene::ShowMenu()
 {
 	cout << "엘레베이터 시뮬레이터!" << endl;
 	cout << "모드를 선택해주세요" << endl;
 	cout << "1. 랜덤 모드 2. 입력 모드 3.종료 : ";
-	MenuSelect();
-}
 
-int Scene::MenuSelect()
-{
 	int inputNum = 0;
 	cin >> inputNum;
 
@@ -45,7 +41,7 @@ int Scene::MenuSelect()
 		systemEnd = true;
 		break;
 	default:
-		MenuSelect();
+		ShowMenu();
 		break;
 	}
 	return 0;

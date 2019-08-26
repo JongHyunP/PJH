@@ -90,9 +90,9 @@ void Elevator::Close()
 	DrowElevator();
 }
 
-elvOver Elevator::IsitFull()
+ELEVATOR_FULL Elevator::IsitFull()
 {
-	elvOver returnValue = NO;
+	ELEVATOR_FULL returnValue = NO;
 
 	if (Person.GetNumber() == maxPerson) // 하중 옵션 추가
 		returnValue = FULL;
@@ -102,12 +102,12 @@ elvOver Elevator::IsitFull()
 	return returnValue;
 }
 
-elvDoor Elevator::GetDoorState()
+ELEVATOR_DOOR Elevator::GetDoorState()
 {
 	return doorState;
 }
 
-elvElevator Elevator::GetElevatorState()
+ELEVATOR_STATE Elevator::GetElevatorState()
 {
 	return elevatorState;
 }

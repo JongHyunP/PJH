@@ -2,7 +2,7 @@
 #include "Elevator.h"
 #include "Floor.h"
 
-enum Decide_Direction { DECIDE_DOWN = -1, DECIDE_UP = 1 };
+enum DECIDE_DIRECTION { DECIDE_DOWN = -1, DECIDE_UP = 1 };
 
 
 class ElevatorManager
