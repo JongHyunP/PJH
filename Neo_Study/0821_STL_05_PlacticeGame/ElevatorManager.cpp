@@ -1,10 +1,6 @@
 #include "ElevatorManager.h"
 #include "PublicIncludeHeader.h"
 
-//체크 사람 추가 (사람클래스에서 알아서 리스트 구조로 생성)
-
-//엘레베이터 콜
-
 ElevatorManager::ElevatorManager(Floor& rFloor, int max)
 {
 	pFloor = &rFloor;
@@ -41,9 +37,9 @@ int ElevatorManager::DecideDirection()
 
 	returnValue = direction;
 
-	if (direction == 1)
+	if (direction == Decide_Direction::DECIDE_UP)
 	{
-		if (pFloor->GetPersonNumber(floor, -1) != 0)
+		if (pFloor->GetPersonNumber(floor, FloorDirection::DOWN) != 0)
 			returnValue = -1;
 
 		for (i = floor - 1; i >= 1; i--)
@@ -63,10 +59,11 @@ int ElevatorManager::DecideDirection()
 				returnValue = 1;
 		}
 	}
-	else
+	else if(direction == Decide_Direction::DECIDE_DOWN)
 	{
-		if (pFloor->GetPersonNumber(floor, 1) != 0)
+		if (pFloor->GetPersonNumber(floor, FloorDirection::UP) != 0)
 			returnValue = 1;
+
 		for (i = floor + 1; i <= maxFloor; i++)
 		{
 			if (pElevator->GetButton(i) == 1)
@@ -88,12 +85,11 @@ int ElevatorManager::DecideDirection()
 	return returnValue;
 }
 
-int ElevatorManager::DecideMoving()
+int ElevatorManager::DecideMoving() // 사람이 있는층에 리턴값 1 
 {
 	int returnValue = 0;
-	int i;
 
-	for (i = 1; i <= maxFloor; i++)
+	for (int i = 1; i <= maxFloor; i++)
 	{
 		if (pElevator->GetButton(i) != 0)
 			returnValue = 1;
@@ -109,7 +105,7 @@ int ElevatorManager::DecideMoving()
 }
 
 
-int ElevatorManager::DecideOperate()
+int ElevatorManager::DecideOperate() //엘레베이터/문 이(가) ~하는 상태면 이라면 멈추게함
 {
 	elvElevator elevator = pElevator->GetElevatorState();
 	elvDoor door = pElevator->GetDoorState();
@@ -124,7 +120,7 @@ int ElevatorManager::DecideOperate()
 	return returnValue;
 }
 
-void ElevatorManager::Operator(Elevator& rElevator)
+void ElevatorManager::Operator(Elevator& rElevator) //직접적인 행동에대한 판단
 {
 	pElevator = &rElevator;
 	int flag = pElevator->GetFlag();
@@ -138,11 +134,11 @@ void ElevatorManager::Operator(Elevator& rElevator)
 			{
 				pElevator->SetDirection(DecideDirection());
 
-				if (DecideOpen())
+				if (DecideOpen()) //열어줘야하는지
 				{
 					pElevator->SetFlag(3);
 				}
-				else
+				else //아니니까 올라가자/내려가자 판단
 				{
 					if (pElevator->GetDirection() == 1)
 						pElevator->MoveUp();

@@ -3,7 +3,6 @@
 #include "ElevatorFactory.h"
 #include "ElevatorManager.h"
 
-#define FPS 3
 #define PASSENGER_CREATION_COOLTIME 5
 
 enum 
@@ -25,7 +24,7 @@ public:
 	Scene();
 	~Scene();
 	bool systemEnd = false;
-
+	bool backToMenu = false;
 	void DrowMenu();
 	void DrowFloor(Floor& mFloor);
 	int MenuSelect();

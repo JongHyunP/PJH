@@ -2,7 +2,9 @@
 #include"Queue.h"
 #include "PublicIncludeHeader.h"
 
-class Floor
+enum FloorDirection { DOWN = -1 , UP = 1};
+
+class Floor //올라가는 사람, 내려가는 사람을 큐로 만듬
 {
 	Queue* UpPerson;
 	Queue* DownPerson;

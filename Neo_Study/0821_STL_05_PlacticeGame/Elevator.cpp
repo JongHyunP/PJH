@@ -21,7 +21,7 @@ void Elevator::Operater()
 	if (elevatorState == MOVING_UP)
 	{
 		// 초단위 시간을 얻기 위해 클록 함수에 의해 반환된 값을 CLOCKS_PER_SEC로 나눈 값.
-		if ((clock() - itsTimer) >= 0.5f * CLOCKS_PER_SEC) //기본 1초당 1칸 올라/내려 가도록
+		if ((clock() - itsTimer) >= 1 * CLOCKS_PER_SEC) //기본 1초당 1칸 올라/내려 가도록
 		{
 			elevatorState = STOP;
 			itsFloor++;
@@ -31,7 +31,7 @@ void Elevator::Operater()
 
 	if (elevatorState == MOVING_DOWN)
 	{
-		if ((clock() - itsTimer) >= 0.5f * CLOCKS_PER_SEC)
+		if ((clock() - itsTimer) >= 1 * CLOCKS_PER_SEC)
 		{
 			elevatorState = STOP;
 			itsFloor--;
@@ -41,7 +41,7 @@ void Elevator::Operater()
 
 	if (doorState == CLOSING)
 	{
-		if ((clock() - itsTimer) >= 1 * CLOCKS_PER_SEC)
+		if ((clock() - itsTimer) >= 2 * CLOCKS_PER_SEC)
 		{
 			doorState = CLOSED;
 			vDoor();
@@ -51,7 +51,7 @@ void Elevator::Operater()
 
 	if (doorState == OPENING)
 	{
-		if ((clock() - itsTimer) >= 1 * CLOCKS_PER_SEC)
+		if ((clock() - itsTimer) >= 2 * CLOCKS_PER_SEC)
 		{
 			doorState = OPENED;
 			vDoor();

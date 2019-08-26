@@ -40,7 +40,7 @@ class Elevator
 	int itsDirection;
 	long itsTimer;
 	int itsFlag;
-	//int* itsButton;
+	int* itsButton;
 
 	virtual void vElevator() = 0;
 	virtual void vDoor() = 0;

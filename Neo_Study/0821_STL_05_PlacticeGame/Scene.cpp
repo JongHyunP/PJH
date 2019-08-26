@@ -130,7 +130,7 @@ int Scene::DrowRandomMode()
 
 	DrowFloor(mFloor);
 
-	while (1)
+	while (!backToMenu)
 	{
 		RandomCreatePeople(mFloor);
 
