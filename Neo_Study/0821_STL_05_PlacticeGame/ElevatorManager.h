@@ -18,5 +18,5 @@ public:
 
 	ElevatorManager(Floor& rFloor, int max);
 	~ElevatorManager();
-	void Operator(Elevator& rElevator);
+	void Operator(Elevator* rElevator);
 };

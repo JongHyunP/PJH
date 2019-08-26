@@ -2,6 +2,9 @@
 #include"Queue.h"
 #include "PublicIncludeHeader.h"
 
+#define MAX_FLOOR 20
+#define FIRST_FLOOR 1
+
 enum FloorDirection { DOWN = -1 , UP = 1};
 
 class Floor //올라가는 사람, 내려가는 사람을 큐로 만듬

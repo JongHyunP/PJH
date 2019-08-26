@@ -10,6 +10,7 @@ ElevatorManager::ElevatorManager(Floor& rFloor, int max)
 
 ElevatorManager::~ElevatorManager()
 {
+
 }
 
 int ElevatorManager::DecideOpen()
@@ -104,7 +105,6 @@ int ElevatorManager::DecideMoving() // 사람이 있는층에 리턴값 1
 	return returnValue;
 }
 
-
 int ElevatorManager::DecideOperate() //엘레베이터/문 이(가) ~하는 상태면 이라면 멈추게함
 {
 	elvElevator elevator = pElevator->GetElevatorState();
@@ -120,9 +120,9 @@ int ElevatorManager::DecideOperate() //엘레베이터/문 이(가) ~하는 상태면 이라면 
 	return returnValue;
 }
 
-void ElevatorManager::Operator(Elevator& rElevator) //직접적인 행동에대한 판단
+void ElevatorManager::Operator(Elevator* rElevator) //직접적인 행동에대한 판단
 {
-	pElevator = &rElevator;
+	pElevator = rElevator;
 	int flag = pElevator->GetFlag();
 
 	if (DecideOperate() == 1)

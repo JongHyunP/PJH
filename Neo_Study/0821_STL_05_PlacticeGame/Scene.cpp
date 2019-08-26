@@ -3,10 +3,15 @@
 
 Scene::Scene()
 {
+	pFloor = nullptr;
+	pElvManager = nullptr;
 }
+
 
 Scene::~Scene()
 {
+	delete pFloor;
+	delete pElvManager;
 }
 
 void Scene::DrowMenu()
@@ -28,13 +33,13 @@ int Scene::MenuSelect()
 		//랜덤모드
 		system("cls");
 		cout << "랜덤모드 시작" << endl;
-		DrowRandomMode();
+		StartRandomMode();
 		break;
 	case INPUT_MODE:
 		//입력모드
 		system("cls");
 		cout << "입력모드 시작" << endl;
-		DrowInputMode();
+		StartInputMode();
 		break;
 	case MENU_EXIT:
 		systemEnd = true;
@@ -45,6 +50,23 @@ int Scene::MenuSelect()
 	}
 	return 0;
 }
+
+void Scene::Initialized()
+{
+	pFloor = new Floor(MAX_FLOOR);
+
+	pElvManager = new ElevatorManager(*pFloor, MAX_FLOOR);
+
+	vectorElevator.reserve(COUNT);
+
+	for (int i = 0; i < COUNT; i++)
+	{
+		vectorElevator.push_back(new Elevator(MAX_NUMBER_OF_PROPLE, FIRST_FLOOR, i + 1));
+	}
+
+	DrowFloor(*pFloor);
+}
+
 
 void Scene::Gotoxy(int x, int y) //커서 옮기는 함수
 {
@@ -81,79 +103,66 @@ void Scene::DrowFloor(Floor& mFloor)
 	}
 }
 
-int Scene::DrowInputMode()
+void Scene::StartInputMode()
 {
 	system("cls");
 
-	Floor mFloor(20);
-	ElevatorFactory1 mElevator1(5, 1);
-	ElevatorFactory2 mElevator2(5, 1);
-	ElevatorFactory3 mElevator3(5, 1);
-	ElevatorFactory4 mElevator4(5, 1);
-	ElevatorManager mElevatorManager(mFloor, 20);
+	Initialized();
 
-	DrowFloor(mFloor);
-
-	while (1)
-	{
-		if (_kbhit())
-		{
-			CreatePeopleOnFloor(mFloor);
-		}
-
-		mElevator1.Operater();
-		mElevator2.Operater();
-		mElevator3.Operater();
-		mElevator4.Operater();
-		mElevatorManager.Operator(mElevator1);
-		mElevatorManager.Operator(mElevator2);
-		mElevatorManager.Operator(mElevator3);
-		mElevatorManager.Operator(mElevator4);
-		
-	}
-
-	return 0;
+	InputModeUpdate();
 }
 
-int Scene::DrowRandomMode()
+void Scene::StartRandomMode()
 {
 	system("cls");
 
 	srand((unsigned)time(NULL));
 
-	Floor mFloor(20);
-	ElevatorFactory1 mElevator1(5, 1);
-	ElevatorFactory2 mElevator2(5, 1);
-	ElevatorFactory3 mElevator3(5, 1);
-	ElevatorFactory4 mElevator4(5, 1);
-	ElevatorManager mElevatorManager(mFloor, 20);
+	Initialized();
 
-	DrowFloor(mFloor);
+	RandomModeUpdate();
 
+}
+
+void Scene::RandomModeUpdate()
+{
 	while (!backToMenu)
 	{
-		RandomCreatePeople(mFloor);
+		RandomCreatePeople(*pFloor);
 
-		mElevator1.Operater();
-		mElevator2.Operater();
-		mElevator3.Operater();
-		mElevator4.Operater();
-		mElevatorManager.Operator(mElevator1);
-		mElevatorManager.Operator(mElevator2);
-		mElevatorManager.Operator(mElevator3);
-		mElevatorManager.Operator(mElevator4);
+		for (vector< Elevator*>::iterator iter = vectorElevator.begin(); iter != vectorElevator.end(); ++iter)
+		{
+			(*iter)->Operater();
+			(*pElvManager).Operator(*iter);
+		}
+		Sleep(1000);
+	}
+}
+
+void Scene::InputModeUpdate()
+{
+	while (!backToMenu)
+	{
+		if (_kbhit())
+		{
+			CreatePeopleOnFloor(*pFloor);
+		}
+
+		for (vector< Elevator*>::iterator iter = vectorElevator.begin(); iter != vectorElevator.end(); ++iter)
+		{
+			(*iter)->Operater();
+			(*pElvManager).Operator(*iter);
+		}
 
 		Sleep(1000);
 	}
-
-	return 0;
 }
 
-int Scene::KeyTest(int key)
+int Scene::IsNumberInFloor(int num)
 {
 	int returnValue = 0;
 
-	if (key >= 1 && key <= 20)
+	if (num >= 1 && num <= 20)
 		returnValue = 1;
 
 	return returnValue;
@@ -166,7 +175,7 @@ void Scene::CreatePeopleOnFloor(Floor& mFloor)
 	Gotoxy(50, 49);
 	cin >> newFloorNum;
 
-	if (KeyTest(newFloorNum))
+	if (IsNumberInFloor(newFloorNum))
 	{
 		CreatePeopleDestination(mFloor);
 	}
@@ -185,7 +194,7 @@ void Scene::CreatePeopleDestination(Floor& mFloor)
 	Gotoxy(40, 50);
 	cin >> destinateFloor;
 
-	if (KeyTest(destinateFloor))
+	if (IsNumberInFloor(destinateFloor))
 	{
 		mFloor.PushPerson(newFloorNum, destinateFloor);
 		
