@@ -21,7 +21,6 @@
 //	void ElvMove();                // 엘레베이터의 움직임
 //};
 
-
 #include "PublicIncludeHeader.h"
 #include "QUEUE.h"
 #include "FLOOR.h"
@@ -35,16 +34,17 @@ class Elevator
 	Queue Person;
 	int itsFloor;
 	int maxPerson;
+	int weightLimit;
 	elvDoor doorState;
 	elvElevator elevatorState;
 	int itsDirection;
 	long itsTimer;
 	int itsFlag;
-	int* itsButton;
+	//int* itsButton;
 
-	virtual void dContainer() = 0;
-	virtual void dDoor() = 0;
-	virtual void dButton() = 0;
+	virtual void vElevator() = 0;
+	virtual void vDoor() = 0;
+	virtual void vInterface() = 0;
 public:
 	Elevator(int max, int floor);
 	~Elevator();

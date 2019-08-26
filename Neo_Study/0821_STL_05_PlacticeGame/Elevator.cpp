@@ -8,6 +8,7 @@ Elevator::Elevator(int max = 5, int floor = 1) //정원 수정해야함. 무게 받도록(하
 	itsFloor = floor;
 	itsTimer = 0;
 	maxPerson = max;
+	weightLimit = 600;
 	itsFlag = 1;
 }
 
@@ -19,40 +20,41 @@ void Elevator::Operater()
 {
 	if (elevatorState == MOVING_UP)
 	{
-		if ((clock() - itsTimer) >= 1 * CLK_TCK) //기본 1초당 1칸 올라/내려 가도록
+		// 초단위 시간을 얻기 위해 클록 함수에 의해 반환된 값을 CLOCKS_PER_SEC로 나눈 값.
+		if ((clock() - itsTimer) >= 0.5f * CLOCKS_PER_SEC) //기본 1초당 1칸 올라/내려 가도록
 		{
 			elevatorState = STOP;
 			itsFloor++;
-			dContainer();
+			vElevator();
 		}
 	}
 
 	if (elevatorState == MOVING_DOWN)
 	{
-		if ((clock() - itsTimer) >= 1 * CLK_TCK)
+		if ((clock() - itsTimer) >= 0.5f * CLOCKS_PER_SEC)
 		{
 			elevatorState = STOP;
 			itsFloor--;
-			dContainer();
+			vElevator();
 		}
 	}
 
 	if (doorState == CLOSING)
 	{
-		if ((clock() - itsTimer) >= 2 * CLK_TCK)
+		if ((clock() - itsTimer) >= 1 * CLOCKS_PER_SEC)
 		{
 			doorState = CLOSED;
-			dDoor();
+			vDoor();
 		}
 
 	}
 
 	if (doorState == OPENING)
 	{
-		if ((clock() - itsTimer) >= 2 * CLK_TCK)
+		if ((clock() - itsTimer) >= 1 * CLOCKS_PER_SEC)
 		{
 			doorState = OPENED;
-			dDoor();
+			vDoor();
 		}
 	}
 }
@@ -62,7 +64,7 @@ void Elevator::MoveUp()
 	itsTimer = clock();
 	itsDirection = 1;
 	elevatorState = MOVING_UP;
-	dContainer();
+	vElevator();
 }
 
 void Elevator::MoveDown()
@@ -70,28 +72,28 @@ void Elevator::MoveDown()
 	itsTimer = clock();
 	itsDirection = -1;
 	elevatorState = MOVING_DOWN;
-	dContainer();
+	vElevator();
 }
 
 void Elevator::Open()
 {
 	itsTimer = clock();
 	doorState = OPENING;
-	dDoor();
+	vDoor();
 }
 
 void Elevator::Close()
 {
 	itsTimer = clock();
 	doorState = CLOSING;
-	dDoor();
+	vDoor();
 }
 
 elvOver Elevator::IsitFull()
 {
 	elvOver returnValue = NO;
 
-	if (Person.GetNumber() == maxPerson)
+	if (Person.GetNumber() == maxPerson) // 하중 옵션 추가
 		returnValue = FULL;
 	if (Person.GetNumber() > maxPerson)
 		returnValue = OVER;
@@ -147,7 +149,7 @@ void Elevator::GetIn(Floor& rFloor)
 		}
 	}
 
-	dButton();
+	vInterface();
 }
 
 void Elevator::GetOut(Floor& rFloor)
@@ -178,12 +180,12 @@ void Elevator::GetOut(Floor& rFloor)
 		}
 	}
 
-	dButton();
+	vInterface();
 }
 
 int Elevator::GetButton(int floor)
 {
-	int i, temp;
+	int i, temp=0;
 	int returnValue = 0;
 	int number = Person.GetNumber();
 

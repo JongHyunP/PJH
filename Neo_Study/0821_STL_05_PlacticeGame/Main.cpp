@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Scene.h"
 
 int main()
@@ -9,5 +8,6 @@ int main()
 	{
 		scene.DrowMenu();
 	}
+
 	return 0;
 }

@@ -5,7 +5,6 @@ Scene::Scene()
 {
 }
 
-
 Scene::~Scene()
 {
 }
@@ -68,9 +67,17 @@ void Scene::Gotoxy(int x, int y) //커서 옮기는 함수
 
 void Scene::DrowFloor(Floor& mFloor)
 {
-	for (int i = 1; i < 21; i++)
+	system("cls");
+
+	for (int i = 5; i <= 44; i += 2) //적절한 변수명 설정 필요.
 	{
-		mFloor.Display(i);
+		Gotoxy(31, i);
+		cout << "     ※※※※※※※";
+	}
+
+	for (int j = 1; j < 21; j++)
+	{
+		mFloor.Display(j);
 	}
 }
 
@@ -85,10 +92,6 @@ int Scene::DrowInputMode()
 	ElevatorFactory4 mElevator4(5, 1);
 	ElevatorManager mElevatorManager(mFloor, 20);
 
-	InitialTargetFloorDisplay();
-
-	//char key, firstInput = 0;
-
 	DrowFloor(mFloor);
 
 	while (1)
@@ -97,25 +100,6 @@ int Scene::DrowInputMode()
 		{
 			CreatePeopleOnFloor(mFloor);
 		}
-		/*if (_kbhit())
-		{
-			key = _getch();
-
-			if (KeyTest(key))
-			{
-				if (firstInput == 0)
-				{
-					firstInput = key;
-					DisplayKey(key, 0);
-				}
-				else
-				{
-					mFloor.PushPerson(firstInput - '0', key - '0');
-					DisplayKey(firstInput, key);
-					firstInput = 0;
-				}
-			}
-		}*/
 
 		mElevator1.Operater();
 		mElevator2.Operater();
@@ -144,26 +128,11 @@ int Scene::DrowRandomMode()
 	ElevatorFactory4 mElevator4(5, 1);
 	ElevatorManager mElevatorManager(mFloor, 20);
 
-	InitialTargetFloorDisplay();
-
-	//char key, firstInput = 0;
-
 	DrowFloor(mFloor);
 
 	while (1)
 	{
-		
-		newFloorNum = rand() % 20 + 1;
-		destinateFloor = rand() % 20 + 1;
-
-		if (newFloorNum != destinateFloor)
-		{
-			mFloor.PushPerson(newFloorNum, destinateFloor);
-
-			destinateFloor = 0;
-		}
-		
-	
+		RandomCreatePeople(mFloor);
 
 		mElevator1.Operater();
 		mElevator2.Operater();
@@ -174,64 +143,13 @@ int Scene::DrowRandomMode()
 		mElevatorManager.Operator(mElevator3);
 		mElevatorManager.Operator(mElevator4);
 
-		Sleep(1000 / FPS);
+		Sleep(1000);
 	}
 
 	return 0;
 }
 
-void Scene::InitialTargetFloorDisplay()
-{
-	system("cls");
-
-	int i, j;
-	for (i = 5; i <= 44; i += 2)
-	{
-		Gotoxy(31, i);
-		cout << "     ※※※※※※※";
-	}
-
-	int x = 10;
-
-	for (j = 0; j < 2; j++)
-	{
-		Gotoxy(x, 4);
-		cout << "＃목표층＃";
-
-		Gotoxy(x, 25);
-		cout << "＃＃＃＃＃";
-
-		Gotoxy(x, 30);
-		cout<< "＃목표층＃";
-
-		Gotoxy(x, 51);
-		cout << "＃＃＃＃＃";
-
-		for (i = 1; i < 21; i++)
-		{
-			Gotoxy(x, i + 4);
-			cout << i;
-			Gotoxy(x, i + 30);
-			cout << i;
-		}
-		x = 70;
-	}
-
-	
-}
-
-//
-//int Scene::KeyTest(char key)
-//{
-//	int returnValue = 0;
-//
-//	if (key >= '1' && key <= '20')
-//		returnValue = 1;
-//
-//	return returnValue;
-//}
-
-int Scene::KeyTest2(int key)
+int Scene::KeyTest(int key)
 {
 	int returnValue = 0;
 
@@ -241,23 +159,6 @@ int Scene::KeyTest2(int key)
 	return returnValue;
 }
 
-//void Scene::DisplayKey(char key1 = 0, char key2 = 0)
-//{
-//	Gotoxy(30, 49);
-//	cout << " 사람을 배치할 층 : ";
-//	if (key1 == 0)
-//		cout << "?";
-//	else
-//		cout << key1;
-//
-//	Gotoxy(30, 50);
-//	cout << " 목표 층 : ";
-//	if (key2 == 0)
-//		cout << "?";
-//	else
-//		cout << key2;
-//}
-
 void Scene::CreatePeopleOnFloor(Floor& mFloor)
 {
 	Gotoxy(30, 49);
@@ -265,7 +166,7 @@ void Scene::CreatePeopleOnFloor(Floor& mFloor)
 	Gotoxy(50, 49);
 	cin >> newFloorNum;
 
-	if (KeyTest2(newFloorNum))
+	if (KeyTest(newFloorNum))
 	{
 		CreatePeopleDestination(mFloor);
 	}
@@ -284,7 +185,7 @@ void Scene::CreatePeopleDestination(Floor& mFloor)
 	Gotoxy(40, 50);
 	cin >> destinateFloor;
 
-	if (KeyTest2(destinateFloor))
+	if (KeyTest(destinateFloor))
 	{
 		mFloor.PushPerson(newFloorNum, destinateFloor);
 		
@@ -294,5 +195,38 @@ void Scene::CreatePeopleDestination(Floor& mFloor)
 	{
 		destinateFloor = 0;
 		CreatePeopleDestination(mFloor);
+	}
+}
+
+void Scene::RandomCreatePeople(Floor& mFloor)
+{
+	if (canCreate)
+	{
+		createCountNum = PASSENGER_CREATION_COOLTIME;
+
+		newFloorNum = rand() % 20 + 1;
+		destinateFloor = rand() % 20 + 1;
+
+		if (newFloorNum != destinateFloor)
+		{
+			mFloor.PushPerson(newFloorNum, destinateFloor);
+
+			destinateFloor = 0;
+			canCreate = false;
+		}
+	}
+	else
+	{
+		if (createCountNum == 0)
+		{
+			canCreate = true;
+		}
+		else 
+		{
+			if (createCountNum > 0)
+			{
+				createCountNum--;
+			}
+		}
 	}
 }

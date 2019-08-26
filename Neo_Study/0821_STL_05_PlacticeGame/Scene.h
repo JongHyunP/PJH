@@ -4,6 +4,7 @@
 #include "ElevatorManager.h"
 
 #define FPS 3
+#define PASSENGER_CREATION_COOLTIME 5
 
 enum 
 {
@@ -18,6 +19,8 @@ class Scene
 	int newFloorNum = 0;
 	int destinateFloor = 0;
 	int rTime = 0;
+	bool canCreate = true;
+	int createCountNum = PASSENGER_CREATION_COOLTIME;
 public:
 	Scene();
 	~Scene();
@@ -28,13 +31,10 @@ public:
 	int MenuSelect();
 	int DrowInputMode();
 	int DrowRandomMode();
-	int KeyContorl();
 	void Gotoxy(int x,int y);
-	void InitialTargetFloorDisplay();
-	//int KeyTest(char key);
-	int KeyTest2(int key);
-	//void DisplayKey(char key1, char key2);
+	int KeyTest(int key); //명확한 변수명 필요.
 	void CreatePeopleOnFloor(Floor& mFloor);
 	void CreatePeopleDestination(Floor& mFloor);
+	void RandomCreatePeople(Floor& mFloor);
 };
 

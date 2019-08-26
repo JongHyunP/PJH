@@ -1,11 +1,11 @@
 #include "ElevatorFactory.h"
-
+//max 인자 명확히 해줘야함. 인원수 맥스 뜻임.
 ElevatorFactory1::ElevatorFactory1(int max, int floor = 1) : Elevator(max, floor)
 {
-	dContainer();
+	vElevator();
 }
 
-void ElevatorFactory1::dContainer()
+void ElevatorFactory1::vElevator()
 {
 	int x, y;
 
@@ -33,7 +33,7 @@ void ElevatorFactory1::dContainer()
 	{
 	case OPENED:
 		Gotoxy(x - 3, y);
-		cout << "■■■";
+		cout << "①■■";
 		Gotoxy(x - 3, y + 1);
 		cout << "■□■";
 		Gotoxy(x - 3, y + 2);
@@ -42,7 +42,7 @@ void ElevatorFactory1::dContainer()
 	case OPENING:
 	case CLOSING:
 		Gotoxy(x - 3, y);
-		cout << "■■■";
+		cout << "①■■";
 		Gotoxy(x - 3, y + 1);
 		cout << "■▥■";
 		Gotoxy(x - 3, y + 2);
@@ -50,7 +50,7 @@ void ElevatorFactory1::dContainer()
 		break;
 	case CLOSED:
 		Gotoxy(x - 3, y);
-		cout << "■■■";
+		cout << "①■■";
 		Gotoxy(x - 3, y + 1);
 		cout << "■■■";
 		Gotoxy(x - 3, y + 2);
@@ -59,35 +59,47 @@ void ElevatorFactory1::dContainer()
 	}
 }
 
-void ElevatorFactory1::dDoor()
+void ElevatorFactory1::vDoor()
 {
-	dContainer();
+	vElevator();
 }
 
-void ElevatorFactory1::dButton()
+void ElevatorFactory1::vInterface()
 {
-	int i;
-	for (i = 1; i < 21; i++)
+	Gotoxy(10, 4);
+	cout << "＃목표층＃";
+
+	for (int j = 1; j < 21; j++)
 	{
-		Gotoxy(12, i + 6);
+		Gotoxy(10, j + 4);
+		cout << j;
+	}
+
+	Gotoxy(10, 25);
+	cout << "＃＃＃＃＃";
+
+	for (int i = 1; i < 21; i++)
+	{
+		Gotoxy(12, i + 4);
 		if (GetButton(i) != 0)
-			cout << "★";
+			cout << "★1";
 		else
-			cout << " ";
+			cout << "   ";
 	}
 
 	Gotoxy(8, 2);
 	cout << "in Elevator1";
 	Gotoxy(10, 3);
 	cout << GetNumber() << "명 탑승!";
+
 }
 
 ElevatorFactory2::ElevatorFactory2(int max, int floor = 1) : Elevator(max, floor)
 {
-	dContainer();
+	vElevator();
 }
 
-void ElevatorFactory2::dContainer()
+void ElevatorFactory2::vElevator()
 {
 	int x, y;
 
@@ -114,7 +126,7 @@ void ElevatorFactory2::dContainer()
 	{
 	case OPENED:
 		Gotoxy(x+2, y);
-		cout << "■■■";
+		cout << "②■■";
 		Gotoxy(x+2, y + 1);
 		cout << "■□■";
 		Gotoxy(x+2, y + 2);
@@ -123,7 +135,7 @@ void ElevatorFactory2::dContainer()
 	case OPENING:
 	case CLOSING:
 		Gotoxy(x+2, y);
-		cout << "■■■";
+		cout << "②■■";
 		Gotoxy(x+2, y + 1);
 		cout << "■▥■";
 		Gotoxy(x+2, y + 2);
@@ -131,7 +143,7 @@ void ElevatorFactory2::dContainer()
 		break;
 	case CLOSED:
 		Gotoxy(x+2, y);
-		cout << "■■■";
+		cout << "②■■";
 		Gotoxy(x+2, y + 1);
 		cout << "■■■";
 		Gotoxy(x+2, y + 2);
@@ -141,22 +153,32 @@ void ElevatorFactory2::dContainer()
 }
 
 
-void ElevatorFactory2::dDoor()
+void ElevatorFactory2::vDoor()
 {
-	dContainer();
+	vElevator();
 }
 
-void ElevatorFactory2::dButton()
+void ElevatorFactory2::vInterface()
 {
-	int i;
+	Gotoxy(70, 4);
+	cout << "＃목표층＃";
 
-	for (i = 1; i < 21; i++)
+	for (int j = 1; j < 21; j++)
 	{
-		Gotoxy(71, i + 6);
+		Gotoxy(70, j + 4);
+		cout << j;
+	}
+
+	Gotoxy(70, 25);
+	cout << "＃＃＃＃＃";
+
+	for (int i = 1; i < 21; i++)
+	{
+		Gotoxy(72, i + 4);
 		if (GetButton(i) != 0)
-			cout << "★";
+			cout << "★2";
 		else
-			cout << " ";
+			cout << "   ";
 	}
 
 	Gotoxy(70, 2);
@@ -168,10 +190,10 @@ void ElevatorFactory2::dButton()
 
 ElevatorFactory3::ElevatorFactory3(int max, int floor = 1) : Elevator(max, floor)
 {
-	dContainer();
+	vElevator();
 }
 
-void ElevatorFactory3::dContainer()
+void ElevatorFactory3::vElevator()
 {
 	int x, y;
 
@@ -199,7 +221,7 @@ void ElevatorFactory3::dContainer()
 	{
 	case OPENED:
 		Gotoxy(x - 3, y);
-		cout << "■■■";
+		cout << "③■■";
 		Gotoxy(x - 3, y + 1);
 		cout << "■□■";
 		Gotoxy(x - 3, y + 2);
@@ -208,7 +230,7 @@ void ElevatorFactory3::dContainer()
 	case OPENING:
 	case CLOSING:
 		Gotoxy(x - 3, y);
-		cout << "■■■";
+		cout << "③■■";
 		Gotoxy(x - 3, y + 1);
 		cout << "■▥■";
 		Gotoxy(x - 3, y + 2);
@@ -216,7 +238,7 @@ void ElevatorFactory3::dContainer()
 		break;
 	case CLOSED:
 		Gotoxy(x - 3, y);
-		cout << "■■■";
+		cout << "③■■";
 		Gotoxy(x - 3, y + 1);
 		cout << "■■■";
 		Gotoxy(x - 3, y + 2);
@@ -225,21 +247,32 @@ void ElevatorFactory3::dContainer()
 	}
 }
 
-void ElevatorFactory3::dDoor()
+void ElevatorFactory3::vDoor()
 {
-	dContainer();
+	vElevator();
 }
 
-void ElevatorFactory3::dButton()
+void ElevatorFactory3::vInterface()
 {
-	int i;
-	for (i = 1; i < 21; i++)
+	Gotoxy(10, 30);
+	cout << "＃목표층＃";
+
+	for (int j = 1; j < 21; j++)
+	{
+		Gotoxy(10, j + 30);
+		cout << j;
+	}
+
+	Gotoxy(10, 51);
+	cout << "＃＃＃＃＃";
+
+	for (int i = 1; i < 21; i++)
 	{
 		Gotoxy(12, i + 30);
 		if (GetButton(i) != 0)
-			cout << "★";
+			cout << "★3";
 		else
-			cout << " ";
+			cout << "   ";
 	}
 
 	Gotoxy(8, 27);
@@ -250,10 +283,10 @@ void ElevatorFactory3::dButton()
 
 ElevatorFactory4::ElevatorFactory4(int max, int floor = 1) : Elevator(max, floor)
 {
-	dContainer();
+	vElevator();
 }
 
-void ElevatorFactory4::dContainer()
+void ElevatorFactory4::vElevator()
 {
 	int x, y;
 
@@ -280,7 +313,7 @@ void ElevatorFactory4::dContainer()
 	{
 	case OPENED:
 		Gotoxy(x + 2, y);
-		cout << "■■■";
+		cout << "④■■";
 		Gotoxy(x + 2, y + 1);
 		cout << "■□■";
 		Gotoxy(x + 2, y + 2);
@@ -289,7 +322,7 @@ void ElevatorFactory4::dContainer()
 	case OPENING:
 	case CLOSING:
 		Gotoxy(x + 2, y);
-		cout << "■■■";
+		cout << "④■■";
 		Gotoxy(x + 2, y + 1);
 		cout << "■▥■";
 		Gotoxy(x + 2, y + 2);
@@ -297,7 +330,7 @@ void ElevatorFactory4::dContainer()
 		break;
 	case CLOSED:
 		Gotoxy(x + 2, y);
-		cout << "■■■";
+		cout << "④■■";
 		Gotoxy(x + 2, y + 1);
 		cout << "■■■";
 		Gotoxy(x + 2, y + 2);
@@ -307,22 +340,32 @@ void ElevatorFactory4::dContainer()
 }
 
 
-void ElevatorFactory4::dDoor()
+void ElevatorFactory4::vDoor()
 {
-	dContainer();
+	vElevator();
 }
 
-void ElevatorFactory4::dButton()
+void ElevatorFactory4::vInterface()
 {
-	int i;
+	Gotoxy(70, 30);
+	cout << "＃목표층＃";
 
-	for (i = 1; i < 21; i++)
+	for (int j = 1; j < 21; j++)
 	{
-		Gotoxy(71, i + 30);
+		Gotoxy(70, j + 30);
+		cout << j;
+	}
+
+	Gotoxy(70, 51);
+	cout << "＃＃＃＃＃";
+
+	for (int i = 1; i < 21; i++)
+	{
+		Gotoxy(72, i + 30);
 		if (GetButton(i) != 0)
-			cout << "★";
+			cout << "★4";
 		else
-			cout << " ";
+			cout << "   ";
 	}
 
 	Gotoxy(70, 27);
