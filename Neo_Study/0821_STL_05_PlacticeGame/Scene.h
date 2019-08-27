@@ -16,7 +16,7 @@ class Scene
 {
 	vector<Elevator*> vectorElevator;
 	Floor* pFloor;
-	ElevatorManager* pElvManager;
+	ElevatorManager* pElvManager; //매니저가 엘레베이터를 소유하고있어야함.
 
 	int newFloorNum = 0;
 	int destinateFloor = 0;

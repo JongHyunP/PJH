@@ -9,6 +9,7 @@ class ElevatorManager
 {
 	Floor* pFloor;
 	Elevator* pElevator;
+	vector<Elevator*> vectorElevator;
 public:
 	int DecideOpen();
 	int DecideMoving();
