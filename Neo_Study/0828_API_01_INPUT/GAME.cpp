@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include <math.h>
+#include <vector>
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
@@ -46,56 +47,114 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 
 	return (int)Message.wParam;
 }
-//void DrawCircle(HDC hdc, int x, int y, int xR, int yR)
 
 #define PI 3.141592
+
+static int  circle_x =600;
+static int  circle_y = 350;
+
+static int speed_x = 5;
+static int speed_y = 5;
+
+
+static int player_x = 400;
+static int player_y = 400;
+
+static float distance = 0;
 
 float DegreeToRadian(float degree)
 {
 	return (PI / 180) * degree;
 }
 
-
-//cosf(s) = x/r  ->> cosf(s)*r = _x(기준점이동) + x;
 void DrawCircle(HDC hdc, int x, int y, int xR)
 {
-	MoveToEx(hdc, x+xR, y, NULL);
+	MoveToEx(hdc, x + xR, y, NULL);
 
 	for (int i = 0; i < 360; i++)
 	{
 		int _x = cosf(DegreeToRadian(i)) * xR + x;
 		int _y = sinf(DegreeToRadian(i)) * xR + y;
 
-		//SetPixel(hdc, _x, _y, RGB(255, 0, 0));
 		LineTo(hdc, _x, _y);
 	}
 
 }
 
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam) // W파라미터 L파라미터는 메시지 이외의 부가정보들이 필요할때
 {
 	HDC hdc;
 	PAINTSTRUCT ps;
+	SYSTEMTIME st;
+	static TCHAR sTime[128];
 
 	switch (iMessage) //주로 메시지를 재정의 하는데 코딩을 함.
 	{
-	case WM_DESTROY: //WM = 윈도우메시지 줄임말
-		PostQuitMessage(0); //종료메시지
-		return 0;//처리햇다.
+	case WM_CREATE:
+		SetTimer(hWnd, 1, 100, NULL);
+		return 0;
+	case WM_TIMER: //1초마다 한번씩 실행됨.
+		GetLocalTime(&st);
+	
+		circle_x= circle_x + speed_x;
+
+		if (circle_x >= 650)
+		{
+			circle_x = circle_x - speed_x;
+			speed_x = speed_x * -1;
+		}
+		else if (circle_x <= 350)
+		{
+			//circle_x = circle_x + speed_x;
+			speed_x = speed_x * -1;
+		}
+		
+
+		if (distance < 60) //임시
+		{
+			speed_x = 0;
+			SendMessage(hWnd, WM_DESTROY, 0, 0);
+		}
+		InvalidateRect(hWnd, NULL, TRUE);
+		return 0;
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-		Rectangle(hdc, 50, 100, 200, 200);
-		Ellipse(hdc, 50, 100, 100, 200);
-		MoveToEx(hdc, 50, 150, NULL);
-		LineTo(hdc, 125, 100);
-		MoveToEx(hdc, 125, 100, NULL);
-		LineTo(hdc, 200, 150);
-		MoveToEx(hdc, 200, 150, NULL);
-		LineTo(hdc, 125, 200);
-		MoveToEx(hdc, 125, 200, NULL);
-		LineTo(hdc, 50, 150);*/
+		distance = sqrt(((circle_x - player_x) * (circle_x - player_x)) + ((circle_y - player_y) * (circle_y - player_y)));
 
-		DrawCircle(hdc, 200, 200, 100);
+		Rectangle(hdc, 300, 100, 700, 700);
+		DrawCircle(hdc, circle_x, circle_y, 50);
+		DrawCircle(hdc, player_x, player_y, 10);
+
+		EndPaint(hWnd, &ps);
+		return 0;
+
+	case WM_KEYDOWN:
+		switch (wParam)
+		{
+		case VK_LEFT:
+			player_x -= 8;
+			break;
+		case VK_RIGHT:
+			player_x += 8;
+			break;
+		case VK_UP:
+			player_y -= 8;
+			break;
+		case VK_DOWN:
+			player_y += 8;
+			break;
+		default:
+			break;
+		}
+		InvalidateRect(hWnd, NULL, TRUE);
+		return 0;
+
+	case WM_DESTROY: //WM = 윈도우메시지 줄임말
+		MessageBox(hWnd, TEXT("부딫혔습니다!!!"), TEXT("충돌박스"), MB_OK);
+		KillTimer(hWnd, 1);
+		PostQuitMessage(0); //종료메시지
+		return 0;//처리햇다.
 	}
 
 	return(DefWindowProc(hWnd, iMessage, wParam, lParam));

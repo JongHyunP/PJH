@@ -56,6 +56,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	static int x;
 	static int y;
 	static BOOL bNowDraw = FALSE;
+	static BOOL bNoLine = FALSE;
 	static std::vector<int> vx;
 	static std::vector<int> vy;
 
@@ -71,20 +72,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	case WM_LBUTTONDOWN:
 		x = LOWORD(lParam);
 		y = HIWORD(lParam);
+		vx.push_back(x);
+		vy.push_back(y);
 		bNowDraw = TRUE;
 		return 0;
 	case WM_MOUSEMOVE:
 		if (bNowDraw == TRUE)
 		{
-			hdc = GetDC(hWnd);
-			MoveToEx(hdc, x, y, NULL);
 			x = LOWORD(lParam);
 			y = HIWORD(lParam);
 			vx.push_back(x);
 			vy.push_back(y);
-
-			LineTo(hdc, x, y);
-			ReleaseDC(hWnd, hdc);
 		}
 		return 0;
 	case WM_LBUTTONUP:
@@ -93,14 +91,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 	case WM_PAINT:
 		hdc = GetDC(hWnd);
-		for (std::vector<int>::iterator iter = vx.begin(); iter!=vx.end(); ++iter)
-		{
-			for (std::vector<int>::iterator iter2 = vy.begin(); iter2 != vy.end(); ++iter2)
-				LineTo(hdc, *iter, *iter2);
-		}
 
-		return 0;
+		MoveToEx(hdc, vx[0], vy[0],NULL);
+
+		for (int i = 0; i < vx.size(); ++i)
+		{
+			LineTo(hdc, vx[i], vy[i]);
+			
+			MoveToEx(hdc, vx[i], vy[i], NULL);
+		}
 		ReleaseDC(hWnd, hdc);
+		return 0;
 	}
 
 	return(DefWindowProc(hWnd, iMessage, wParam, lParam));
