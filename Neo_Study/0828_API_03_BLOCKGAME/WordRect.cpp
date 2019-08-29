@@ -43,7 +43,21 @@ void WordRect::RectMove(WordRect&  rect , int speed)
 
 void WordRect::MakeWordText(HDC hdc,WordRect& rect)
 {
-	TextOut(hdc,(rect.rRight-rect.rLeft)/2+ 2,(rect.rBottom-rect.rTop)/2 +rect.rTop, TEXT("asdddssd"), 8);
+	MakeRectangle(hdc);
+	TextOut(hdc,(rect.rRight-rect.rLeft)/2+ 2,(rect.rBottom-rect.rTop)/2 +rect.rTop, buf, lstrlen(buf));
+}
+
+void WordRect::LoadWord(HWND hWnd,HDC hdc) // 처음시작될때 읽자
+{
+	//line_vector = split(line, ' ');
+
+	hFile = CreateFile(stt, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (hFile != INVALID_HANDLE_VALUE)
+	{
+		ReadFile(hFile, buf, 1024, &dwRead, NULL);
+		CloseHandle(hFile);
+		InvalidateRect(hWnd, NULL, TRUE);
+	}
 }
 
 
