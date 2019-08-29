@@ -11,46 +11,25 @@ WordRect::~WordRect()
 {
 }
 
-void WordRect::MakeRectangle(HDC hdc,int Left, int Top, int Right, int Bottom)
+void WordRect::MakeRectangle(HDC hdc)
 {
-	MoveToEx(hdc, Left, Top,NULL);
-	LineTo(hdc, Right, Top);
+	MoveToEx(hdc, rLeft, rTop,NULL);
+	LineTo(hdc, rRight, rTop);
 
-	MoveToEx(hdc, Right, Top, NULL);
-	LineTo(hdc, Right, Bottom);
+	MoveToEx(hdc, rRight, rTop, NULL);
+	LineTo(hdc, rRight, rBottom);
 
-	MoveToEx(hdc, Right, Bottom, NULL);
-	LineTo(hdc, Left, Bottom);
+	MoveToEx(hdc, rRight, rBottom, NULL);
+	LineTo(hdc, rLeft, rBottom);
 
-	MoveToEx(hdc, Left, Bottom, NULL);
-	LineTo(hdc, Left, Top);
-
-	rLeft = Left;
-	rRight = Right;
-	rTop = Top;
-	rBottom = Bottom;
+	MoveToEx(hdc, rLeft, rBottom, NULL);
+	LineTo(hdc, rLeft, rTop);
 
 }
 
 bool WordRect::RectCrush(WordRect & rect1, WordRect & rect2)
 {
-	if (abs(rect1.rLeft - rect2.rLeft) <=0)
-	{
-		return true;
-	}
-	if (abs(rect1.rTop - rect2.rTop) <= 0)
-	{
-		return true;
-	}
-	if (abs(rect1.rRight - rect2.rRight) <= 0)
-	{
-		return true;
-	}
-	if (abs(rect1.rBottom - rect2.rBottom) <= 0)
-	{
-		return true;
-	}
-
+	
 	return false;
 }
 

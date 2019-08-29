@@ -48,19 +48,30 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam) // W파라미터 L파라미터는 메시지 이외의 부가정보들이 필요할때
 {
+	//HDC hdc;
+	//PAINTSTRUCT ps;
+	//RECT rt = { 100,100,400,300 };
+	//const TCHAR* str = TEXT("님은 갔습니다. 아아~~");
+
 	HDC hdc;
 	PAINTSTRUCT ps;
 	RECT rt = { 100,100,400,300 };
-	const TCHAR* str = TEXT("님은 갔습니다. 아아~~");
+	const TCHAR* str = TEXT("아아 종현은 짱입니다.. 아아..");
 
 	switch (iMessage) //주로 메시지를 재정의 하는데 코딩을 함.
 	{
 	case WM_DESTROY: //WM = 윈도우메시지 줄임말
 		PostQuitMessage(0); //종료메시지
 		return 0;//처리햇다.
+	//case WM_PAINT:
+	//	hdc = BeginPaint(hWnd, &ps);
+	//	DrawText(hdc, str, -1, &rt, DT_CENTER | DT_WORDBREAK);
+	//	EndPaint(hWnd, &ps);
+	//	return 0;
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
 		DrawText(hdc, str, -1, &rt, DT_CENTER | DT_WORDBREAK);
+		// 세번째 인자값 -1 은 문자열길이 인데 -1일 경우 널 종료 문자열까지 출력함.
 		EndPaint(hWnd, &ps);
 		return 0;
 	}

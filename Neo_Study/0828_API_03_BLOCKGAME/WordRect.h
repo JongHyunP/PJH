@@ -4,17 +4,17 @@
 
 class WordRect
 {
-	int rLeft=0;
-	int rRight=0;
-	int rTop=0;
-	int rBottom=0;
+	int rLeft=50;
+	int rRight=150;
+	int rTop=50;
+	int rBottom=100;
 	int rSpeed=0;
 	TCHAR* str;
 	
 public:
 	WordRect();
 	~WordRect();
-	void MakeRectangle(HDC hdc,int Left, int Top, int Right, int Bottom);
+	void MakeRectangle(HDC hdc);
 	bool RectCrush(WordRect& rect1, WordRect& rect2);
 	void RectMove(WordRect& rect, int speed);
 	void MakeWordText(HDC hdc, WordRect& rect);

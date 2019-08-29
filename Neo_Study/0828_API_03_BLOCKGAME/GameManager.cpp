@@ -1,4 +1,4 @@
 #include "GameManager.h"
 
 
-Singleton* Singleton::singleton = nullptr;
+SingletonGameManager* SingletonGameManager::sGameManager = nullptr;

@@ -1,28 +1,32 @@
 #pragma once
 
-class Singleton 
+class SingletonGameManager
 {
 private:
-	static Singleton* singleton;
+	static SingletonGameManager* sGameManager;
 
-	Singleton() {
+	SingletonGameManager() {
 
 	}
 
 public:
-	static Singleton getInstance() {
+	static SingletonGameManager* getInstance() {
 		
-		if (singleton == nullptr)
+		if (sGameManager == nullptr)
 		{
-			singleton = new Singleton();
+			sGameManager = new SingletonGameManager();
 		}
-		return *singleton;
+		return sGameManager;
 
 	}
+	 
+	void Init();
+
+	void Update();
 
 	void Relese()
 	{
-		delete singleton;
+		delete sGameManager;
 	}
 
 };

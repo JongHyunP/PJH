@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include "WordRect.h"
+#include "GameManager.h"
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
@@ -47,6 +48,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 	return (int)Message.wParam;
 }
 
+SingletonGameManager* gamemanager = SingletonGameManager::getInstance();
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam) // W파라미터 L파라미터는 메시지 이외의 부가정보들이 필요할때
 {
 
@@ -63,12 +66,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 	case WM_TIMER:
 		GetLocalTime(&st);
+		
 		InvalidateRect(hWnd, NULL, TRUE);
 		return 0;
 
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-		r.MakeRectangle(hdc, 50, 50, 150, 100);
+		r.MakeRectangle(hdc);
 		r.MakeWordText(hdc, r);
 		EndPaint(hWnd, &ps);
 		return 0;

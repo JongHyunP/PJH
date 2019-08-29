@@ -56,15 +56,25 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	case WM_DESTROY: //WM = 윈도우메시지 줄임말
 		PostQuitMessage(0); //종료메시지
 		return 0;//처리햇다.
-	case WM_LBUTTONDOWN:
-		hdc = GetDC(hWnd); // new 와 같음
-		TextOut(hdc, 100, 100, TEXT("Beautiful Korea"), 15); //15는 문자열길이
-		ReleaseDC(hWnd, hdc); // delete 와 같음
-		return 0;
+	//case WM_LBUTTONDOWN:
+	//	hdc = GetDC(hWnd); // new 와 같음
+	//	TextOut(hdc, 200, 200, TEXT("Beautiful Korea"), 15); //15는 문자열길이
+	//	ReleaseDC(hWnd, hdc); // delete 와 같음
+	//	return 0;
 
+	//case WM_PAINT:
+	//	hdc = BeginPaint(hWnd, &ps);
+	//	TextOut(hdc, 100, 100, TEXT("Beautiful Korea"), 15);
+	//	EndPaint(hWnd, &ps);
+	//	return 0;
+	case WM_LBUTTONDOWN:
+		hdc = GetDC(hWnd);
+		TextOut(hdc, 50, 100, TEXT("야야야"),4);
+		ReleaseDC(hWnd, hdc);
+		return 0;
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-		TextOut(hdc, 100, 100, TEXT("Beautiful Korea"), 15);
+		TextOut(hdc, 200, 200, TEXT("이건 그냥 표시ㅋ "), 11);
 		EndPaint(hWnd, &ps);
 		return 0;
 	}
