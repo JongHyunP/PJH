@@ -1,33 +1,32 @@
 #pragma once
 #include <Windows.h>
 #include <iostream>
-#include <vector>
 #include <string>
 #include <sstream>
+#include <time.h>
+#include <list>
 
 using namespace std;
 
+enum WORD_TYPE { NOMAL_WORD , ITEM_WORD};
+enum WORD_STATE { ON, OFF};
+
 class WordRect
 {
-	int rLeft=50;
-	int rRight=150;
-	int rTop=50;
-	int rBottom=100;
-	int rSpeed=0;
-	TCHAR* str;
-	HANDLE hFile;
-	DWORD dwRead;
-	const TCHAR *stt = TEXT("Test.txt");
-	TCHAR buf[1025];
-	vector<string> line_vector;
+	WORD_TYPE wordType;
+	WORD_STATE wordState;
+	int wordX;
+	int wordY;
+	int wordSpeed;
+	const TCHAR* typingWord;
+	int randomX;
 public:
-	WordRect();
+	WordRect(WORD_TYPE type,int x,int y,int speed,TCHAR* word);
 	~WordRect();
-	void MakeRectangle(HDC hdc);
-	bool RectCrush(WordRect& rect1, WordRect& rect2);
-	void RectMove(WordRect& rect, int speed);
-	void MakeWordText(HDC hdc, WordRect& rect);
-	void LoadWord(HWND hWnd, HDC hdc);
-	
+	void Update();
+	void Render(HDC hdc);
+	void RandomXPostion();
+	void MoveDown();
+	void IsCorrect();
 };
 

@@ -76,15 +76,7 @@ const TCHAR* nowStage = TEXT("현재 스테이지 : ");
 const TCHAR* countPoint = TEXT("점수 : ");
 //----------------------------------------------------
 
-bool StringComparison(const TCHAR* str1 , const TCHAR* str)
-{
-	if (lstrcmp(str1, str))
-	{
-		return true;
-	}
 
-	return false;
-}
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam) // W파라미터 L파라미터는 메시지 이외의 부가정보들이 필요할때
 {
@@ -110,11 +102,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			memmove(str + (len - 1), str + len, sizeof(TCHAR));
 		else if (wParam ==VK_RETURN) //엔터
 		{
-			memmove(str, str + len, sizeof(TCHAR));
 			if (!lstrcmp(arr, str))
 			{
-				memmove(&arr, &arr + lstrlen(arr), sizeof(TCHAR));
+				arr = TEXT(" ");
 			}
+			memmove(str, str + len, sizeof(TCHAR));
 		}
 		else
 		{

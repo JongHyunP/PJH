@@ -1,9 +1,15 @@
 #include "WordRect.h"
 
+//srand((unsigned)time(nullptr));
 
-
-WordRect::WordRect()
+WordRect::WordRect(WORD_TYPE type, int x, int y, int speed, TCHAR* word)
 {
+	wordType = type;
+	wordState = ON;
+	wordX = x;
+	wordY = y;
+	wordSpeed = speed;
+	typingWord = word;
 }
 
 
@@ -11,53 +17,56 @@ WordRect::~WordRect()
 {
 }
 
-void WordRect::MakeRectangle(HDC hdc)
+void WordRect::Update()  
 {
-	MoveToEx(hdc, rLeft, rTop,NULL);
-	LineTo(hdc, rRight, rTop);
-
-	MoveToEx(hdc, rRight, rTop, NULL);
-	LineTo(hdc, rRight, rBottom);
-
-	MoveToEx(hdc, rRight, rBottom, NULL);
-	LineTo(hdc, rLeft, rBottom);
-
-	MoveToEx(hdc, rLeft, rBottom, NULL);
-	LineTo(hdc, rLeft, rTop);
-
-}
-
-bool WordRect::RectCrush(WordRect & rect1, WordRect & rect2)
-{
-	
-	return false;
-}
-
-void WordRect::RectMove(WordRect&  rect , int speed)
-{
-	rect.rSpeed = speed;
-
-	rect.rTop += rect.rSpeed;
-	rect.rBottom += rect.rSpeed;
-}
-
-void WordRect::MakeWordText(HDC hdc,WordRect& rect)
-{
-	MakeRectangle(hdc);
-	TextOut(hdc,(rect.rRight-rect.rLeft)/2+ 2,(rect.rBottom-rect.rTop)/2 +rect.rTop, buf, lstrlen(buf));
-}
-
-void WordRect::LoadWord(HWND hWnd,HDC hdc) // 처음시작될때 읽자
-{
-	//line_vector = split(line, ' ');
-
-	hFile = CreateFile(stt, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-	if (hFile != INVALID_HANDLE_VALUE)
+	if (wordState == ON)
 	{
-		ReadFile(hFile, buf, 1024, &dwRead, NULL);
-		CloseHandle(hFile);
-		InvalidateRect(hWnd, NULL, TRUE);
+		if (wordType == NOMAL_WORD)
+		{
+			MoveDown();
+		}
+
+		if (wordType == ITEM_WORD)
+		{
+			MoveDown();
+		}
+	}
+
+	if (wordState == OFF)
+	{
+		if (wordType == NOMAL_WORD)
+		{
+			MoveDown();
+		}
+
+		if (wordType == ITEM_WORD)
+		{
+			MoveDown();
+		}
 	}
 }
 
+void WordRect::Render(HDC hdc) // 그려주는 역할
+{
+	RandomXPostion();
 
+	Rectangle(hdc, wordX - 5, wordY - 5, wordX + lstrlen(typingWord) + 50, wordY + 25);
+	TextOut(hdc, wordX, wordY, typingWord, lstrlen(typingWord));
+}
+
+void WordRect::RandomXPostion()
+{
+	randomX = rand() % 1160 + 20;
+	
+	wordX = randomX;
+}
+
+void WordRect::MoveDown()
+{
+	wordY -= 1;
+}
+
+void WordRect::IsCorrect()
+{
+	typingWord = TEXT(" ");
+}
