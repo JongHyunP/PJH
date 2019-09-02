@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++에서 생성한 포함 파일입니다.
-// 0830_API_02_BITGAME.rc에서 사용되고 있습니다.
+// 0902_API_01_MINEGAME.rc에서 사용되고 있습니다.
 //
 #define IDB_BITMAP1                     101
 #define IDB_BITMAP2                     102
@@ -13,18 +13,20 @@
 #define IDB_BITMAP9                     109
 #define IDB_BITMAP10                    110
 #define IDB_BITMAP11                    111
-#define IDD_DIALOG1                     112
-#define IDR_MENU1                       113
+#define IDB_BITMAP12                    112
+#define IDB_BITMAP13                    113
+#define IDD_DIALOG1                     114
+#define IDR_MENU1                       116
 #define IDC_RADIO1                      1001
 #define IDC_RADIO2                      1002
 #define IDC_RADIO3                      1003
-#define ID_FILE_SETTING                 40001
+#define ID_MENU_LEVELCONTROL            40001
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        115
+#define _APS_NEXT_RESOURCE_VALUE        117
 #define _APS_NEXT_COMMAND_VALUE         40002
 #define _APS_NEXT_CONTROL_VALUE         1002
 #define _APS_NEXT_SYMED_VALUE           101

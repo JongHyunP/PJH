@@ -18,10 +18,10 @@
     <ClCompile Include="Main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="MainGame.cpp">
+    <ClCompile Include="GameManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Card.cpp">
+    <ClCompile Include="Mine.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="BitMap.cpp">
@@ -30,64 +30,76 @@
     <ClCompile Include="ResManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="MineMap.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MainGame.h">
+    <ClInclude Include="GameManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Mine.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Card.h">
+    <ClInclude Include="BitMap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="mecro.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="BitMap.h">
+    <ClInclude Include="ResManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="ResManager.h">
+    <ClInclude Include="MineMap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="0830_API_02_BITGAME.rc">
+    <ResourceCompile Include="0902_API_01_MINEGAME.rc">
       <Filter>리소스 파일</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Res\00.bmp">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="Res\01.bmp">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="Res\02.bmp">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="Res\03.bmp">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="Res\04.bmp">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="Res\05.bmp">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="Res\06.bmp">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="Res\07.bmp">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="Res\08.bmp">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="Res\09.bmp">
-      <Filter>리소스 파일</Filter>
-    </Image>
     <Image Include="Res\back.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Res\block.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Res\block_0.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Res\block_1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Res\block_2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Res\block_3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Res\block_4.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Res\block_5.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Res\block_6.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Res\block_7.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Res\block_8.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Res\flag.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Res\mine.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

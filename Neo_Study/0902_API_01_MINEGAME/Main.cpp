@@ -1,5 +1,5 @@
 #include <windows.h>
-#include "MainGame.h"
+#include "GameManager.h"
 #include "resource.h"
 #include <crtdbg.h>
 
@@ -65,33 +65,33 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	case WM_CREATE:
 		hdc = GetDC(hWnd);
 		SetTimer(hWnd, 1, 10, NULL);
-		MainGame::GetInstance()->Init(hWnd, hdc, g_hInst);
+		GameManager::GetInstance()->Init(hWnd, hdc, g_hInst);
 		ReleaseDC(hWnd, hdc);
 		return 0;
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
-		case ID_FILE_SETTING:
+		case ID_MENU_LEVELCONTROL:
 			DialogBox(g_hInst, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, SettingDlg);
 			break;
 		}
 		return 0;
 	case WM_TIMER:
-		MainGame::GetInstance()->Update();
+		GameManager::GetInstance()->Update();
 		return 0;
 	case WM_LBUTTONDOWN:
 		pt.x = LOWORD(lParam);
 		pt.y = HIWORD(lParam);
-		MainGame::GetInstance()->Input(pt);
+		GameManager::GetInstance()->Input(pt);
 		return 0;
 	case  WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-		MainGame::GetInstance()->Draw(hdc);
+		GameManager::GetInstance()->Draw(hdc);
 		EndPaint(hWnd, &ps);
 		return 0;
 	case WM_DESTROY:
 		KillTimer(hWnd, 1);
-		MainGame::GetInstance()->Release();
+		GameManager::GetInstance()->Release();
 		PostQuitMessage(0);
 		return 0;
 	}

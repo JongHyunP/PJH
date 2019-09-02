@@ -1,28 +1,34 @@
 #pragma once
 #include <Windows.h>
-#include "ResourceManager.h"
 
-#define CARD_WIDGHT 145
-#define CARD_HIGHT 235
+#define CARD_WIDTH		145
+#define CARD_HEIGHT		235
 
-enum CARD_STATE {
-	CARD_WAIT,
-	CARD_SELECT_ONE,
-	CARD_WRONG_CHOICE
-};
-
+class BitMap;
 class Card
 {
-	int cardX;
-	int cardY;
-	int cardID;
-
+private:
+	BitMap*		m_pBitMap;
+	BitMap*		m_pBackBitMap;
+	int			m_iX;
+	int			m_iY;
+	int			m_iId;
+	bool		m_bOpen;
 public:
+	inline int GetID()
+	{
+		return m_iId;
+	}
+	inline void SetClose()
+	{
+		m_bOpen = false;
+	}
+
+	void Init(BitMap* pBitMap, BitMap* pBackBitMap, int x, int y, int id);;
+	void Draw(HDC hdc);
+	bool Input(POINT pt);
+
 	Card();
 	~Card();
-	
-	void Init();
-	void Input();
-	void Draw();
 };
 

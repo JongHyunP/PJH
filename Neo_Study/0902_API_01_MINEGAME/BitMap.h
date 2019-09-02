@@ -1,5 +1,8 @@
 #pragma once
 #include <Windows.h>
+#include <string>
+
+using namespace std;
 
 class BitMap
 {
@@ -13,7 +16,7 @@ public:
 	~BitMap();
 
 	void Init(HDC hdc, HINSTANCE hInst, int id);
-	void Draw(HDC hdc, int x, int y, int cx, int cy);
+	//void Init(HDC hdc, string Filename);
+	void Draw(HDC hdc, int x, int y);
 	void Release();
 };
-
