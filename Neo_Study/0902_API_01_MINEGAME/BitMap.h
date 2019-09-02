@@ -15,8 +15,8 @@ public:
 	BitMap();
 	~BitMap();
 
-	void Init(HDC hdc, HINSTANCE hInst, int id);
-	//void Init(HDC hdc, string Filename);
+	//void Init(HDC hdc, HINSTANCE hInst, int id);
+	void Init(HDC hdc, string Filename);
 	void Draw(HDC hdc, int x, int y);
 	void Release();
 };

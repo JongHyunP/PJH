@@ -10,9 +10,9 @@ LPCTSTR lpszClass = TEXT("First");
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nCmdShow)
 {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	_CrtDumpMemoryLeaks();
-	_CrtSetBreakAlloc(174);
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//_CrtDumpMemoryLeaks();
+	//_CrtSetBreakAlloc(174);
 
 	HWND hWnd;
 	MSG Message;

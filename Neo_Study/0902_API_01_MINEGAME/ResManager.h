@@ -1,5 +1,6 @@
 #pragma once
 #include <Windows.h>
+#include <string>
 
 enum RES_TYPE
 {
@@ -26,7 +27,7 @@ class ResManager
 private:
 	BitMap* m_pBitMap[RES_TYPE_END];
 public:
-	void Init(HDC hdc, HINSTANCE hInst);
+	void Init(HDC hdc);
 	BitMap* GetBitMap(int index);
 	void Release();
 	ResManager();

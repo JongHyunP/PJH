@@ -34,5 +34,15 @@ void Mine::Draw(HDC hdc)
 
 bool Mine::Input(POINT pt)
 {
+	if(m_bOpen)
+		return false;
+	RECT rc = { m_MineX, m_MineY,m_MineX + SQUARE_LENGTH ,m_MineY + SQUARE_LENGTH };
+
+
+	if (PtInRect(&rc, pt)
+	{
+		m_bOpen = true;
+			return true;
+	}
 	return false;
 }
