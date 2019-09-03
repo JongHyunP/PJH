@@ -5,6 +5,13 @@
 
 using namespace std;
 
+enum GAME_STATE
+{
+	GAME_STATE_WAIT,
+	GAME_STATE_SHOW,
+	GAME_STATE_OVER
+};
+
 class ResManager;
 class Mine;
 class MineMap;
@@ -17,9 +24,13 @@ private:
 	vector<MineMap*>		m_vecMineMap;
 	ResManager*				m_pResManager;
 	HWND					m_hWnd;
+	GAME_STATE				m_eState;
 	Mine*					m_pSelectMine;
 	MineMap*				m_pSelectMineMap;
 	int						m_level;
+	DWORD					m_dwTimeCount;
+	int						*MineRandomArray;
+	int						m_iCount;
 	GameManager();
 public:
 	static GameManager* GetInstance()
@@ -33,9 +44,10 @@ public:
 	void Init(HWND hWnd, HDC hdc, HINSTANCE hInst);
 	void Draw(HDC hdc);
 	void Update();
-	void Input(POINT pt);
+	void InputLeftButton(POINT pt);
+	void InputRightButton(POINT pt);
 	void OptionMapDraw(HDC hdc); //옵션 바뀌었을 때
-
+	void FindMineNeighborhood(int count, int vectorCount);
 	void Release();
 
 	~GameManager();

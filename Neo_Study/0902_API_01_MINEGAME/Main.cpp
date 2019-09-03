@@ -64,7 +64,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_CREATE:
 		hdc = GetDC(hWnd);
-		SetTimer(hWnd, 1, 10, NULL);
+		SetTimer(hWnd, 1, 1000, NULL);
 		GameManager::GetInstance()->Init(hWnd, hdc, g_hInst);
 		ReleaseDC(hWnd, hdc);
 		return 0;
@@ -82,7 +82,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	case WM_LBUTTONDOWN:
 		pt.x = LOWORD(lParam);
 		pt.y = HIWORD(lParam);
-		GameManager::GetInstance()->Input(pt);
+		GameManager::GetInstance()->InputLeftButton(pt);
+		return 0;
+	case WM_RBUTTONDOWN:
+		pt.x = LOWORD(lParam);
+		pt.y = HIWORD(lParam);
+		GameManager::GetInstance()->InputRightButton(pt);
 		return 0;
 	case  WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);

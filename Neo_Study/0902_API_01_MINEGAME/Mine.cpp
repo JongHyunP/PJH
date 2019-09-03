@@ -4,6 +4,7 @@
 Mine::Mine()
 {
 	m_bOpen = false;
+	m_bCheck = false;
 }
 
 
@@ -34,15 +35,19 @@ void Mine::Draw(HDC hdc)
 
 bool Mine::Input(POINT pt)
 {
-	if(m_bOpen)
+	if (m_bOpen)
+	{
 		return false;
-	RECT rc = { m_MineX, m_MineY,m_MineX + SQUARE_LENGTH ,m_MineY + SQUARE_LENGTH };
+	}
+	//°ÙÇÔ¼ö 
+	RECT rc = { m_MineX, m_MineY, m_MineX + m_pFrontSquare->GetSizeX() ,m_MineY + m_pFrontSquare ->GetSizeY()};
 
-
-	if (PtInRect(&rc, pt)
+	if (PtInRect(&rc, pt))
 	{
 		m_bOpen = true;
-			return true;
+		m_bCheck = true;
+		return true;
 	}
 	return false;
 }
+
