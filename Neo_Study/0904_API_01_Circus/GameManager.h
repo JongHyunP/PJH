@@ -6,12 +6,17 @@
 using namespace std;
 
 class ResManager;
+class Object;
 
 class GameManager
 {
 private:
 	static GameManager*		m_sThis;
 	ResManager*				m_pResManager;
+	//vector<Object*>			m_vecUi;
+	//vector<Object*>			m_vecBackground;
+	//vector<Object*>			m_vecPlayer;
+
 	HWND					m_hWnd;
 	GameManager();
 

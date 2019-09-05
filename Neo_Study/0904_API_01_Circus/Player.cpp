@@ -10,5 +10,5 @@ void Player::Init(BitMap* pPlayer, int posX, int posY)
 
 void Player::Draw(HDC hdc)
 {
-	m_pPlayer->Draw(hdc, m_PlayerPosX, m_PlayerPosY);
+	m_pPlayer->Draw(hdc, m_PlayerPosX, m_PlayerPosY,0,0);
 }

@@ -2,12 +2,16 @@
 #include "ResManager.h"
 #include "mecro.h"
 
-
 GameManager* GameManager::m_sThis = nullptr;
 
 GameManager::GameManager()
 {
 	m_pResManager = nullptr;
+}
+
+GameManager::~GameManager()
+{
+
 }
 
 void GameManager::Init(HWND hWnd, HDC hdc, HINSTANCE hInst)
@@ -21,7 +25,7 @@ void GameManager::Init(HWND hWnd, HDC hdc, HINSTANCE hInst)
 
 void GameManager::Draw(HDC hdc)
 {
-
+	//m_vecMineMap[LEVEL_EASY]->Draw(hdc);
 }
 
 void GameManager::InputKeyBoard(WPARAM wParam, HWND hWnd)
@@ -32,12 +36,6 @@ void GameManager::InputKeyBoard(WPARAM wParam, HWND hWnd)
 		break;
 	case VK_RIGHT:
 		//x += 8;
-		break;
-	case VK_UP:
-		//y -= 8;
-		break;
-	case VK_DOWN:
-		//y += 8;
 		break;
 	}
 	InvalidateRect(hWnd, NULL, false);

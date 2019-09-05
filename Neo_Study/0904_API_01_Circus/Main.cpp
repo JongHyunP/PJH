@@ -1,4 +1,5 @@
 #include <Windows.h>
+#include "GameManager.h"
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
@@ -46,7 +47,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 	return (int)Message.wParam;
 }
 
-#define IMAGE_NUM 5
+#define IMAGE_NUM 6
+#define MAX_SIZE  2000
+#define WIN_X 1024
+#define WIN_Y 768
 
 HDC g_MemDC[IMAGE_NUM];
 HBITMAP g_hBitMap[IMAGE_NUM];
@@ -58,12 +62,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 	static int x = 100;
 	static int y = 550;
+	static int Nx = 0;
 
 	switch (iMessage) //주로 메시지를 재정의 하는데 코딩을 함.
 	{
 	case WM_CREATE:
 		SetTimer(hWnd, 1, 1000, NULL);
 		hdc = GetDC(hWnd);
+	//	GameManager::GetInstance()->Init(hWnd, hdc, g_hInst);
+
 		g_MemDC[0] = CreateCompatibleDC(hdc);
 		g_hBitMap[0] = CreateCompatibleBitmap(hdc, 1024, 768);
 		g_hOld[0] = (HBITMAP)SelectObject(g_MemDC[0], g_hBitMap[0]);
@@ -84,34 +91,62 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		g_hBitMap[4] = (HBITMAP)LoadImage(NULL, "Res\\back_deco.bmp", IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_DEFAULTSIZE | LR_LOADFROMFILE);
 		g_hOld[4] = (HBITMAP)SelectObject(g_MemDC[4], g_hBitMap[4]);
 
+		g_MemDC[5] = CreateCompatibleDC(hdc);
+		g_hBitMap[5] = CreateCompatibleBitmap(hdc, 1024, 768);
+		g_hOld[5] = (HBITMAP)SelectObject(g_MemDC[5], g_hBitMap[5]);
+
+		////잔디밭
+		for (int i = 0; i < 20; i++)
+		{
+			TransparentBlt(g_MemDC[0], 100 * i, 380, 100, 420, g_MemDC[1], 0, 0, 67, 183, RGB(255, 0, 255));
+		}
+
+		////관중
+		for (int i = 0; i < 20; i++)
+		{
+			TransparentBlt(g_MemDC[0], 100 * i, 200, 100, 150, g_MemDC[3], 0, 0, 65, 64, RGB(255, 0, 255));
+		}
+		////관중 코끼리
+		TransparentBlt(g_MemDC[0], 100, 200, 100, 150, g_MemDC[4], 0, 0, 66, 67, RGB(255, 0, 255));
+
+		return 0;
+
+	case WM_TIMER:
+		//GameManager::GetInstance()->Update();
 		return 0;
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-		
+		//GameManager::GetInstance()->Draw(hdc);
 		//BitBlt(g_MemDC[0], 0, 0, 1024, 768, g_MemDC[1], 0, -590, SRCCOPY);
-		BitBlt(g_MemDC[0], x, y, 1024, 768, g_MemDC[1], -50, -590, SRCCOPY);
+		//BitBlt(g_MemDC[0], x, y, 1024, 768, g_MemDC[1], -50, -590, SRCCOPY);
 
-		//잔디밭
-		for (int i = 0; i < 20; i++)
+		
+
+		////플레이어 위치
+	//	TransparentBlt(g_MemDC[0], x, y, 100, 150, g_MemDC[2], 0, 0, 66, 63, RGB(255, 0, 255));
+
+		////덮어쓰는것
+		//BitBlt(hdc, 0, 0, 1024, 768, g_MemDC[0], 0, 0, SRCCOPY);
+
+		//그림 전체에서 움직여주는걸로 0이 빽버퍼, 1이 그림전체
+		if (Nx < 0)
 		{
-			TransparentBlt(g_MemDC[0], 100*i, 380, 100, 420, g_MemDC[1], 0, 0, 67, 183, RGB(255, 0, 255));
+			BitBlt(g_MemDC[5], 0, 0, -Nx, WIN_Y, g_MemDC[0], MAX_SIZE + Nx, 0, SRCCOPY);
+			BitBlt(g_MemDC[5], -Nx, 0, WIN_X + Nx, WIN_Y, g_MemDC[0], 0, 0, SRCCOPY);
+
+			BitBlt(hdc, 0, 0, 1024, 768, g_MemDC[5], 0, 0, SRCCOPY);
+		}
+		else
+		{
+			BitBlt(g_MemDC[5], 0, 0, WIN_X, WIN_Y, g_MemDC[0], Nx, 0, SRCCOPY);
+			BitBlt(hdc, 0, 0, 1024, 768, g_MemDC[5], 0, 0, SRCCOPY);
 		}
 
-		//관중
-		for (int i = 0; i < 20; i++)
+		if (Nx + WIN_X >= 2000)
 		{
-			TransparentBlt(g_MemDC[0], 100*i, 200, 100, 150, g_MemDC[3], 0, 0, 65, 64, RGB(255, 0, 255));
+			Nx -= MAX_SIZE;
 		}
-		//관중 코끼리
-		TransparentBlt(g_MemDC[0], 100, 200, 100, 150, g_MemDC[4], 0, 0, 66, 67, RGB(255, 0, 255));
-
-		//플레이어 위치
-		TransparentBlt(g_MemDC[0], x, y, 100, 150, g_MemDC[2], 0, 0, 66, 63, RGB(255, 0, 255));
-
-		//덮어쓰는것
-		BitBlt(hdc, 0, 0, 1024, 768, g_MemDC[0], 0, 0, SRCCOPY);
-
-		//for (int i = 0; i < IMAGE_NUM; i++)
+		//for (int i = 0; i < IMAGE_NUM; i++) // 스크롤 지나가면 없애고
 		//{
 		//	DeleteObject(SelectObject(g_MemDC[i], g_hOld[i])); // 종이 원래대로 한 후 제거
 		//	DeleteDC(g_MemDC[i]);
@@ -123,10 +158,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		switch (wParam)
 		{
 		case VK_LEFT:
-			x -= 8;
+			Nx -= 100;
 			break;
 		case VK_RIGHT:
-			x += 8;
+			Nx += 100;
 			break;
 		case VK_UP:
 			y -= 8;
@@ -141,6 +176,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		return 0;
 	case WM_DESTROY: //WM = 윈도우메시지 줄임말
 		KillTimer(hWnd, 1);
+	//	GameManager::GetInstance()->Release();
 		PostQuitMessage(0); //종료메시지
 		return 0;//처리햇다.
 	}

@@ -6,10 +6,6 @@ using namespace std;
 
 class BitMap
 {
-	//HDC m_hMemDC;
-	//HBITMAP m_hBitMap;
-	//HBITMAP m_hOldBitMap;
-
 	HDC m_MemDC[2];
 	HBITMAP m_hBitMap[2];
 	HBITMAP m_hOld[2];
@@ -20,7 +16,7 @@ public:
 	~BitMap();
 
 	void Init(HDC hdc, string Filename);
-	void Draw(HDC hdc, int x, int y);
+	void Draw(HDC hdc, int PosX, int PosY, int transX, int transY);
 	void Release();
 };
 

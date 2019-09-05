@@ -1,9 +1,10 @@
 #pragma once
 #include <Windows.h>
+#include "StageMap.h"
 
 class BitMap;
 
-class Player
+class Player : public StageMap 
 {
 private:
 	BitMap* m_pPlayer;
