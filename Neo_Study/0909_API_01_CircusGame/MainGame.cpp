@@ -3,12 +3,13 @@
 #include "BackTile.h"
 #include "ResManager.h"
 #include "Player.h"
+#include "Camera.h"
+
 
 MainGame* MainGame::m_sThis = nullptr;
 
 MainGame::MainGame()
 {
-
 }
 
 MainGame::~MainGame()
@@ -48,24 +49,27 @@ void MainGame::Init(HWND hWnd, HDC hdc)
 
 	m_pPlayer = new Player();
 	m_pPlayer->Init(m_pResManager , 100, 495, 66, 63);
+	m_pCamera = new Camera();
+	m_pCamera->SetPosX(m_pPlayer->GetPosX());
 }
 
 void MainGame::Draw(HDC hdc)
 {
 	for (auto iter = m_vecTile.begin(); iter != m_vecTile.end(); iter++)
 	{
-		(*iter)->Draw(m_pResManager->GetBackBuffer());
+		(*iter)->Draw(m_pResManager->GetBackBuffer(), m_pCamera->GetPosX());
 	}
 
 	m_pPlayer->Draw(m_pResManager->GetBackBuffer());
 
-	m_pResManager->DrawScene(hdc);
+	m_pResManager->DrawScene(hdc, m_pCamera->GetPosX());
 }
 
 void MainGame::Update()
 {
 	m_pPlayer->Update();
-	
+	m_pCamera->SetPosX(m_pPlayer->GetPosX());
+
 }
 
 void MainGame::Input(int virtualKey, bool iskeydown)
@@ -76,17 +80,9 @@ void MainGame::Input(int virtualKey, bool iskeydown)
 		{
 		case VK_RIGHT:
 			m_pPlayer->Move(INPUT_RIGHT);
-			for (auto iter = m_vecTile.begin(); iter != m_vecTile.end(); iter++)
-			{
-				(*iter)->Update(-5);
-			}
 			break;
 		case VK_LEFT:
 			m_pPlayer->Move(INPUT_LEFT);
-			for (auto iter = m_vecTile.begin(); iter != m_vecTile.end(); iter++)
-			{
-				(*iter)->Update(+5);
-			}
 			break;
 		default:
 			break;
@@ -112,6 +108,8 @@ void MainGame::Release()
 {
 	m_pResManager->Release();
 
+	SAFE_DELETE(m_pPlayer);
+	SAFE_DELETE(m_pCamera);
 	SAFE_DELETE(m_pResManager);
 	SAFE_DELETE(m_sThis);
 }

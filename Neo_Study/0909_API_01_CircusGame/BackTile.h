@@ -12,9 +12,10 @@ private:
 	int m_iCY;
 public:
 	void Init(BitMap* pBitMap , int x , int y , int cx , int cy);
-	void Draw(HDC hdc);
+	void Draw(HDC hdc, int PlayerX);
 	void Update(int moveX);
 	BackTile();
 	~BackTile();
 };
 
+ 

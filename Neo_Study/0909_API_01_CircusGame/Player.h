@@ -17,7 +17,11 @@ enum PLAYER_STATE
 	STOP,
 	MOVE_FORWD,
 	MOVE_BACK,
-	JUMP
+	JUMP,
+	WIN_01,
+	WIN_02,
+	DIE,
+	STATE_END
 };
 
 class BitMap;
@@ -38,6 +42,7 @@ private:
 	PLAYER_STATE	m_ePlayerState;
 public:
 	void Init(ResManager* pResManager , int x , int y , int cx , int cy);
+	int GetPosX();
 	void Update();
 	void Move(int direction);
 	void Draw(HDC hdc);

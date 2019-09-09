@@ -1,10 +1,11 @@
 #include "ResManager.h"
 #include "BitMap.h"
 #include "macro.h"
+#include "Player.h"
 
 ResManager::ResManager()
 {
-	m_iDisplayX = 0;
+
 }
 
 
@@ -24,43 +25,54 @@ HDC ResManager::GetBackBuffer()
 	return m_hMemDC;
 }
 
-void ResManager::DrawScene(HDC hdc) //화면 마지막에 그려주는애
-{
-	BitBlt(hdc, 0, 0, WIN_X, WIN_Y, m_hMemDC, 0, 0, SRCCOPY);
+void ResManager::DrawScene(HDC hdc,int x) //화면 마지막에 그려주는애
+{//             어디에/ 비트맵 어디서/      /비트맵 어디까지
+	BitBlt(hdc, x, 0, WIN_X, WIN_Y, m_hMemDC,0, 0, SRCCOPY);
 }
+
 
 void ResManager::Init(HDC hdc)
 {
 	InitBackBuffer(hdc);
-
+	m_iDisplayX = 0;
+	m_pPlayer = nullptr;
 	BitMap* pNewBit;
-	pNewBit = new BitMap();
-	pNewBit->Init(hdc, "RES\\back.bmp");
-	m_mapBitMap.insert(make_pair("RES\\back.bmp" , pNewBit));
 
-	pNewBit = new BitMap();
-	pNewBit->Init(hdc, "RES\\back_deco.bmp");
-	m_mapBitMap.insert(make_pair("RES\\back_deco.bmp", pNewBit));
+	string storagePathUi[RES_TYPE_UI_END] = { "RES\\star1.bmp","RES\\star2.bmp","RES\\icon.bmp","RES\\miter.bmp" };
 
-	pNewBit = new BitMap();
-	pNewBit->Init(hdc, "RES\\back_normal.bmp");
-	m_mapBitMap.insert(make_pair("RES\\back_normal.bmp", pNewBit));
+	for (int i = 0; i < RES_TYPE_UI_END; i++)
+	{
+		pNewBit = new BitMap();
+		pNewBit->Init(hdc, storagePathUi[i]);
+		m_mapBitMap.insert(make_pair(storagePathUi[i], pNewBit));
+	}
 
-	pNewBit = new BitMap();
-	pNewBit->Init(hdc, "RES\\back_normal2.bmp");
-	m_mapBitMap.insert(make_pair("RES\\back_normal2.bmp", pNewBit));
+	string storagePathBackground[RES_TYPE_BACKGROUND_END] = { "RES\\back.bmp","RES\\back_deco.bmp","RES\\back_normal.bmp","RES\\back_normal2.bmp" };
 
-	pNewBit = new BitMap();
-	pNewBit->Init(hdc, "RES\\player0.bmp");
-	m_mapBitMap.insert(make_pair("RES\\player0.bmp", pNewBit));
+	for (int i = 0; i < RES_TYPE_BACKGROUND_END; i++)
+	{
+		pNewBit = new BitMap();
+		pNewBit->Init(hdc, storagePathBackground[i]);
+		m_mapBitMap.insert(make_pair(storagePathBackground[i], pNewBit));
+	}
 
-	pNewBit = new BitMap();
-	pNewBit->Init(hdc, "RES\\player1.bmp");
-	m_mapBitMap.insert(make_pair("RES\\player1.bmp", pNewBit));
+	string storagePathPlayer[RES_TYPE_PLAYER_END] = { "RES\\player0.bmp","RES\\player1.bmp","RES\\player2.bmp","RES\\win.bmp","RES\\win2.bmp" ,"RES\\die.bmp" };
 
-	pNewBit = new BitMap();
-	pNewBit->Init(hdc, "RES\\player2.bmp");
-	m_mapBitMap.insert(make_pair("RES\\player2.bmp", pNewBit));
+	for (int i = 0; i < RES_TYPE_PLAYER_END; i++)
+	{
+		pNewBit = new BitMap();
+		pNewBit->Init(hdc, storagePathPlayer[i]);
+		m_mapBitMap.insert(make_pair(storagePathPlayer[i], pNewBit));
+	}
+
+	string storagePathObject[RES_TYPE_OBJECT_END] = { "RES\\end.bmp","RES\\cash.bmp","RES\\front.bmp","RES\\front2.bmp","RES\\enemy_1b.bmp" ,"RES\\enemy_1f.bmp","RES\\enemy_b.bmp","RES\\enemy_f.bmp" };
+
+	for (int i = 0; i < RES_TYPE_OBJECT_END; i++)
+	{
+		pNewBit = new BitMap();
+		pNewBit->Init(hdc, storagePathObject[i]);
+		m_mapBitMap.insert(make_pair(storagePathObject[i], pNewBit));
+	}
 }
 
 BitMap* ResManager::GetBitMap(string strFileName)
@@ -70,5 +82,8 @@ BitMap* ResManager::GetBitMap(string strFileName)
 
 void ResManager::Release()
 {
-
+	for (auto iter = m_mapBitMap.begin(); iter != m_mapBitMap.end(); ++iter)
+	{
+		SAFE_DELETE((*iter).second);
+	}
 }

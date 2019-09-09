@@ -18,21 +18,34 @@ Player::Player()
 
 Player::~Player()
 {
+
 }
 
 void Player::Init(ResManager* pResManager , int x, int y, int cx, int cy)
 {
-	m_vecBitMap.push_back(pResManager->GetBitMap("RES\\player0.bmp"));
-	m_vecBitMap.push_back(pResManager->GetBitMap("RES\\player1.bmp"));
-	m_vecBitMap.push_back(pResManager->GetBitMap("RES\\player2.bmp"));
+	string storagePathPlayer[RES_TYPE_PLAYER_END] = { "RES\\player0.bmp","RES\\player1.bmp","RES\\player2.bmp","RES\\win.bmp","RES\\win2.bmp" ,"RES\\die.bmp" };
+
+	for (int i = 0; i < RES_TYPE_PLAYER_END; i++)
+	{
+		m_vecBitMap.push_back(pResManager->GetBitMap(storagePathPlayer[i]));
+	}
 	m_iX = x;
 	m_iY = y;
 	m_iCX = cx;
 	m_iCY = cy;
 }
 
+int Player::GetPosX()
+{
+	return m_iX;
+}
+
 void Player::Update()
 {
+	if (m_iX)
+	{
+
+	}
 	m_iX = m_iX + m_iSpeed;
 
 	m_iFrameCount++;

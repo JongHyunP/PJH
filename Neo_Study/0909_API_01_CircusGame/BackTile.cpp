@@ -20,12 +20,12 @@ void BackTile::Init(BitMap* pBitMap, int x, int y, int cx, int cy)
 	m_iCY = cy;
 }
 
-void BackTile::Draw(HDC hdc)
+void BackTile::Draw(HDC hdc,int PlayerX)
 {
-	m_pBitMap->Draw(hdc, m_iX, m_iY , false);
+	m_pBitMap->Draw(hdc, m_iX- PlayerX, m_iY , false);
 }
 
-void BackTile::Update(int moveX)
+void BackTile::Update(int PlayerX)
 {
-	m_iX = m_iX + moveX;
+	m_iX = m_iX - PlayerX;
 }
