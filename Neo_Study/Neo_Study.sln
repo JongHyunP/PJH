@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.757
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0819_STL_01_Overloading", "Neo_Study\Neo_Study.vcxproj", "{1E4DFF1C-A3EA-4E7D-AD94-354D0C8A3763}"
 EndProject
@@ -54,6 +54,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0902_API_01_MINEGAME", "0902_API_01_MINEGAME\0902_API_01_MINEGAME.vcxproj", "{33778069-2411-46C9-961A-424324E097C5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0904_API_01_Circus", "0904_API_01_Circus\0904_API_01_Circus.vcxproj", "{894E47C5-E96D-42BE-BD55-16F0A86F4D0D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0909_API_01_CircusGame", "0909_API_01_CircusGame\0909_API_01_CircusGame.vcxproj", "{E414F57A-3AED-4D38-91E5-53C25F09853C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -271,6 +273,14 @@ Global
 		{894E47C5-E96D-42BE-BD55-16F0A86F4D0D}.Release|x64.Build.0 = Release|x64
 		{894E47C5-E96D-42BE-BD55-16F0A86F4D0D}.Release|x86.ActiveCfg = Release|Win32
 		{894E47C5-E96D-42BE-BD55-16F0A86F4D0D}.Release|x86.Build.0 = Release|Win32
+		{E414F57A-3AED-4D38-91E5-53C25F09853C}.Debug|x64.ActiveCfg = Debug|x64
+		{E414F57A-3AED-4D38-91E5-53C25F09853C}.Debug|x64.Build.0 = Debug|x64
+		{E414F57A-3AED-4D38-91E5-53C25F09853C}.Debug|x86.ActiveCfg = Debug|Win32
+		{E414F57A-3AED-4D38-91E5-53C25F09853C}.Debug|x86.Build.0 = Debug|Win32
+		{E414F57A-3AED-4D38-91E5-53C25F09853C}.Release|x64.ActiveCfg = Release|x64
+		{E414F57A-3AED-4D38-91E5-53C25F09853C}.Release|x64.Build.0 = Release|x64
+		{E414F57A-3AED-4D38-91E5-53C25F09853C}.Release|x86.ActiveCfg = Release|Win32
+		{E414F57A-3AED-4D38-91E5-53C25F09853C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

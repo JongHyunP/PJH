@@ -1,6 +1,9 @@
 #pragma once
 #include <Windows.h>
+#include <map>
 #include <string>
+
+using namespace std;
 
 enum RES_ENUM_TYPE
 {
@@ -54,12 +57,20 @@ class BitMap;
 class ResManager
 {
 private:
+	map<string, BitMap*> m_mapBitMap;
+	HDC m_hMemDC;
+	HBITMAP m_hBitMap;
+	HBITMAP m_hOldBitMap;
+
 	BitMap*		m_pBitMapUi[RES_TYPE_UI_END];
 	BitMap*		m_pBitMapBackground[RES_TYPE_BACKGROUND_END];
 	BitMap*		m_pBitMapPlayer[RES_TYPE_PLAYER_END];
 	BitMap*		m_pBitMapObject[RES_TYPE_OBJECT_END];
 public:
 	void Init(HDC hdc);
+	void InitBackBuffer(HDC hdc);
+	HDC GetBackBuffer();
+	void DrawScene(HDC hdc);
 	BitMap* GetBitMap(int index, RES_ENUM_TYPE num);
 	void Release();
 	ResManager();

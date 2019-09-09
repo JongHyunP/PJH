@@ -11,6 +11,24 @@ ResManager::~ResManager()
 {
 }
 
+void ResManager::InitBackBuffer(HDC hdc)
+{
+	m_hMemDC = CreateCompatibleDC(hdc);
+	m_hBitMap = CreateCompatibleBitmap(hdc, 1024, 768);
+	m_hOldBitMap = (HBITMAP)SelectObject(m_hMemDC, m_hBitMap);
+}
+
+HDC ResManager::GetBackBuffer()
+{
+	return m_hMemDC;
+}
+
+void ResManager::DrawScene(HDC hdc)
+{
+	BitBlt(hdc, 0, 0, 1024, 768, m_hMemDC, 0, 0, SRCCOPY);
+}
+
+
 void ResManager::Init(HDC hdc)
 {
 	string storagePathUi[RES_TYPE_UI_END] = { "Res\\star1.bmp","Res\\star2.bmp","Res\\icon.bmp","Res\\miter.bmp" };
