@@ -51,6 +51,8 @@ void MainGame::Init(HWND hWnd, HDC hdc)
 	m_pPlayer->Init(m_pResManager , 100, 495, 66, 63);
 	m_pCamera = new Camera();
 	m_pCamera->SetPosX(m_pPlayer->GetPosX());
+
+	
 }
 
 void MainGame::Draw(HDC hdc)

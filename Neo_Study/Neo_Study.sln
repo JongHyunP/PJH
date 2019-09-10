@@ -61,6 +61,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0909_API_02_Control", "0909
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0909_API_03_BattleCity", "0909_API_03_BattleCity\0909_API_03_BattleCity.vcxproj", "{62ECA099-9F91-43E9-AD27-67C935B6D82F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0910_API_01_BattleGame", "0910_API_BattleGame\0910_API_BattleGame.vcxproj", "{2E14DCB8-B3FD-4F03-9709-7D615C52C68D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -301,6 +303,14 @@ Global
 		{62ECA099-9F91-43E9-AD27-67C935B6D82F}.Release|x64.Build.0 = Release|x64
 		{62ECA099-9F91-43E9-AD27-67C935B6D82F}.Release|x86.ActiveCfg = Release|Win32
 		{62ECA099-9F91-43E9-AD27-67C935B6D82F}.Release|x86.Build.0 = Release|Win32
+		{2E14DCB8-B3FD-4F03-9709-7D615C52C68D}.Debug|x64.ActiveCfg = Debug|x64
+		{2E14DCB8-B3FD-4F03-9709-7D615C52C68D}.Debug|x64.Build.0 = Debug|x64
+		{2E14DCB8-B3FD-4F03-9709-7D615C52C68D}.Debug|x86.ActiveCfg = Debug|Win32
+		{2E14DCB8-B3FD-4F03-9709-7D615C52C68D}.Debug|x86.Build.0 = Debug|Win32
+		{2E14DCB8-B3FD-4F03-9709-7D615C52C68D}.Release|x64.ActiveCfg = Release|x64
+		{2E14DCB8-B3FD-4F03-9709-7D615C52C68D}.Release|x64.Build.0 = Release|x64
+		{2E14DCB8-B3FD-4F03-9709-7D615C52C68D}.Release|x86.ActiveCfg = Release|Win32
+		{2E14DCB8-B3FD-4F03-9709-7D615C52C68D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

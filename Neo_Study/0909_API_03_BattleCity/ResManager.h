@@ -93,7 +93,7 @@ public:
 	void Init(HDC hdc);
 	void InitBackBuffer(HDC hdc);
 	HDC GetBackBuffer();
-	void DrawScene(HDC hdc, int x);
+	void DrawScene(HDC hdc);
 	BitMap* GetBitMap(string strFileName);
 	void Release();
 };

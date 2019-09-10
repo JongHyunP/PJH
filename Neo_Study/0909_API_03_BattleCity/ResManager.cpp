@@ -24,9 +24,9 @@ HDC ResManager::GetBackBuffer()
 	return m_hMemDC;
 }
 
-void ResManager::DrawScene(HDC hdc, int x) //화면 마지막에 그려주는애
+void ResManager::DrawScene(HDC hdc) //화면 마지막에 그려주는애
 {//             어디에/ 비트맵 어디서/      /비트맵 어디까지
-	BitBlt(hdc, x, 0, WIN_X, WIN_Y, m_hMemDC, 0, 0, SRCCOPY);
+	BitBlt(hdc, 0, 0, WIN_X, WIN_Y, m_hMemDC, 0, 0, SRCCOPY);
 }
 
 void ResManager::Init(HDC hdc) 

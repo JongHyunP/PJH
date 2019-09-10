@@ -7,13 +7,13 @@
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK SettingDlg(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 HINSTANCE g_hInst;
-LPCTSTR lpszClass = TEXT("First");
+LPCTSTR lpszClass = TEXT("MapEditor");
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nCmdShow)
 {
-	/*_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	_CrtDumpMemoryLeaks();
-	_CrtSetBreakAlloc(174);*/
+	//_CrtSetBreakAlloc();
 
 	HWND hWnd;
 	MSG Message;
@@ -61,17 +61,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 	POINT pt;
 
-	OPENFILENAME OFN;
-	char str[256];
-	char IpstrFile[MAX_PATH] = "";
-
-
 	switch (iMessage)
 	{
 	case WM_CREATE:
 		hdc = GetDC(hWnd);
 		SetTimer(hWnd, 1, 10, NULL);
-		//MainGame::GetInstance()->Init(hWnd, hdc, g_hInst);
+		MainGame::GetInstance()->Init(hWnd, hdc);
 		ReleaseDC(hWnd, hdc);
 		return 0;
 	case WM_COMMAND:
@@ -91,7 +86,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	case WM_LBUTTONDOWN:
 		pt.x = LOWORD(lParam);
 		pt.y = HIWORD(lParam);
-		//MainGame::GetInstance()->Input(pt);
+		MainGame::GetInstance()->Input(pt);
 		return 0;
 	case  WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
@@ -106,7 +101,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		return 0;
 	case WM_DESTROY:
 		KillTimer(hWnd, 1);
-	//	MainGame::GetInstance()->Release();
+		MainGame::GetInstance()->Release();
 		PostQuitMessage(0);
 		return 0;
 	}
