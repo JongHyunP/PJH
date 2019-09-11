@@ -15,6 +15,14 @@ public:
 	void Init(BitMap* pBitMap, int x, int y, int cx, int cy);
 	void Draw(HDC hdc,bool bTrans);
 	bool Input(POINT pt);
+	int GetObjectX()
+	{
+		return m_iX;
+	}
+	int GetObjectY()
+	{
+		return m_iY;
+	}
 	EditorObject();
 	~EditorObject();
 };

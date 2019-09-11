@@ -150,6 +150,7 @@
     <ClInclude Include="BitMap.h" />
     <ClInclude Include="EditorObject.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="MainHeader.h" />
     <ClInclude Include="mecro.h" />
     <ClInclude Include="ResManager.h" />
     <ClInclude Include="resource.h" />

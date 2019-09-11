@@ -50,6 +50,9 @@
     <ClInclude Include="EditorObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="MainHeader.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="0909_API_03_BattleCity1.rc">
