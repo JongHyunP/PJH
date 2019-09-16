@@ -1,6 +1,8 @@
 #pragma once
 #include <Windows.h>
 #include <chrono>
+#include <vector>
+
 using namespace std;
 
 #define FPS			60.0f
@@ -12,6 +14,10 @@ enum STATE
 	JUMP
 };
 
+class ResManager;
+class Object;
+class Player;
+
 class GameFrameWork
 {
 private:
@@ -19,13 +25,14 @@ private:
 	chrono::system_clock::time_point m_LastTime;
 	float		m_fElapseTime;
 
-	HDC			m_hMemDC[3];
-	HBITMAP		m_hBitmap[3];	//0 Back 1 BackGround 2 char
-	HBITMAP		m_hOld[3];
+	ResManager*	m_pResManager;
+	Player*		m_pPlayer;
+	Object*     m_pObject[32][24];
+	vector<Object*>	m_vecFixedObject;
+	float		Player_x; // 플레이어 클래스에서 값 받아오기.
+	float		Player_y; 
 
-	float		Player_x;
-	float		Player_y;
-
+	bool		m_bIsCrush;
 	bool		m_bJump;
 	//수학적으로
 	STATE		m_eState;
@@ -40,11 +47,12 @@ public:
 	GameFrameWork();
 	~GameFrameWork();
 
-	void Init(HWND hWnd);
+	void Init(HWND hWnd, HDC hdc);
 	void Release();
-	void Update();
+	void Update(HDC hdc);
 	void OperateInput();
-	void Render();
+	void CollisionCheck(RECT* playerRect, RECT* objRect);
+	void Render(HDC hdc);
 
 };
 

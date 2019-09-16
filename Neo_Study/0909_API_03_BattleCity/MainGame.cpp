@@ -344,6 +344,7 @@ void MainGame::MouseInput(POINT pt)
 	{
 		if ((*iter)->Input(pt))
 		{
+			// 블럭 숫자도 저장해줘야함
 			m_vecBlockUnDoContainer.push_back(*iter);
 			cout << m_vecBlockUnDoContainer.back() << endl;
 			m_pSelectObject = new EditorObject();
