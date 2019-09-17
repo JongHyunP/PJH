@@ -72,51 +72,51 @@ void MainGame::Init(HWND hWnd, HDC hdc, HINSTANCE g_hInst)
 			{
 				if (i == 15 && j == 10)
 				{
-					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block13.bmp"), x, y, 25, 25);
+					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block13.bmp"), x, y, 25, 25,BLOCK_13);
 					x += 25;
 					m_vecFixedObject.push_back(m_pObject[j][i]);
 					
 				}
 				else if (i == 15 && j == 9)
 				{
-					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25);
+					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25, BLOCK_00);
 					x += 25;
 					m_vecFixedObject.push_back(m_pObject[j][i]);
 				}
 				else if (i == 14 && j == 9)
 				{
-					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25);
+					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25, BLOCK_00);
 					x += 25;
 					m_vecFixedObject.push_back(m_pObject[j][i]);
 				}
 				else if (i == 14 && j == 10)
 				{
-					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25);
+					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25, BLOCK_00);
 					x += 25;
 					m_vecFixedObject.push_back(m_pObject[j][i]);
 				}
 				else if (i == 14 && j == 11)
 				{
-					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25);
+					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25, BLOCK_00);
 					x += 25;
 					m_vecFixedObject.push_back(m_pObject[j][i]);
 				}
 				else if (i == 15 && j == 11)
 				{
-					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25);
+					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25, BLOCK_00);
 					x += 25;
 					m_vecFixedObject.push_back(m_pObject[j][i]);
 				}
 				else
 				{
-					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\BlackBack.bmp"), x, y, 25, 25);
+					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\BlackBack.bmp"), x, y, 25, 25, BLOCK_15);
 					x += 25;
 					m_vecFixedObject.push_back(m_pObject[j][i]);
 				}
 			}
 			else
 			{
-				m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\GrayBack.bmp"), x, y, 25, 25);
+				m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\GrayBack.bmp"), x, y, 25, 25,BLOCK_16);
 				x += 25;
 				m_vecFixedObject.push_back(m_pObject[j][i]);
 			}
@@ -192,7 +192,7 @@ void MainGame::SaveFile(HWND hWnd)
 
 	if (GetSaveFileName(&OFN) != 0)
 	{
-		sprintf(str, "%s 파일을 선택했습니다.", OFN.lpstrFile);
+		sprintf(str, "%s 파일을 저장했습니다.", OFN.lpstrFile);
 		MessageBox(hWnd, str, "파일저장 성공", MB_OK);
 	}
 }
@@ -245,60 +245,64 @@ void MainGame::RadioCommand(HWND hWnd, WPARAM wParam)
 	}
 }
 
-void MainGame::ChangeObject(EditorObject* obj, EditorObject* iter)
+void MainGame::ChangeObject(EditorObject* obj, EditorObject* iter, int blocknum)
 {
 	//겟 안에 포인터 너무 남발한거 나중에 수정.
-	if (m_iChoiceBlockNum == BLOCK_00)
+	if (blocknum == BLOCK_00)
 	{
-		obj->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25);
+		obj->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25, BLOCK_00);
 	}
-	else if (m_iChoiceBlockNum == BLOCK_01)
+	else if (blocknum == BLOCK_01)
 	{
-		obj->Init(m_pResManager->GetBitMap("RES\\block01.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25);
+		obj->Init(m_pResManager->GetBitMap("RES\\block01.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25, BLOCK_01);
 	}
-	else if (m_iChoiceBlockNum == BLOCK_02)
+	else if (blocknum == BLOCK_02)
 	{
-		obj->Init(m_pResManager->GetBitMap("RES\\block02.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25);
+		obj->Init(m_pResManager->GetBitMap("RES\\block02.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25, BLOCK_02);
 	}
-	else if (m_iChoiceBlockNum == BLOCK_03)
+	else if (blocknum == BLOCK_03)
 	{
-		obj->Init(m_pResManager->GetBitMap("RES\\block03.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25);
+		obj->Init(m_pResManager->GetBitMap("RES\\block03.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25, BLOCK_03);
 	}
-	else if (m_iChoiceBlockNum == BLOCK_04)
+	else if (blocknum == BLOCK_04)
 	{
-		obj->Init(m_pResManager->GetBitMap("RES\\block04.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25);
+		obj->Init(m_pResManager->GetBitMap("RES\\block04.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25, BLOCK_04);
 	}
-	else if (m_iChoiceBlockNum == BLOCK_05)
+	else if (blocknum == BLOCK_05)
 	{
-		obj->Init(m_pResManager->GetBitMap("RES\\block05.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25);
+		obj->Init(m_pResManager->GetBitMap("RES\\block05.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25, BLOCK_05);
 	}
-	else if (m_iChoiceBlockNum == BLOCK_06)
+	else if (blocknum == BLOCK_06)
 	{
-		obj->Init(m_pResManager->GetBitMap("RES\\block06.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25);
+		obj->Init(m_pResManager->GetBitMap("RES\\block06.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25, BLOCK_06);
 	}
-	else if (m_iChoiceBlockNum == BLOCK_07)
+	else if (blocknum == BLOCK_07)
 	{
-		obj->Init(m_pResManager->GetBitMap("RES\\block07.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25);
+		obj->Init(m_pResManager->GetBitMap("RES\\block07.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25, BLOCK_07);
 	}
-	else if (m_iChoiceBlockNum == BLOCK_08)
+	else if (blocknum == BLOCK_08)
 	{
-		obj->Init(m_pResManager->GetBitMap("RES\\block08.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25);
+		obj->Init(m_pResManager->GetBitMap("RES\\block08.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25, BLOCK_08);
 	}
-	else if (m_iChoiceBlockNum == BLOCK_09)
+	else if (blocknum == BLOCK_09)
 	{
-		obj->Init(m_pResManager->GetBitMap("RES\\block09.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25);
+		obj->Init(m_pResManager->GetBitMap("RES\\block09.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25, BLOCK_09);
 	}
-	else if (m_iChoiceBlockNum == BLOCK_10)
+	else if (blocknum == BLOCK_10)
 	{
-		obj->Init(m_pResManager->GetBitMap("RES\\block10.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25);
+		obj->Init(m_pResManager->GetBitMap("RES\\block10.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25, BLOCK_10);
 	}
-	else if (m_iChoiceBlockNum == BLOCK_11)
+	else if (blocknum == BLOCK_11)
 	{
-		obj->Init(m_pResManager->GetBitMap("RES\\block11.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25);
+		obj->Init(m_pResManager->GetBitMap("RES\\block11.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25, BLOCK_11);
 	}
-	else if (m_iChoiceBlockNum == BLOCK_12)
+	else if (blocknum == BLOCK_12)
 	{
-		obj->Init(m_pResManager->GetBitMap("RES\\block12.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25);
+		obj->Init(m_pResManager->GetBitMap("RES\\block12.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25, BLOCK_12);
+	}
+	else if (blocknum == BLOCK_15)
+	{
+		obj->Init(m_pResManager->GetBitMap("RES\\BlackBack.bmp"), iter->GetObjectX(), iter->GetObjectY(), 25, 25, BLOCK_15);
 	}
 
 }
@@ -315,10 +319,55 @@ void MainGame::Redo(EditorObject* iter)
 	if (iter->GetObjectX() == m_vecBlockReDoContainer.back()->GetObjectX() && iter->GetObjectY() == m_vecBlockReDoContainer.back()->GetObjectY())
 	{
 		cout << "redo 실행" << endl;
-		ChangeObject(iter, m_vecBlockReDoContainer.back());
+		switch (m_vecBlockReDoContainer.back()->GetObjectID())
+		{
+		case BLOCK_00:
+			ChangeObject(m_vecBlockReDoContainer.back(), iter, BLOCK_00);
+			break;
+		case BLOCK_01:
+			ChangeObject(m_vecBlockReDoContainer.back(), iter, BLOCK_01);
+			break;
+		case BLOCK_02:
+			ChangeObject(m_vecBlockReDoContainer.back(), iter, BLOCK_02);
+			break;
+		case BLOCK_03:
+			ChangeObject(m_vecBlockReDoContainer.back(), iter, BLOCK_03);
+			break;
+		case BLOCK_04:
+			ChangeObject(m_vecBlockReDoContainer.back(), iter, BLOCK_04);
+			break;
+		case BLOCK_05:
+			ChangeObject(m_vecBlockReDoContainer.back(), iter, BLOCK_05);
+			break;
+		case BLOCK_06:
+			ChangeObject(m_vecBlockReDoContainer.back(), iter, BLOCK_06);
+			break;
+		case BLOCK_07:
+			ChangeObject(m_vecBlockReDoContainer.back(), iter, BLOCK_07);
+			break;
+		case BLOCK_08:
+			ChangeObject(m_vecBlockReDoContainer.back(), iter, BLOCK_08);
+			break;
+		case BLOCK_09:
+			ChangeObject(m_vecBlockReDoContainer.back(), iter, BLOCK_09);
+			break;
+		case BLOCK_10:
+			ChangeObject(m_vecBlockReDoContainer.back(), iter, BLOCK_10);
+			break;
+		case BLOCK_11:
+			ChangeObject(m_vecBlockReDoContainer.back(), iter, BLOCK_11);
+			break;
+		case BLOCK_12:
+			ChangeObject(m_vecBlockReDoContainer.back(), iter, BLOCK_12);
+			break;
+		case BLOCK_15:
+			ChangeObject(m_vecBlockReDoContainer.back(), iter, BLOCK_15);
+			break;
+		default:
+			break;
+		}
 		m_vecBlockReDoContainer.pop_back();
 	}
-
 }
 void MainGame::Undo(EditorObject* iter)
 {
@@ -333,7 +382,60 @@ void MainGame::Undo(EditorObject* iter)
 	if (iter->GetObjectX() == m_vecBlockUnDoContainer.back()->GetObjectX() && iter->GetObjectY() == m_vecBlockUnDoContainer.back()->GetObjectY())
 	{
 		cout << "undo 실행" << endl;
-		ChangeObject(m_vecBlockUnDoContainer.back(), iter);
+		
+		switch (m_vecBlockUnDoContainer.back()->GetObjectID())
+		{
+		case BLOCK_00:
+			m_pUndoObject = new EditorObject();
+			ChangeObject(m_pUndoObject, iter, BLOCK_00);
+			iter = m_pUndoObject;
+			break;
+		case BLOCK_01:
+			ChangeObject(iter, m_vecBlockUnDoContainer.back(), BLOCK_01);
+			break;
+		case BLOCK_02:
+			ChangeObject(iter, m_vecBlockUnDoContainer.back(), BLOCK_02);
+			break;
+		case BLOCK_03:
+			ChangeObject(iter, m_vecBlockUnDoContainer.back(), BLOCK_03);
+			break;
+		case BLOCK_04:
+			ChangeObject(iter, m_vecBlockUnDoContainer.back(), BLOCK_04);
+			break;
+		case BLOCK_05:
+			ChangeObject(iter, m_vecBlockUnDoContainer.back(), BLOCK_05);
+			break;
+		case BLOCK_06:
+			ChangeObject(iter, m_vecBlockUnDoContainer.back(), BLOCK_06);
+			break;
+		case BLOCK_07:
+			ChangeObject(iter, m_vecBlockUnDoContainer.back(), BLOCK_07);
+			break;
+		case BLOCK_08:
+			ChangeObject(iter, m_vecBlockUnDoContainer.back(), BLOCK_08);
+			break;
+		case BLOCK_09:
+			ChangeObject(iter, m_vecBlockUnDoContainer.back(), BLOCK_09);
+			break;
+		case BLOCK_10:
+			ChangeObject(iter, m_vecBlockUnDoContainer.back(), BLOCK_10);
+			break;
+		case BLOCK_11:
+			ChangeObject(iter, m_vecBlockUnDoContainer.back(), BLOCK_11);
+			break;
+		case BLOCK_12:
+			ChangeObject(iter, m_vecBlockUnDoContainer.back(), BLOCK_12);
+			break;
+		case BLOCK_15:
+			m_pUndoObject = new EditorObject();
+			ChangeObject(m_pUndoObject, iter, BLOCK_15);
+			iter = m_pUndoObject;
+			break;
+		default:
+			break;
+		}
+
+		delete m_pUndoObject;
 		m_vecBlockUnDoContainer.pop_back();
 	}
 }
@@ -346,11 +448,12 @@ void MainGame::MouseInput(POINT pt)
 		{
 			// 블럭 숫자도 저장해줘야함
 			m_vecBlockUnDoContainer.push_back(*iter);
-			cout << m_vecBlockUnDoContainer.back() << endl;
+			cout << "언두 저장 : "<<m_vecBlockUnDoContainer.back()->GetObjectID() << endl;
 			m_pSelectObject = new EditorObject();
-			ChangeObject(m_pSelectObject, *iter);
+			ChangeObject(m_pSelectObject, *iter, m_iChoiceBlockNum);
 			(*iter) = m_pSelectObject;
 			m_vecBlockReDoContainer.push_back(*iter);
+			cout << "리두 저장 : " << m_vecBlockReDoContainer.back()->GetObjectID() << endl;
 			InvalidateRect(m_hWnd, NULL, false);
 		}
 		

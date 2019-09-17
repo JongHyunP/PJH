@@ -12,9 +12,14 @@ class EditorObject
 	int m_iCY;
 	int m_iId;
 public:
-	void Init(BitMap* pBitMap, int x, int y, int cx, int cy);
+	void Init(BitMap* pBitMap, int x, int y, int cx, int cy,int id);
 	void Draw(HDC hdc,bool bTrans);
+	
 	bool Input(POINT pt);
+	int GetObjectID()
+	{
+		return m_iId;
+	}
 	int GetObjectX()
 	{
 		return m_iX;

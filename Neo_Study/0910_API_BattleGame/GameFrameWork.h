@@ -6,6 +6,8 @@
 using namespace std;
 
 #define FPS			60.0f
+#define MAP_WIDTH 32
+#define MAP_HIGHT 24
 
 enum STATE
 {

@@ -5,6 +5,7 @@
 #include "mecro.h"
 #include <math.h>
 #include <iostream>
+#include <fstream>
 
 GameFrameWork::GameFrameWork()
 {
@@ -37,9 +38,9 @@ void GameFrameWork::Init(HWND hWnd, HDC hdc)
 
 	int x = 0;
 	int y = 0;
-	for (int i = 0; i < 24; i++)
+	for (int i = 0; i < MAP_HIGHT; i++)
 	{
-		for (int j = 0; j < 32; j++)
+		for (int j = 0; j < MAP_WIDTH; j++)
 		{
 			m_pObject[j][i] = new Object();
 
@@ -110,9 +111,9 @@ void GameFrameWork::Init(HWND hWnd, HDC hdc)
 
 void GameFrameWork::Release()
 {
-	for (int i = 0; i < 24; i++)
+	for (int i = 0; i < MAP_HIGHT; i++)
 	{
-		for (int j = 0; j < 32; j++)
+		for (int j = 0; j < MAP_WIDTH; j++)
 		{
 			delete m_pObject[j][i];
 		}
@@ -172,51 +173,35 @@ void GameFrameWork::CollisionCheck()
 	RECT rcTemp;
 	RECT rcPlayer = { Player_x,Player_y,Player_x + 24,Player_y + 24 };
 
-	for (int i = 0; i < 24; i++)
+	for (int i = 0; i < MAP_HIGHT; i++)
 	{
-		for (int j = 0; j < 32; j++)
+		for (int j = 0; j < MAP_WIDTH; j++)
 		{
 			if (IntersectRect(&rcTemp, &rcPlayer, &m_pObject[i][j]->GetObjectRect()))
 			{
+				SetRect(&rcTemp, 0, 0, rcTemp.right - rcTemp.left, rcTemp.bottom - rcTemp.top);
+
 				if (m_pObject[i][j]->GetObjectID() == RES_TYPE_BLOCK::BLOCK_05 || m_pObject[i][j]->GetObjectID() == RES_TYPE_BLOCK::BLOCK_06 || m_pObject[i][j]->GetObjectID() == RES_TYPE_BLOCK::BLOCK_15)
 				{
 					
 				}
 				else
 				{
-					int nw = rcTemp.right;
-					int nh = rcTemp.top;
-
-					//위아래체크
-					if (nw > nh)
+					//위 아래 충돌
+					if (rcTemp.right > rcTemp.bottom)
 					{
-						//위
-						if (rcTemp.top == rcPlayer.top)
-						{
-							std::cout << "위 충돌" << endl;
-							
-						}
-						//아래
-						else if (rcTemp.bottom == rcPlayer.bottom)
-						{
-							std::cout << "아래 충돌" << endl;
-							
-						}
+						if ((rcPlayer.bottom + rcPlayer.top) / 2 < (m_pObject[i][j]->GetObjectRect().bottom + m_pObject[i][j]->GetObjectRect().top) / 2)
+							Player_y -= rcTemp.bottom;
+						else
+							Player_y += rcTemp.bottom;
 					}
+					//오른쪽 왼쪽 충돌
 					else
 					{
-						//좌
-						if (rcTemp.left == rcPlayer.left)
-						{
-							std::cout << "왼쪽 충돌" << endl;
-							
-						}
-						//우
-						else if (rcTemp.right == rcPlayer.right)
-						{
-							std::cout << "오른쪽 충돌" << endl;
-							
-						}
+						if ((rcPlayer.right + rcPlayer.left) / 2 < (m_pObject[i][j]->GetObjectRect().right + m_pObject[i][j]->GetObjectRect().left) / 2)
+							Player_x -= rcTemp.right;
+						else
+							Player_x += rcTemp.right;
 					}
 				}
 			}
@@ -230,7 +215,7 @@ void GameFrameWork::OperateInput() //플레이어 조종
 		m_pPlayer->Init(m_pResManager->GetBitMap("RES\\tank_left_00.bmp"), Player_x, Player_y, 25, 25);
 		if (Player_x > 0)
 		{
-			Player_x -= 300 * m_fElapseTime;
+			Player_x -= 100 * m_fElapseTime;
 		}
 	}
 	if (GetKeyState(VK_RIGHT) & 0x8000)
@@ -238,7 +223,7 @@ void GameFrameWork::OperateInput() //플레이어 조종
 		m_pPlayer->Init(m_pResManager->GetBitMap("RES\\tank_right_00.bmp"), Player_x, Player_y, 25, 25);
 		if (Player_x < 500)
 		{
-			Player_x += 300 * m_fElapseTime;
+			Player_x += 100 * m_fElapseTime;
 		}
 	}
 	if (GetKeyState(VK_UP) & 0x8000)
@@ -246,7 +231,7 @@ void GameFrameWork::OperateInput() //플레이어 조종
 		m_pPlayer->Init(m_pResManager->GetBitMap("RES\\tank_up_00.bmp"), Player_x, Player_y, 25, 25);
 		if (Player_y > 0)
 		{
-			Player_y -= 300 * m_fElapseTime;
+			Player_y -= 100 * m_fElapseTime;
 		}
 	}
 	if (GetKeyState(VK_DOWN) & 0x8000)
@@ -254,7 +239,7 @@ void GameFrameWork::OperateInput() //플레이어 조종
 		m_pPlayer->Init(m_pResManager->GetBitMap("RES\\tank_down_00.bmp"), Player_x, Player_y, 25, 25);
 		if (Player_y < 375)
 		{
-			Player_y += 300 * m_fElapseTime;
+			Player_y += 100 * m_fElapseTime;
 		}
 	}
 

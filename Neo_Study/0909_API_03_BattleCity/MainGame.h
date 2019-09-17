@@ -14,6 +14,7 @@ private:
 	static MainGame*		m_sThis;
 	ResManager*				m_pResManager;
 	EditorObject*			m_pSelectObject;
+	EditorObject*			m_pUndoObject;
 	EditorObject*           m_pObject[32][24];
 	vector<EditorObject*>	m_vecFixedObject;
 	vector<EditorObject*>	m_vecBlockReDoContainer;
@@ -43,7 +44,7 @@ public:
 	void SaveFile(HWND hWnd);
 	void Redo(EditorObject* iter);
 	void Undo(EditorObject* iter);
-	void ChangeObject(EditorObject* obj, EditorObject* iter);
+	void ChangeObject(EditorObject* obj, EditorObject* iter,int num);
 	void RadioCommand(HWND hWnd,WPARAM wParam);
 	void Release();
 

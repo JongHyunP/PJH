@@ -34,7 +34,7 @@ void ResManager::Init(HDC hdc)
 	InitBackBuffer(hdc);
 	BitMap* pNewBit;
 
-	string storagePathETC[RES_TYPE_ETC_END] = { "RES\\BlackBack.bmp","RES\\GrayBack.bmp","RES\\missile_00.bmp","RES\\player_icon.bmp","RES\\enemy_icon.bmp","RES\\stage_icon.bmp" };
+	string storagePathETC[RES_TYPE_ETC_END] = { "RES\\missile_00.bmp","RES\\player_icon.bmp","RES\\enemy_icon.bmp","RES\\stage_icon.bmp" };
 
 	for (int i = 0; i < RES_TYPE_ETC_END; i++)
 	{
@@ -61,7 +61,7 @@ void ResManager::Init(HDC hdc)
 		m_mapBitMap.insert(make_pair(storagePathEnemy[i], pNewBit));
 	}
 
-	string storagePathBlock[RES_TYPE_BLOCK_END] = { "RES\\block00.bmp","RES\\block01.bmp","RES\\block02.bmp","RES\\block03.bmp" ,"RES\\block04.bmp" ,"RES\\block05.bmp" ,"RES\\block06.bmp" ,"RES\\block07.bmp" ,"RES\\block08.bmp" ,"RES\\block09.bmp","RES\\block10.bmp","RES\\block11.bmp" ,"RES\\block12.bmp" ,"RES\\block13.bmp","RES\\block14.bmp" };
+	string storagePathBlock[RES_TYPE_BLOCK_END] = { "RES\\block00.bmp","RES\\block01.bmp","RES\\block02.bmp","RES\\block03.bmp" ,"RES\\block04.bmp" ,"RES\\block05.bmp" ,"RES\\block06.bmp" ,"RES\\block07.bmp" ,"RES\\block08.bmp" ,"RES\\block09.bmp","RES\\block10.bmp","RES\\block11.bmp" ,"RES\\block12.bmp" ,"RES\\block13.bmp","RES\\block14.bmp","RES\\BlackBack.bmp","RES\\GrayBack.bmp" };
 
 	for (int i = 0; i < RES_TYPE_BLOCK_END; i++)
 	{
