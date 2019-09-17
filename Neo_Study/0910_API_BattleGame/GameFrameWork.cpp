@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "mecro.h"
 #include <math.h>
-#include <stdio.h>
+#include <iostream>
 
 GameFrameWork::GameFrameWork()
 {
@@ -47,51 +47,57 @@ void GameFrameWork::Init(HWND hWnd, HDC hdc)
 			{
 				if (i == 15 && j == 10)
 				{
-					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block13.bmp"), x, y, 25, 25,BLOCK_13);
+					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block13.bmp"), x, y, 25, 25, RES_TYPE_BLOCK::BLOCK_13);
 					x += 25;
 					m_vecFixedObject.push_back(m_pObject[j][i]);
 
 				}
 				else if (i == 15 && j == 9)
 				{
-					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25, BLOCK_00);
+					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25, RES_TYPE_BLOCK::BLOCK_00);
 					x += 25;
 					m_vecFixedObject.push_back(m_pObject[j][i]);
 				}
 				else if (i == 14 && j == 9)
 				{
-					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25, BLOCK_00);
+					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25, RES_TYPE_BLOCK::BLOCK_00);
 					x += 25;
 					m_vecFixedObject.push_back(m_pObject[j][i]);
 				}
 				else if (i == 14 && j == 10)
 				{
-					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25, BLOCK_00);
+					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25, RES_TYPE_BLOCK::BLOCK_00);
 					x += 25;
 					m_vecFixedObject.push_back(m_pObject[j][i]);
 				}
 				else if (i == 14 && j == 11)
 				{
-					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25, BLOCK_00);
+					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25, RES_TYPE_BLOCK::BLOCK_00);
 					x += 25;
 					m_vecFixedObject.push_back(m_pObject[j][i]);
 				}
 				else if (i == 15 && j == 11)
 				{
-					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25, BLOCK_00);
+					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 25, 25, RES_TYPE_BLOCK::BLOCK_00);
+					x += 25;
+					m_vecFixedObject.push_back(m_pObject[j][i]);
+				}
+				else if (i == 5 && j == 5)
+				{
+					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\block06.bmp"), x, y, 25, 25, RES_TYPE_BLOCK::BLOCK_06);
 					x += 25;
 					m_vecFixedObject.push_back(m_pObject[j][i]);
 				}
 				else
 				{
-					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\BlackBack.bmp"), x, y, 25, 25, BLACK_BACKGROUND);
+					m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\BlackBack.bmp"), x, y, 25, 25, RES_TYPE_BLOCK::BLOCK_15);
 					x += 25;
 					m_vecFixedObject.push_back(m_pObject[j][i]);
 				}
 			}
 			else
 			{
-				m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\GrayBack.bmp"), x, y, 25, 25, GRAY_BACKGROUND);
+				m_pObject[j][i]->Init(m_pResManager->GetBitMap("RES\\GrayBack.bmp"), x, y, 25, 25, RES_TYPE_BLOCK::BLOCK_16);
 				x += 25;
 				m_vecFixedObject.push_back(m_pObject[j][i]);
 			}
@@ -119,6 +125,21 @@ void GameFrameWork::Release()
 
 #define PI 3.141592f
 
+void GameFrameWork::Animaition()
+{
+	if (m_fElapseTime == 2)
+	{
+		m_fFrameCount = 0;
+		m_fFrame++;
+
+		if (m_fFrame >= 2)
+		{
+			m_fFrame = 0;
+		}
+	}
+	
+}
+
 void GameFrameWork::Update(HDC hdc)
 {
 
@@ -135,19 +156,71 @@ void GameFrameWork::Update(HDC hdc)
 		return;*/
 
 	m_fElapseTime = sec.count();
+	m_fFrameCount = sec.count();
+
 	m_LastTime = std::chrono::system_clock::now();
 
 	OperateInput();
-	CollisionCheck(&(m_pPlayer->GetPlayerRect()),);
+
+	CollisionCheck();
+
 	Render(hdc);
 }
-void GameFrameWork::CollisionCheck(RECT* playerRect, RECT* objRect)
+
+void GameFrameWork::CollisionCheck()
 {
 	RECT rcTemp;
+	RECT rcPlayer = { Player_x,Player_y,Player_x + 24,Player_y + 24 };
 
-	if (IntersectRect(&rcTemp,playerRect, objRect))
+	for (int i = 0; i < 24; i++)
 	{
+		for (int j = 0; j < 32; j++)
+		{
+			if (IntersectRect(&rcTemp, &rcPlayer, &m_pObject[i][j]->GetObjectRect()))
+			{
+				if (m_pObject[i][j]->GetObjectID() == RES_TYPE_BLOCK::BLOCK_05 || m_pObject[i][j]->GetObjectID() == RES_TYPE_BLOCK::BLOCK_06 || m_pObject[i][j]->GetObjectID() == RES_TYPE_BLOCK::BLOCK_15)
+				{
+					
+				}
+				else
+				{
+					int nw = rcTemp.right;
+					int nh = rcTemp.top;
 
+					//위아래체크
+					if (nw > nh)
+					{
+						//위
+						if (rcTemp.top == rcPlayer.top)
+						{
+							std::cout << "위 충돌" << endl;
+							
+						}
+						//아래
+						else if (rcTemp.bottom == rcPlayer.bottom)
+						{
+							std::cout << "아래 충돌" << endl;
+							
+						}
+					}
+					else
+					{
+						//좌
+						if (rcTemp.left == rcPlayer.left)
+						{
+							std::cout << "왼쪽 충돌" << endl;
+							
+						}
+						//우
+						else if (rcTemp.right == rcPlayer.right)
+						{
+							std::cout << "오른쪽 충돌" << endl;
+							
+						}
+					}
+				}
+			}
+		}
 	}
 }
 void GameFrameWork::OperateInput() //플레이어 조종
@@ -221,6 +294,15 @@ void GameFrameWork::Render(HDC hdc)
 
 	//플레이어 캐릭터
 	m_pPlayer->Draw(m_pResManager->GetBackBuffer(), Player_x, Player_y);
+
+	//플레이어 위에 덮는 풀
+	for (auto iter = m_vecFixedObject.begin(); iter != m_vecFixedObject.end(); iter++)
+	{
+		if ((*iter)->GetObjectID() == BLOCK_06)
+		{
+			(*iter)->Draw(m_pResManager->GetBackBuffer(), true);
+		}
+	}
 
 	//출력
 	m_pResManager->DrawScene(hdc);

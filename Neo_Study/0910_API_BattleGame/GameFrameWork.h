@@ -43,6 +43,10 @@ private:
 	//물리적
 	float		m_fVectorX;
 	float		m_fVectorY;
+
+	//애니메이션용
+	float		m_fFrameCount;
+	float		m_fFrame;
 public:
 	GameFrameWork();
 	~GameFrameWork();
@@ -51,7 +55,8 @@ public:
 	void Release();
 	void Update(HDC hdc);
 	void OperateInput();
-	void CollisionCheck(RECT* playerRect, RECT* objRect);
+	void CollisionCheck();
+	void Animaition();
 	void Render(HDC hdc);
 
 };
