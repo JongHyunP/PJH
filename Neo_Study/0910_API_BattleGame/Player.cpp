@@ -25,7 +25,7 @@ void Player::Init(BitMap * pBitMap, float posX, float posY, int cx, int cy)
 
 void Player::Draw(HDC hdc, float posX, float posY)
 {
-	m_pBitMap->Draw(hdc, posX, posY, true);
+	m_pBitMap->Draw(hdc, posX, posY,0,0,m_iCX,m_iCY, true);
 }
 
 void Player::Update()

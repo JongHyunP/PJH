@@ -9,10 +9,10 @@ private:
 	HDC m_hMemDC;
 	HBITMAP m_hBitMap;
 	HBITMAP m_hOldBitMap;
-	SIZE	m_size;
+	//SIZE	m_size;
 public:
 	void Init(HDC hdc, string strFileName);
-	void Draw(HDC hdc, int x, int y, bool bTrans);
+	void Draw(HDC hdc, int x, int y, int cx1 , int cy1 , int cx2, int cy2, bool bTrans);
 	void Release();
 
 
