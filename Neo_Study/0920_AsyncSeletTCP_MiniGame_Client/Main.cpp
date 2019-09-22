@@ -1,8 +1,10 @@
+#pragma once
 #include <WinSock2.h>
 #include <Windows.h>
-#include <map>
-#include "..\..\..\..\..\..\Administrator\source\repos\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h"
 #include "MainGame.h"
+//#include "..\..\..\..\..\..\Administrator\source\repos\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //네오플용
+#include "..\..\..\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //집용
+
 
 using namespace std;
 
@@ -114,10 +116,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	switch (iMessage)
 	{
 	case WM_CREATE:
+		SetTimer(hWnd, 1, 10, NULL);
+		hdc = GetDC(hWnd);
+		if (!GET_SINGLE(MainGame)->Init(hWnd, hdc))
+		{
+			DESTROY_SINGLE(MainGame);
+			return 0;
+		}
+		ReleaseDC(hWnd, hdc);
 		return 0;
 	case WM_SOCKET:
 		ProcessSocketMessage(hWnd, iMessage, wParam, lParam);
 		InvalidateRect(hWnd, NULL, true);
+		return 0;
+	case WM_TIMER:
+		GET_SINGLE(MainGame)->Update();
 		return 0;
 	case WM_KEYDOWN:
 		switch (wParam)
@@ -144,6 +157,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		return 0;
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
+		GET_SINGLE(MainGame)->Draw(hdc);
 		for (auto iter = g_mapPlayer.begin(); iter != g_mapPlayer.end(); iter++)
 		{
 			char szPrint[128];
@@ -153,12 +167,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		}
 		EndPaint(hWnd, &ps);
 		return 0;
+	case WM_GETMINMAXINFO:
+		((MINMAXINFO*)lParam)->ptMaxTrackSize.x = 1250; // 최대사이즈로 일단 실행됨.
+		((MINMAXINFO*)lParam)->ptMaxTrackSize.y = 1000;
+		((MINMAXINFO*)lParam)->ptMinTrackSize.x = 1250;
+		((MINMAXINFO*)lParam)->ptMinTrackSize.y = 1000;
+		return 0;
 	case WM_DESTROY:
 		for (auto iter = g_mapPlayer.begin(); iter != g_mapPlayer.end(); iter++)
 		{
 			delete iter->second;
 		}
 		g_mapPlayer.clear();
+		DESTROY_SINGLE(MainGame);
 		PostQuitMessage(0);
 		return 0;
 	}

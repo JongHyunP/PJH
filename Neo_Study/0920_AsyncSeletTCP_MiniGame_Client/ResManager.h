@@ -4,8 +4,8 @@
 #include <string>
 using namespace std;
 
-#define WIN_X 1024
-#define WIN_Y 768
+#define WIN_X 800
+#define WIN_Y 800
 #define MAX_SIZE 1024
 
 enum RES_TYPE_BOARD
@@ -44,7 +44,7 @@ public:
 	void Init(HDC hdc);
 	void InitBackBuffer(HDC hdc);
 	HDC GetBackBuffer();
-	void DrawScene(HDC hdc, int x);
+	void DrawScene(HDC hdc);
 	BitMap* GetBitMap(string strFileName);
 	void Release();
 	ResManager();
