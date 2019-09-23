@@ -10,7 +10,7 @@ ChessPawn::~ChessPawn()
 
 }
 
-bool ChessPawn::Init(BitMap* pBitMap, int x, int y, int cx, int cy)
+bool ChessPawn::Init()
 {
 	return true;
 }

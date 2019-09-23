@@ -3,8 +3,13 @@
 class ChessKing :
 	public ChessPiece
 {
+private:
+	ChessKing();
+	~ChessKing();
 public:
-	virtual bool Init(BitMap* pBitMap, int x, int y, int cx, int cy);
+	virtual bool Init();
 	virtual void Draw(HDC hdc);
+private:
+	friend class ChessPieceManager;
 };
 

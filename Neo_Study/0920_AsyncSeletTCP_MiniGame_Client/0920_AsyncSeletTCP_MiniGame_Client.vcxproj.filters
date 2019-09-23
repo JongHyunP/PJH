@@ -119,5 +119,8 @@
     <ClInclude Include="ChessRook.h">
       <Filter>05.ChessPiece</Filter>
     </ClInclude>
+    <ClInclude Include="Flags.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

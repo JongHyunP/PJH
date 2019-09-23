@@ -3,8 +3,18 @@
 class ChessBishop :
 	public ChessPiece
 {
+private:
+	ChessBishop();
+	~ChessBishop();
+private:
+	ResManager* m_pResManager;
+	BitMap* m_pBitMap;
+	int m_iX;
+	int m_iY;
 public:
-	virtual bool Init(BitMap* pBitMap, int x, int y, int cx, int cy);
+	virtual bool Init();
 	virtual void Draw(HDC hdc);
+private:
+	friend class ChessPieceManager;
 };
 

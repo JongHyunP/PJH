@@ -10,7 +10,7 @@ ChessQueen::~ChessQueen()
 
 }
 
-bool ChessQueen::Init(BitMap* pBitMap, int x, int y, int cx, int cy)
+bool ChessQueen::Init()
 {
 	return true;
 }

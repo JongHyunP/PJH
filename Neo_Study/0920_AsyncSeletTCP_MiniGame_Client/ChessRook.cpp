@@ -10,7 +10,7 @@ ChessRook::~ChessRook()
 
 }
 
-bool ChessRook::Init(BitMap* pBitMap, int x, int y, int cx, int cy)
+bool ChessRook::Init()
 {
 	return true;
 }

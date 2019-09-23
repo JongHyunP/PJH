@@ -1,11 +1,19 @@
 #pragma once
 #include "value.h"
 
+class ResManager;
+
 class ChessPieceManager
 {
-	DECLARE_SINGLE(ChessPieceManager);
+private:
+	unordered_map<string, class ChessPiece*> m_mapPiece;
 public:
+	ResManager* m_pResManager;
 	bool Init();
-	void Run();
+	ChessPiece* CreatePiece(const string& strkey, CHESSPIECE_TYPE eType);
+	ChessPiece* FindPiece(const string& strkey);
+	void Draw(HDC hdc);
+
+	DECLARE_SINGLE(ChessPieceManager);
 };
 

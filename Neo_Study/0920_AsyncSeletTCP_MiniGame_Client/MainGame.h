@@ -9,7 +9,6 @@ class MainGame
 {
 	DECLARE_SINGLE(MainGame)
 private:
-	static MainGame* m_sThis;
 	ResManager* m_pResManager;
 	BoardTile* m_pBoard[8][8];
 	vector<BoardTile*> m_vecBoardTile;

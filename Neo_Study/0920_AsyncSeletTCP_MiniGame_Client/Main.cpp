@@ -2,8 +2,8 @@
 #include <WinSock2.h>
 #include <Windows.h>
 #include "MainGame.h"
-//#include "..\..\..\..\..\..\Administrator\source\repos\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //네오플용
-#include "..\..\..\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //집용
+#include "..\..\..\..\..\..\Administrator\source\repos\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //네오플용
+//#include "..\..\..\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //집용
 
 
 using namespace std;
@@ -40,7 +40,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 	RegisterClass(&WndClass);
 
 	hWnd = CreateWindow(lpszClass, lpszClass, WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS, CW_USEDEFAULT, CW_USEDEFAULT,
-		CW_USEDEFAULT, CW_USEDEFAULT, NULL, (HMENU)NULL, hInstance, NULL);
+		CW_USEDEFAULT, CW_USEDEFAULT, NULL, (HMENU)NULL, hInstance, NULL);  // WS_CLIPCHILDREN 와 WS_CLIPSIBLINGS 덜깜빡이게 하는
 	ShowWindow(hWnd, nCmdShow);
 
 	WSADATA wsa;
@@ -93,7 +93,7 @@ public:
 	int y;
 };
 
-map<int, Playerh*> g_mapPlayer;
+unordered_map<int, Playerh*> g_mapPlayer;
 int g_iIndex = 0;
 
 void SendPos()
