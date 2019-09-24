@@ -4,7 +4,7 @@ class ChessRook :
 	public ChessPiece
 {
 private:
-	ChessRook();
+	ChessRook(); 
 	~ChessRook();
 public:
 	virtual bool Init();

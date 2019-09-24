@@ -34,6 +34,7 @@ class BitMap;
 
 class ResManager
 {
+	DECLARE_SINGLE(ResManager)
 private:
 	map<string, BitMap*>	m_mapBitMap;
 	HDC						m_hMemDC;
@@ -41,13 +42,11 @@ private:
 	HBITMAP					m_hOldBitMap;
 
 public:
-	void Init(HDC hdc);
+	bool Init(HDC hdc);
 	void InitBackBuffer(HDC hdc);
 	HDC GetBackBuffer();
 	void DrawScene(HDC hdc);
 	BitMap* GetBitMap(string strFileName);
 	void Release();
-	ResManager();
-	~ResManager();
 };
 

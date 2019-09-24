@@ -7,7 +7,6 @@ private:
 	ChessBishop();
 	~ChessBishop();
 private:
-	ResManager* m_pResManager;
 	BitMap* m_pBitMap;
 	int m_iX;
 	int m_iY;

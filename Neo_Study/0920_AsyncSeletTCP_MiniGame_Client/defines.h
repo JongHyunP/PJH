@@ -1,5 +1,4 @@
 #pragma once
-
 //메크로 기능은 반드시 한줄에 정의 되어야함.
 #define SAFE_DELETE( p ) { if( p ) { delete ( p ); ( p ) = NULL; } }
 #define SAFE_DELETE_ARRAY( p ) { if( p ) { delete[] ( p ); ( p ) = NULL; } }
@@ -32,3 +31,5 @@
 
 //싱글톤 제거 메크로
 #define	DESTROY_SINGLE(Type) Type::DestroyInst()
+
+#define GET_SINGLE_INST(Type) Type*

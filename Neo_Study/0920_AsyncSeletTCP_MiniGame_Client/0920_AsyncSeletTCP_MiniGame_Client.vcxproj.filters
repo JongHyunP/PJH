@@ -19,14 +19,14 @@
     <Filter Include="02.Resource">
       <UniqueIdentifier>{3e3b4538-3fa9-4268-aa50-ee2cb89bb711}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.Tile">
-      <UniqueIdentifier>{de4b0e1e-fad7-43c0-974d-89663fb11e3f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04.Player">
       <UniqueIdentifier>{054cde77-0b13-4512-b071-88da2ce55a51}</UniqueIdentifier>
     </Filter>
     <Filter Include="05.ChessPiece">
       <UniqueIdentifier>{266d80af-dbd7-4444-895b-fe6bf7d578e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.Background">
+      <UniqueIdentifier>{de4b0e1e-fad7-43c0-974d-89663fb11e3f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -43,7 +43,7 @@
       <Filter>02.Resource</Filter>
     </ClCompile>
     <ClCompile Include="BoardTile.cpp">
-      <Filter>03.Tile</Filter>
+      <Filter>03.Background</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>04.Player</Filter>
@@ -84,7 +84,7 @@
       <Filter>02.Resource</Filter>
     </ClInclude>
     <ClInclude Include="BoardTile.h">
-      <Filter>03.Tile</Filter>
+      <Filter>03.Background</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>04.Player</Filter>

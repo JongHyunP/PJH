@@ -13,12 +13,15 @@ MainGame::MainGame()
 MainGame::~MainGame()
 {
 	DESTROY_SINGLE(ChessPieceManager);
+	DESTROY_SINGLE(ResManager);
 }
 
 bool MainGame::Init(HWND hWnd, HDC hdc)
 {
-	m_pResManager = new ResManager();
-	m_pResManager->Init(hdc);
+	if (!GET_SINGLE(ResManager)->Init(hdc))
+	{
+		return false;
+	}
 	
 	int x = 0;
 	int y = 0;
@@ -31,19 +34,19 @@ bool MainGame::Init(HWND hWnd, HDC hdc)
 			
 			if (i % 2 == 0 && j% 2==0)
 			{
-				m_pBoard[j][i]->Init(m_pResManager->GetBitMap("RES\\block01.bmp"), x, y, 100, 100);
+				m_pBoard[j][i]->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block01.bmp"), x, y, 100, 100);
 				x += 100;
 				m_vecBoardTile.push_back(m_pBoard[j][i]);
 			}
 			else if (i % 2 == 1 && j% 2 ==1)
 			{
-				m_pBoard[j][i]->Init(m_pResManager->GetBitMap("RES\\block01.bmp"), x, y, 100, 100);
+				m_pBoard[j][i]->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block01.bmp"), x, y, 100, 100);
 				x += 100;
 				m_vecBoardTile.push_back(m_pBoard[j][i]);
 			}
 			else
 			{
-				m_pBoard[j][i]->Init(m_pResManager->GetBitMap("RES\\block00.bmp"), x, y, 100, 100);
+				m_pBoard[j][i]->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block00.bmp"), x, y, 100, 100);
 				x += 100;
 				m_vecBoardTile.push_back(m_pBoard[j][i]);
 			}
@@ -53,7 +56,7 @@ bool MainGame::Init(HWND hWnd, HDC hdc)
 	}
 
 	// 체스말 관리자 초기화.
-	if (!GET_SINGLE(ChessPieceManager)->Init())
+	if (!GET_SINGLE(ChessPieceManager)->Init(hdc))
 	{
 		return false;
 	}
@@ -66,10 +69,12 @@ void MainGame::Draw(HDC hdc)
 {
 	for (auto iter = m_vecBoardTile.begin(); iter != m_vecBoardTile.end(); iter++)
 	{
-		(*iter)->Draw(m_pResManager->GetBackBuffer());
+		(*iter)->Draw(GET_SINGLE(ResManager)->GetBackBuffer());
 	}
+
 	GET_SINGLE(ChessPieceManager)->Draw(hdc);
-	m_pResManager->DrawScene(hdc);
+
+	GET_SINGLE(ResManager)->DrawScene(hdc);
 }
 
 void MainGame::Update()

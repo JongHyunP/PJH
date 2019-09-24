@@ -23,21 +23,22 @@ ChessPieceManager::~ChessPieceManager()
 
 bool ChessPieceManager::Init()
 {
-	m_pResManager = new ResManager;
-	//富 积己
-	ChessPiece* pKing = CreatePiece("King", CT_KING);
-	ChessPiece* pQueen = CreatePiece("Queen", CT_QUEEN);
-	ChessPiece* pBishop = CreatePiece("Bishop", CT_BISHOP);
-	ChessPiece* pKnight = CreatePiece("Knight", CT_KNIGHT);
-	ChessPiece* pRook = CreatePiece("Rook", CT_ROOK);
-	ChessPiece* pPawn = CreatePiece("Pawn", CT_PAWN);
 
+	//富 积己 -喉发
+	ChessPiece* pKing = CreatePiece("KingB", CT_KING);
+	ChessPiece* pQueen = CreatePiece("QueenB", CT_QUEEN);
+	ChessPiece* pBishop = CreatePiece("BishopB", CT_BISHOP);
+	ChessPiece* pKnight = CreatePiece("KnightB", CT_KNIGHT);
+	ChessPiece* pRook = CreatePiece("RookB", CT_ROOK);
+	ChessPiece* pPawn = CreatePiece("PawnB", CT_PAWN);
+	
 	return true;
 }
 
 ChessPiece * ChessPieceManager::CreatePiece(const string& strkey, CHESSPIECE_TYPE eType)
 {
 	ChessPiece* pPiece = nullptr;
+
 	switch (eType)
 	{
 	case CT_KING:
@@ -88,14 +89,6 @@ void ChessPieceManager::Draw(HDC hdc)
 {
 	for (auto iter = m_mapPiece.begin(); iter != m_mapPiece.end(); ++iter)
 	{
-		switch (iter->second->GetColorType())
-		{
-		case BLACK_PIECE:
-			iter->second->Draw(m_pResManager->GetBackBuffer());
-			break;
-		case WHITE_PIECE:
-			iter->second->Draw(m_pResManager->GetBackBuffer());
-			break;
-		}
+		iter->second->Draw(hdc);
 	}
 }

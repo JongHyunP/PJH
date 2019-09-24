@@ -2,6 +2,8 @@
 #include "ResManager.h"
 #include "BitMap.h"
 
+DEFINITION_SINGLE(ResManager)
+
 ResManager::ResManager()
 {
 
@@ -30,7 +32,7 @@ void ResManager::DrawScene(HDC hdc) //화면 마지막에 그려주는애
 }
 
 
-void ResManager::Init(HDC hdc)
+bool ResManager::Init(HDC hdc)
 {
 	InitBackBuffer(hdc);
 
@@ -46,6 +48,8 @@ void ResManager::Init(HDC hdc)
 		pNewBit->Init(hdc, storagePathBoard[i]);
 		m_mapBitMap.insert(make_pair(storagePathBoard[i], pNewBit));
 	}
+	
+	return true;
 }
 
 BitMap* ResManager::GetBitMap(string strFileName)
