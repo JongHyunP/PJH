@@ -31,5 +31,3 @@
 
 //ΩÃ±€≈Ê ¡¶∞≈ ∏ﬁ≈©∑Œ
 #define	DESTROY_SINGLE(Type) Type::DestroyInst()
-
-#define GET_SINGLE_INST(Type) Type*

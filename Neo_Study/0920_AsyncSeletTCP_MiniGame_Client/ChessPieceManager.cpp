@@ -23,15 +23,17 @@ ChessPieceManager::~ChessPieceManager()
 
 bool ChessPieceManager::Init()
 {
-
 	//富 积己 -喉发
-	ChessPiece* pKing = CreatePiece("KingB", CT_KING);
+	ChessPiece* pKingB = CreatePiece("KingB", CT_KING);
 	ChessPiece* pQueen = CreatePiece("QueenB", CT_QUEEN);
 	ChessPiece* pBishop = CreatePiece("BishopB", CT_BISHOP);
 	ChessPiece* pKnight = CreatePiece("KnightB", CT_KNIGHT);
 	ChessPiece* pRook = CreatePiece("RookB", CT_ROOK);
 	ChessPiece* pPawn = CreatePiece("PawnB", CT_PAWN);
 	
+
+	ChessPiece* pKingW = CreatePiece("KingW", CT_KING);
+
 	return true;
 }
 

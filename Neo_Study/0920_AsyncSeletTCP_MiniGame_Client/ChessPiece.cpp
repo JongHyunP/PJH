@@ -1,4 +1,5 @@
 #include "ChessPiece.h"
+#include "ResManager.h"
 
 ChessPiece::ChessPiece()
 {
@@ -6,9 +7,7 @@ ChessPiece::ChessPiece()
 
 ChessPiece::ChessPiece(const ChessPiece & chessPiece)
 {
-	m_strName = chessPiece.m_strName;
-	m_ePieceType = chessPiece.m_ePieceType;
-	m_eColorType = chessPiece.m_eColorType;
+
 }
 
 ChessPiece::~ChessPiece()
@@ -16,12 +15,8 @@ ChessPiece::~ChessPiece()
 
 }
 
-CHESSPIECE_TYPE ChessPiece::GetPieceType() const
+void ChessPiece::SetPieceInfo(CHESSPIECE_TYPE eChessType, PIECE_COLOR_TYPE ePieceColorType)
 {
-	return m_ePieceType;
-}
-
-COLOR_TYPE ChessPiece::GetColorType() const
-{
-	return m_eColorType;
+	m_tInfo.eChessType = eChessType;
+	m_tInfo.ePieceColorType = ePieceColorType;
 }

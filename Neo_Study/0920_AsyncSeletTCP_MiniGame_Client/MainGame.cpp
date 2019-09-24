@@ -34,19 +34,19 @@ bool MainGame::Init(HWND hWnd, HDC hdc)
 			
 			if (i % 2 == 0 && j% 2==0)
 			{
-				m_pBoard[j][i]->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block01.bmp"), x, y, 100, 100);
+				m_pBoard[j][i]->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block01.bmp"), x, y);
 				x += 100;
 				m_vecBoardTile.push_back(m_pBoard[j][i]);
 			}
 			else if (i % 2 == 1 && j% 2 ==1)
 			{
-				m_pBoard[j][i]->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block01.bmp"), x, y, 100, 100);
+				m_pBoard[j][i]->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block01.bmp"), x, y);
 				x += 100;
 				m_vecBoardTile.push_back(m_pBoard[j][i]);
 			}
 			else
 			{
-				m_pBoard[j][i]->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block00.bmp"), x, y, 100, 100);
+				m_pBoard[j][i]->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block00.bmp"), x, y);
 				x += 100;
 				m_vecBoardTile.push_back(m_pBoard[j][i]);
 			}
@@ -56,7 +56,7 @@ bool MainGame::Init(HWND hWnd, HDC hdc)
 	}
 
 	// 체스말 관리자 초기화.
-	if (!GET_SINGLE(ChessPieceManager)->Init(hdc))
+	if (!GET_SINGLE(ChessPieceManager)->Init())
 	{
 		return false;
 	}
