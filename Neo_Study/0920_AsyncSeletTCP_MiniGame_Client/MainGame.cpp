@@ -81,3 +81,8 @@ void MainGame::Update()
 {
 
 }
+
+void MainGame::Input(POINT pt)
+{
+
+}

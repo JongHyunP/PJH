@@ -23,32 +23,84 @@ ChessPieceManager::~ChessPieceManager()
 
 bool ChessPieceManager::Init(HDC hdc)
 {
-	//말 생성 - 블랙
-	ChessPiece* pKingB = CreatePiece("KingB", CT_KING, PIECE_COLOR_BLACK,400,0);
-	ChessPiece* pQueenB = CreatePiece("QueenB", CT_QUEEN, PIECE_COLOR_BLACK,300,0);
-	ChessPiece* pBishopB = CreatePiece("BishopB", CT_BISHOP, PIECE_COLOR_BLACK,200,0);
-	ChessPiece* pKnightB = CreatePiece("KnightB", CT_KNIGHT, PIECE_COLOR_BLACK,100,0);
-	ChessPiece* pKnightB2 = CreatePiece("KnightB2", CT_KNIGHT, PIECE_COLOR_BLACK, 600, 0);
-	ChessPiece* pRookB = CreatePiece("RookB", CT_ROOK, PIECE_COLOR_BLACK,0,0);
-	ChessPiece* pRookB2 = CreatePiece("RookB2", CT_ROOK, PIECE_COLOR_BLACK, 700, 0);
-
-	//짱난다 걍 노가다 ㄱ
 	for (int i = 0; i < 8; i++)
 	{
-		ChessPiece* pPawnB = CreatePiece(("PawnB"+i), CT_PAWN, PIECE_COLOR_BLACK, i * 100,100);
+		for (int j = 0; j < 8; j++)
+		{
+			m_ChessArray[j][i] = NULL;
+		}
+	}
+
+	//말 생성 - 블랙
+	ChessPiece* pKingB = CreatePiece("KingB", CT_KING, PIECE_COLOR_BLACK,400,0);
+	m_ChessArray[4][0] = pKingB;
+	ChessPiece* pQueenB = CreatePiece("QueenB", CT_QUEEN, PIECE_COLOR_BLACK,300,0);
+	m_ChessArray[3][0] = pQueenB;
+	ChessPiece* pBishopB = CreatePiece("BishopB0", CT_BISHOP, PIECE_COLOR_BLACK,200,0);
+	m_ChessArray[2][0] = pBishopB;
+	ChessPiece* pBishopB2 = CreatePiece("BishopB1", CT_BISHOP, PIECE_COLOR_BLACK, 500, 0);
+	m_ChessArray[5][0] = pBishopB2;
+	ChessPiece* pKnightB = CreatePiece("KnightB0", CT_KNIGHT, PIECE_COLOR_BLACK,100,0);
+	m_ChessArray[1][0] = pKnightB;
+	ChessPiece* pKnightB2 = CreatePiece("KnightB1", CT_KNIGHT, PIECE_COLOR_BLACK, 600, 0);
+	m_ChessArray[6][0] = pKnightB2;
+	ChessPiece* pRookB = CreatePiece("RookB0", CT_ROOK, PIECE_COLOR_BLACK,0,0);
+	m_ChessArray[0][0] = pRookB;
+	ChessPiece* pRookB2 = CreatePiece("RookB1", CT_ROOK, PIECE_COLOR_BLACK, 700, 0);
+	m_ChessArray[7][0] = pRookB2;
+
+	for (int i = 0; i < 8; i++)
+	{
+		stringstream intTostring; // int 형변환용
+		intTostring << i;
+		ChessPiece* pPawnB = CreatePiece(("PawnB"+ intTostring.str()), CT_PAWN, PIECE_COLOR_BLACK, i * 100,100);
+		m_ChessArray[i][1] = pPawnB;
 	}
 	
 	//말 생성 - 화이트
 	ChessPiece* pKingW = CreatePiece("KingW", CT_KING, PIECE_COLOR_WHITE,400,700);
+	m_ChessArray[4][7] = pKingW;
 	ChessPiece* pQueenW = CreatePiece("QueenW", CT_QUEEN, PIECE_COLOR_WHITE,300,700);
-	ChessPiece* pBishopW = CreatePiece("BishopW", CT_BISHOP, PIECE_COLOR_WHITE,200,700);
-	ChessPiece* pKnightW = CreatePiece("KnightW", CT_KNIGHT, PIECE_COLOR_WHITE,100,700);
-	ChessPiece* pRookW = CreatePiece("RookW", CT_ROOK, PIECE_COLOR_WHITE,0,700);
+	m_ChessArray[3][7] = pQueenW;
+	ChessPiece* pBishopW = CreatePiece("BishopW0", CT_BISHOP, PIECE_COLOR_WHITE,200,700);
+	m_ChessArray[2][7] = pBishopW;
+	ChessPiece* pBishopW2 = CreatePiece("BishopW1", CT_BISHOP, PIECE_COLOR_WHITE, 500, 700);
+	m_ChessArray[5][7] = pBishopW2;
+	ChessPiece* pKnightW = CreatePiece("KnightW0", CT_KNIGHT, PIECE_COLOR_WHITE,100,700);
+	m_ChessArray[1][7] = pKnightW;
+	ChessPiece* pKnightW2 = CreatePiece("KnightW1", CT_KNIGHT, PIECE_COLOR_WHITE, 600, 700);
+	m_ChessArray[6][7] = pKnightW2;
+	ChessPiece* pRookW = CreatePiece("RookW0", CT_ROOK, PIECE_COLOR_WHITE,0,700);
+	m_ChessArray[0][7] = pRookW;
+	ChessPiece* pRookW2 = CreatePiece("RookW1", CT_ROOK, PIECE_COLOR_WHITE, 700, 700);
+	m_ChessArray[7][7] = pRookW2;
 
 	for (int i = 0; i < 8; i++)
 	{
-		ChessPiece* pPawnW = CreatePiece(("PawnW"+i), CT_PAWN, PIECE_COLOR_WHITE, i * 100, 600);
+		stringstream intTostring; // int 형변환용
+		intTostring << i;
+		ChessPiece* pPawnW = CreatePiece(("PawnW"+ intTostring.str()), CT_PAWN, PIECE_COLOR_WHITE, i * 100, 600);
+		m_ChessArray[i][6] = pPawnW;
 	}
+
+	//테스트용
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			if (m_ChessArray[j][i] == NULL) 
+			{
+				cout << "0 ";
+			}
+			else
+			{
+				cout << "1 ";
+			}
+		}
+		cout << endl;
+	}
+
+
 
 	return true;
 }

@@ -6,6 +6,7 @@
 #include <list>
 #include <unordered_map> //해쉬 기반 탐색이라 일반 맵보다 빠름
 #include <string>
+#include <sstream>
 
 using namespace std;
 
