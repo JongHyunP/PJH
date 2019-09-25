@@ -14,23 +14,16 @@ ChessPawn::~ChessPawn()
 
 }
 
-bool ChessPawn::Init()
+bool ChessPawn::Init(BitMap* pBitMap, int iPosX, int iPosY)
 {
+	m_pBitMap = pBitMap;
+	m_iX = iPosX;
+	m_iY = iPosY;
+
 	return true;
 }
 
 void ChessPawn::Draw(HDC hdc)
 {
-}
-
-ChessPawn* ChessPawn::Clone()
-{
-	return new ChessPawn(*this);
-}
-
-void ChessPawn::SetPawnInfo(BitMap* pBitMap, int x, int y)
-{
-	m_pBitMap = pBitMap;
-	m_iX = x;
-	m_iY = y;
+	m_pBitMap->Draw(hdc, m_iX, m_iY, true);
 }

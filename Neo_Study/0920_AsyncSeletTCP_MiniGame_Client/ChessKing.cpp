@@ -14,24 +14,20 @@ ChessKing::~ChessKing()
 
 }
 
-bool ChessKing::Init()
+bool ChessKing::Init(BitMap* pBitMap, int iPosX, int iPosY)
 {
+	m_pBitMap = pBitMap;
+	m_iX = iPosX;
+	m_iY = iPosY;
 	return true;
 }
 
 void ChessKing::Draw(HDC hdc)
 {
-
+	m_pBitMap->Draw(hdc, m_iX, m_iY, true);
 }
 
-ChessKing* ChessKing::Clone()
-{
-	return new ChessKing(*this);
-}
-
-void ChessKing::SetKingInfo(BitMap* pBitMap, int x, int y)
-{
-	m_pBitMap = pBitMap;
-	m_iX = x;
-	m_iY = y;
-}
+//ChessKing* ChessKing::Clone()
+//{
+//	return new ChessKing(*this);
+//}

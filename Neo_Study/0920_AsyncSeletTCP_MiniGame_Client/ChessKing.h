@@ -16,11 +16,9 @@ private:
 	int m_iY;
 
 public:
-	virtual bool Init();
+	virtual bool Init(BitMap* pBitMap, int iPosX, int iPosY);
 	virtual void Draw(HDC hdc);
-	virtual	ChessKing* Clone();
-public:
-	void SetKingInfo(BitMap* pBitMap, int x, int y);
+
 private:
 	friend class ChessPieceManager;
 };

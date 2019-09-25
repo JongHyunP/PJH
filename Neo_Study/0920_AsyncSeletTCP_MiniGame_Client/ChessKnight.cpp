@@ -16,23 +16,15 @@ ChessKnight::~ChessKnight()
 
 }
 
-bool ChessKnight::Init()
+bool ChessKnight::Init(BitMap* pBitMap, int iPosX, int iPosY)
 {
+	m_pBitMap = pBitMap;
+	m_iX = iPosX;
+	m_iY = iPosY;
 	return true;
 }
 
 void ChessKnight::Draw(HDC hdc)
 {
-}
-
-ChessKnight* ChessKnight::Clone()
-{
-	return new ChessKnight(*this);
-}
-
-void ChessKnight::SetKnightInfo(BitMap* pBitMap, int x, int y)
-{
-	m_pBitMap = pBitMap;
-	m_iX = x;
-	m_iY = y;
+	m_pBitMap->Draw(hdc, m_iX, m_iY, true);
 }

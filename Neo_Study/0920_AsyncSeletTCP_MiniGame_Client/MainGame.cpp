@@ -56,7 +56,7 @@ bool MainGame::Init(HWND hWnd, HDC hdc)
 	}
 
 	// 체스말 관리자 초기화.
-	if (!GET_SINGLE(ChessPieceManager)->Init())
+	if (!GET_SINGLE(ChessPieceManager)->Init(hdc))
 	{
 		return false;
 	}
@@ -72,7 +72,7 @@ void MainGame::Draw(HDC hdc)
 		(*iter)->Draw(GET_SINGLE(ResManager)->GetBackBuffer());
 	}
 
-	GET_SINGLE(ChessPieceManager)->Draw(hdc);
+	GET_SINGLE(ChessPieceManager)->Draw(GET_SINGLE(ResManager)->GetBackBuffer());
 
 	GET_SINGLE(ResManager)->DrawScene(hdc);
 }

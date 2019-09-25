@@ -14,23 +14,16 @@ ChessRook::~ChessRook()
 
 }
 
-bool ChessRook::Init()
+bool ChessRook::Init(BitMap* pBitMap, int iPosX, int iPosY)
 {
+	m_pBitMap = pBitMap;
+	m_iX = iPosX;
+	m_iY = iPosY;
+
 	return true;
 }
 
 void ChessRook::Draw(HDC hdc)
 {
-}
-
-ChessRook* ChessRook::Clone()
-{
-	return new ChessRook(*this);
-}
-
-void ChessRook::SetRookInfo(BitMap* pBitMap, int x, int y)
-{
-	m_pBitMap = pBitMap;
-	m_iX = x;
-	m_iY = y;
+	m_pBitMap->Draw(hdc, m_iX, m_iY, true);
 }

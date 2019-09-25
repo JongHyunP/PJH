@@ -13,24 +13,17 @@ ChessBishop::~ChessBishop()
 {
 }
 
-bool ChessBishop::Init()
+bool ChessBishop::Init(BitMap* pBitMap, int iPosX, int iPosY)
 {
+	m_pBitMap = pBitMap;
+	m_iX = iPosX;
+	m_iY = iPosY;
+
 	return true;
 }
 
 void ChessBishop::Draw(HDC hdc)
 {
-	//m_pBitMap->Draw(hdc, m_iX, m_iY, false);
+	m_pBitMap->Draw(hdc, m_iX, m_iY, true);
 }
 
-ChessBishop* ChessBishop::Clone()
-{
-	return new ChessBishop(*this);
-}
-
-void ChessBishop::SetBishopInfo(BitMap* pBitMap, int x, int y)
-{
-	m_pBitMap = pBitMap;
-	m_iX = x;
-	m_iY = y;
-}

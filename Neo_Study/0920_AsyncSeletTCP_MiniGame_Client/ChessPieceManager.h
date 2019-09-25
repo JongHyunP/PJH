@@ -10,8 +10,8 @@ class ChessPieceManager
 private:
 	unordered_map<string, ChessPiece*> m_mapPiece;
 public:
-	bool Init();
-	ChessPiece* CreatePiece(const string& strkey, CHESSPIECE_TYPE eType);
+	bool Init(HDC hdc);
+	ChessPiece* CreatePiece(const string& strkey, CHESSPIECE_TYPE ePieceType, PIECE_COLOR_TYPE eColorType, int x, int y);
 	ChessPiece* FindPiece(const string& strkey);
 	void Draw(HDC hdc);
 };

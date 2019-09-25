@@ -14,14 +14,11 @@ private:
 	BitMap* m_pBitMap;
 	int m_iX;
 	int m_iY;
-
+	
 public:
-	virtual bool Init();
+	virtual bool Init(BitMap* pBitMap, int iPosX, int iPosY);
 	virtual void Draw(HDC hdc);
-	virtual	ChessKnight* Clone();
-
-public:
-	void SetKnightInfo(BitMap* pBitMap, int x, int y);
+	//virtual	ChessKnight* Clone();
 
 private:
 	friend class ChessPieceManager;

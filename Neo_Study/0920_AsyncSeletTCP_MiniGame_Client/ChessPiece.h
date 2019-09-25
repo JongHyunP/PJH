@@ -1,6 +1,8 @@
 #pragma once
 #include "value.h"
 
+class BitMap;
+
 class ChessPiece
 {
 protected:
@@ -10,15 +12,11 @@ public:
 	virtual ~ChessPiece();
 
 public:
-	virtual bool Init() = 0;
+	virtual bool Init(BitMap* pBitMap,int iPosX, int iPosY) = 0;
 	virtual void Draw(HDC hdc) = 0;
-	virtual	ChessPiece* Clone() = 0;
 
 protected:
 	PIECEINFO m_tInfo;
-
-public:
-	void SetPieceInfo(CHESSPIECE_TYPE eChessType, PIECE_COLOR_TYPE ePieceColorType);
 
 public:
 	PIECEINFO GetPieceInfo() const
