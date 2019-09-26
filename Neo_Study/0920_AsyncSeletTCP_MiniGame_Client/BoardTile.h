@@ -12,6 +12,7 @@ private:
 public:
 	void Init(BitMap* pBitMap, int x, int y);
 	void Draw(HDC hdc);
+	void ChangeBitMap(BitMap* pBitMap);
 	BoardTile();
 	~BoardTile();
 };

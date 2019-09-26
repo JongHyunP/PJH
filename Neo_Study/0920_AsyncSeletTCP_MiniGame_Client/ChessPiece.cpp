@@ -14,3 +14,8 @@ ChessPiece::~ChessPiece()
 {
 
 }
+
+bool ChessPiece::Input(POINT pt)
+{
+	return false;
+}

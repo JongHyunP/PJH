@@ -23,3 +23,8 @@ void BoardTile::Draw(HDC hdc)
 {
 	m_pBitMap->Draw(hdc, m_iX , m_iY, false);
 }
+
+void BoardTile::ChangeBitMap(BitMap * pBitMap)
+{
+	m_pBitMap = pBitMap;
+}

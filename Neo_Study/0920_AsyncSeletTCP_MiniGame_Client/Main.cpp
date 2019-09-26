@@ -2,8 +2,8 @@
 #include <WinSock2.h>
 #include <Windows.h>
 #include "MainGame.h"
-//#include "..\..\..\..\..\..\Administrator\source\repos\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //네오플용
-#include "..\..\..\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //집용
+#include "..\..\..\..\..\..\Administrator\source\repos\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //네오플용
+//#include "..\..\..\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //집용
 
 //콘솔창 띄우기
 #ifdef UNICODE
@@ -117,6 +117,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
 	HDC hdc;
 	PAINTSTRUCT ps;
+	POINT pt;
 
 	switch (iMessage)
 	{
@@ -136,6 +137,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		return 0;
 	case WM_TIMER:
 		GET_SINGLE(MainGame)->Update();
+		return 0;
+	case WM_LBUTTONDOWN:
+		pt.x = LOWORD(lParam);
+		pt.y = HIWORD(lParam);
+		GET_SINGLE(MainGame)->Input(pt);
 		return 0;
 	case WM_KEYDOWN:
 		switch (wParam)

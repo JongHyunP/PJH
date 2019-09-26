@@ -6,6 +6,7 @@
 #include "ChessQueen.h"
 #include "ChessRook.h"
 #include "ResManager.h"
+#include "BoardTile.h"
 
 DEFINITION_SINGLE(ChessPieceManager);
 
@@ -21,8 +22,10 @@ ChessPieceManager::~ChessPieceManager()
 
 //실제로 객체에 대한 생성을 해줘야함.
 
-bool ChessPieceManager::Init(HDC hdc)
+bool ChessPieceManager::Init(HWND hWnd, HDC hdc)
 {
+	m_eState = GAME_STATE_WAIT;
+	m_hWnd = hWnd;
 	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 8; j++)
@@ -30,6 +33,9 @@ bool ChessPieceManager::Init(HDC hdc)
 			m_ChessArray[j][i] = NULL;
 		}
 	}
+
+	//보드판 초기화
+	ChessBoardInit();
 
 	//말 생성 - 블랙
 	ChessPiece* pKingB = CreatePiece("KingB", CT_KING, PIECE_COLOR_BLACK,400,0);
@@ -83,25 +89,6 @@ bool ChessPieceManager::Init(HDC hdc)
 		m_ChessArray[i][6] = pPawnW;
 	}
 
-	//테스트용
-	for (int i = 0; i < 8; i++)
-	{
-		for (int j = 0; j < 8; j++)
-		{
-			if (m_ChessArray[j][i] == NULL) 
-			{
-				cout << "0 ";
-			}
-			else
-			{
-				cout << "1 ";
-			}
-		}
-		cout << endl;
-	}
-
-
-
 	return true;
 }
 
@@ -115,7 +102,7 @@ ChessPiece * ChessPieceManager::CreatePiece(const string& strkey, CHESSPIECE_TYP
 		pPiece = new ChessKing;
 		if (eColorType == PIECE_COLOR_BLACK)
 		{
-			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_b_05.bmp"),x ,y ))
+			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_b_05.bmp"),x ,y , PIECE_COLOR_BLACK))
 			{
 				SAFE_DELETE(pPiece);
 				return NULL;
@@ -123,7 +110,7 @@ ChessPiece * ChessPieceManager::CreatePiece(const string& strkey, CHESSPIECE_TYP
 		}
 		else if (eColorType == PIECE_COLOR_WHITE)
 		{
-			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_w_05.bmp"), x, y))
+			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_w_05.bmp"), x, y, PIECE_COLOR_WHITE))
 			{
 				SAFE_DELETE(pPiece);
 				return NULL;
@@ -134,7 +121,7 @@ ChessPiece * ChessPieceManager::CreatePiece(const string& strkey, CHESSPIECE_TYP
 		pPiece = new ChessQueen;
 		if (eColorType == PIECE_COLOR_BLACK)
 		{
-			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_b_04.bmp"), x, y))
+			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_b_04.bmp"), x, y, PIECE_COLOR_BLACK))
 			{
 				SAFE_DELETE(pPiece);
 				return NULL;
@@ -142,7 +129,7 @@ ChessPiece * ChessPieceManager::CreatePiece(const string& strkey, CHESSPIECE_TYP
 		}
 		else if (eColorType == PIECE_COLOR_WHITE)
 		{
-			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_w_04.bmp"), x, y))
+			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_w_04.bmp"), x, y, PIECE_COLOR_WHITE))
 			{
 				SAFE_DELETE(pPiece);
 				return NULL;
@@ -153,7 +140,7 @@ ChessPiece * ChessPieceManager::CreatePiece(const string& strkey, CHESSPIECE_TYP
 		pPiece = new ChessBishop;
 		if (eColorType == PIECE_COLOR_BLACK)
 		{
-			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_b_02.bmp"), x, y))
+			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_b_02.bmp"), x, y, PIECE_COLOR_BLACK))
 			{
 				SAFE_DELETE(pPiece);
 				return NULL;
@@ -161,7 +148,7 @@ ChessPiece * ChessPieceManager::CreatePiece(const string& strkey, CHESSPIECE_TYP
 		}
 		else if (eColorType == PIECE_COLOR_WHITE)
 		{
-			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_w_02.bmp"), x, y))
+			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_w_02.bmp"), x, y, PIECE_COLOR_WHITE))
 			{
 				SAFE_DELETE(pPiece);
 				return NULL;
@@ -172,7 +159,7 @@ ChessPiece * ChessPieceManager::CreatePiece(const string& strkey, CHESSPIECE_TYP
 		pPiece = new ChessKnight;
 		if (eColorType == PIECE_COLOR_BLACK)
 		{
-			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_b_01.bmp"), x, y))
+			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_b_01.bmp"), x, y, PIECE_COLOR_BLACK))
 			{
 				SAFE_DELETE(pPiece);
 				return NULL;
@@ -180,7 +167,7 @@ ChessPiece * ChessPieceManager::CreatePiece(const string& strkey, CHESSPIECE_TYP
 		}
 		else if (eColorType == PIECE_COLOR_WHITE)
 		{
-			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_w_01.bmp"), x, y))
+			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_w_01.bmp"), x, y, PIECE_COLOR_WHITE))
 			{
 				SAFE_DELETE(pPiece);
 				return NULL;
@@ -191,7 +178,7 @@ ChessPiece * ChessPieceManager::CreatePiece(const string& strkey, CHESSPIECE_TYP
 		pPiece = new ChessRook;
 		if (eColorType == PIECE_COLOR_BLACK)
 		{
-			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_b_03.bmp"),x,y))
+			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_b_03.bmp"),x,y, PIECE_COLOR_BLACK))
 			{
 				SAFE_DELETE(pPiece);
 				return NULL;
@@ -199,7 +186,7 @@ ChessPiece * ChessPieceManager::CreatePiece(const string& strkey, CHESSPIECE_TYP
 		}
 		else if (eColorType == PIECE_COLOR_WHITE)
 		{
-			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_w_03.bmp"),x,y))
+			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_w_03.bmp"),x,y, PIECE_COLOR_WHITE))
 			{
 				SAFE_DELETE(pPiece);
 				return NULL;
@@ -210,7 +197,7 @@ ChessPiece * ChessPieceManager::CreatePiece(const string& strkey, CHESSPIECE_TYP
 		pPiece = new ChessPawn;
 		if (eColorType == PIECE_COLOR_BLACK)
 		{
-			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_b_00.bmp"), x,y))
+			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_b_00.bmp"), x,y, PIECE_COLOR_BLACK))
 			{
 				SAFE_DELETE(pPiece);
 				return NULL;
@@ -218,7 +205,7 @@ ChessPiece * ChessPieceManager::CreatePiece(const string& strkey, CHESSPIECE_TYP
 		}
 		else if (eColorType == PIECE_COLOR_WHITE)
 		{
-			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_w_00.bmp"), x,y))
+			if (!pPiece->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block_w_00.bmp"), x,y, PIECE_COLOR_WHITE))
 			{
 				SAFE_DELETE(pPiece);
 				return NULL;
@@ -245,8 +232,127 @@ ChessPiece * ChessPieceManager::FindPiece(const string & strkey)
 
 void ChessPieceManager::Draw(HDC hdc)
 {
+	for (auto iter = m_vecBoardTile.begin(); iter != m_vecBoardTile.end(); iter++)
+	{
+		(*iter)->Draw(hdc);
+	}
+
 	for (auto iter = m_mapPiece.begin(); iter != m_mapPiece.end(); ++iter)
 	{
 		iter->second->Draw(hdc);
 	}
+
+	//테스트용
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			if (m_ChessArray[j][i] == NULL)
+			{
+				cout << "0 ";
+			}
+			else
+			{
+				cout << "1 ";
+			}
+		}
+		cout << endl;
+	}
 }
+
+void ChessPieceManager::Input(POINT pt)
+{
+	for (auto iter = m_mapPiece.begin(); iter != m_mapPiece.end(); ++iter)
+	{
+		if (iter->second->Input(pt))
+		{
+			if (m_eState == GAME_STATE_WAIT)
+			{
+				m_SelectPiece = iter->second;
+				//이동 가능 영역 표시 함수 호출
+				PieceMovableArea(m_SelectPiece);
+				m_eState = GAME_STATE_ONE_SELECT;
+				cout << "선택단계" << endl;
+			}
+			else if (m_eState == GAME_STATE_ONE_SELECT)
+			{
+				if (iter->second == m_SelectPiece) //첨에 눌른애가 맞으면
+				{
+					//이동 관려함수 자리
+					m_eState = GAME_STATE_MOVE;//에어리어 선택 안으로 들어가야함.
+				}
+				else //다른 앨 클릭하면
+				{
+					cout << "다른애 선택으로 초기화" << endl;
+					m_SelectPiece = nullptr;
+					//영역 타일 재복원 함수
+					BoardReturn();
+					m_eState = GAME_STATE_WAIT;
+				}
+			}
+			else if (m_eState == GAME_STATE_MOVE)
+			{
+				cout << "움직인 단계" << endl;
+			}
+			InvalidateRect(m_hWnd, NULL, false);
+		}
+	}
+}
+void ChessPieceManager::ChessBoardInit()
+{
+	int x = 0;
+	int y = 0;
+
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			m_pBoard[j][i] = new BoardTile();
+
+			if (i % 2 == 0 && j % 2 == 0)
+			{
+				m_pBoard[j][i]->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block01.bmp"), x, y);
+				x += 100;
+				m_vecBoardTile.push_back(m_pBoard[j][i]);
+			}
+			else if (i % 2 == 1 && j % 2 == 1)
+			{
+				m_pBoard[j][i]->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block01.bmp"), x, y);
+				x += 100;
+				m_vecBoardTile.push_back(m_pBoard[j][i]);
+			}
+			else
+			{
+				m_pBoard[j][i]->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\block00.bmp"), x, y);
+				x += 100;
+				m_vecBoardTile.push_back(m_pBoard[j][i]);
+			}
+		}
+		x = 0;
+		y += 100;
+	}
+}
+
+void ChessPieceManager::PieceMovableArea(ChessPiece * pPiece)
+{
+	
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			if (m_ChessArray[j][i] == pPiece)
+			{
+				// 말 타입별로 둬야함. 폰은 방향정도 고정, 탐색 후 
+				m_pBoard[j][i + 1]->ChangeBitMap(GET_SINGLE(ResManager)->GetBitMap("RES\\block03.bmp"));
+				m_pBoard[j][i + 2]->ChangeBitMap(GET_SINGLE(ResManager)->GetBitMap("RES\\block03.bmp"));
+			}
+		}
+	}
+}
+
+void ChessPieceManager::BoardReturn()
+{
+	//나중에 스택형식으로 쌓아둬서 팝 ->타일 복원 으로 바꾸기
+	ChessBoardInit();
+}
+
