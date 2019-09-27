@@ -13,12 +13,15 @@ ChessBishop::~ChessBishop()
 {
 }
 
-bool ChessBishop::Init(BitMap* pBitMap, int iPosX, int iPosY,int iColor)
+bool ChessBishop::Init(BitMap* pBitMap, int iPosX, int iPosY, PIECE_COLOR_TYPE iColor)
 {
 	m_pBitMap = pBitMap;
 	m_iX = iPosX;
 	m_iY = iPosY;
-	m_iColor = iColor;
+	m_eColor = iColor;
+	m_eType = CT_BISHOP;
+
+	ChessPiece::SetPieceInfo(m_eType, m_eColor, m_iX, m_iY);
 
 	return true;
 }

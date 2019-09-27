@@ -14,12 +14,15 @@ ChessPawn::~ChessPawn()
 
 }
 
-bool ChessPawn::Init(BitMap* pBitMap, int iPosX, int iPosY, int iColor)
+bool ChessPawn::Init(BitMap* pBitMap, int iPosX, int iPosY, PIECE_COLOR_TYPE iColor)
 {
 	m_pBitMap = pBitMap;
 	m_iX = iPosX;
 	m_iY = iPosY;
-	m_iColor = iColor;
+	m_eColor = iColor;
+	m_eType = CT_PAWN;
+
+	ChessPiece::SetPieceInfo(m_eType, m_eColor, m_iX, m_iY);
 
 	return true;
 }
@@ -47,11 +50,11 @@ bool ChessPawn::Input(POINT pt)
 
 void ChessPawn::Move()
 {
-	if (m_iColor == PIECE_COLOR_WHITE)
+	if (m_eColor == PIECE_COLOR_WHITE)
 	{
 		m_iY -= 100;
 	}
-	else if (m_iColor == PIECE_COLOR_BLACK)
+	else if (m_eColor == PIECE_COLOR_BLACK)
 	{
 		m_iY += 100;
 	}

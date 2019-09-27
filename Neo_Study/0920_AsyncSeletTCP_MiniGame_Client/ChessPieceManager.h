@@ -31,6 +31,7 @@ public:
 	void PieceMovableArea(ChessPiece* pPiece);
 	void ChessBoardInit();
 	void BoardReturn();
+	void ArrayPaint(int addNum,bool isPaint,int x, int y, int arrX[], int arrY[], ChessPiece* pPiece);
 
 	ChessPiece* CreatePiece(const string& strkey, CHESSPIECE_TYPE ePieceType, PIECE_COLOR_TYPE eColorType, int x, int y);
 	ChessPiece* FindPiece(const string& strkey);

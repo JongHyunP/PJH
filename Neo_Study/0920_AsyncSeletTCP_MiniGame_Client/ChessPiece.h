@@ -15,7 +15,7 @@ public:
 	virtual ~ChessPiece();
 
 public:
-	virtual bool Init(BitMap* pBitMap,int iPosX, int iPosY,int id) = 0;
+	virtual bool Init(BitMap* pBitMap,int iPosX, int iPosY, PIECE_COLOR_TYPE iColor) = 0;
 	virtual void Draw(HDC hdc) = 0;
 	virtual bool Input(POINT pt) = 0;
 	virtual void Move() = 0;
@@ -23,6 +23,8 @@ public:
 protected:
 	PIECEINFO m_tInfo;
 
+public:
+	virtual void SetPieceInfo(CHESSPIECE_TYPE ChessType, PIECE_COLOR_TYPE ColorType, int x, int y);
 public:
 	PIECEINFO GetPieceInfo() const
 	{

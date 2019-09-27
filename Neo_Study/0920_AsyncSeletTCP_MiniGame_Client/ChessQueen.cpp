@@ -15,12 +15,15 @@ ChessQueen::~ChessQueen()
 
 }
 
-bool ChessQueen::Init(BitMap* pBitMap, int iPosX, int iPosY, int iColor)
+bool ChessQueen::Init(BitMap* pBitMap, int iPosX, int iPosY, PIECE_COLOR_TYPE eColor)
 {
 	m_pBitMap = pBitMap;
 	m_iX = iPosX;
 	m_iY = iPosY;
-	m_iColor = iColor;
+	m_eColor = eColor;
+	m_eType = CT_QUEEN;
+
+	ChessPiece::SetPieceInfo(m_eType, m_eColor, m_iX, m_iY);
 
 	return true;
 }

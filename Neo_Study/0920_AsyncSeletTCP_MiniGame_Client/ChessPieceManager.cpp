@@ -335,21 +335,249 @@ void ChessPieceManager::ChessBoardInit()
 
 void ChessPieceManager::PieceMovableArea(ChessPiece * pPiece)
 {
-	
 	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 8; j++)
 		{
 			if (m_ChessArray[j][i] == pPiece)
 			{
-				// 말 타입별로 둬야함. 폰은 방향정도 고정, 탐색 후 
-				m_pBoard[j][i + 1]->ChangeBitMap(GET_SINGLE(ResManager)->GetBitMap("RES\\block03.bmp"));
-				m_pBoard[j][i + 2]->ChangeBitMap(GET_SINGLE(ResManager)->GetBitMap("RES\\block03.bmp"));
+				if (pPiece->GetPieceInfo().eChessType == CT_KING)
+				{
+					int posX = pPiece->GetPieceInfo().iPosX;
+					int posY = pPiece->GetPieceInfo().iPosY;
+
+					//비교 대상
+					int directionX[] = { 0,0,-1,1,-1,1,1,-1 };
+					int directionY[] = { -1,1,0,0 ,-1,-1,1,1 };
+
+					for (int j = 0; j < 8; j++) {
+						if (posX + directionX[j] < 8 && posY + directionY[j] < 8 && posX + directionX[j] >= 0 && posY + directionY[j] >= 0)
+						{
+							ArrayPaint(j, true, posX, posY, directionX, directionY, pPiece);
+						}
+					}
+				}
+				else if (pPiece->GetPieceInfo().eChessType == CT_QUEEN)
+				{
+					int posX = pPiece->GetPieceInfo().iPosX;
+					int posY = pPiece->GetPieceInfo().iPosY;
+
+					int downAndRightDirectionX[] = { 1,2,3,4,5,6,7 };
+					int downAndRightDirectionY[] = { 1,2,3,4,5,6,7 };
+					bool isDownAndRight = true;
+
+					int downAndLeftDirectionX[] = { -1,-2,-3,-4,-5,-6,-7 };
+					int downAndLeftDirectionY[] = { -1,-2,-3,-4,-5,-6,-7 };
+					bool isDownAndLeft = true;
+
+					int upAndRightDirectionX[] = { 1,2,3,4,5,6,7 };
+					int upAndRightDirectionY[] = { -1,-2,-3,-4,-5,-6,-7 };
+					bool isUpAndRight = true;
+
+					int upAndLeftDirectionX[] = { -1,-2,-3,-4,-5,-6,-7 };
+					int upAndLeftDirectionY[] = { 1,2,3,4,5,6,7 };
+					bool isUpAndLeft = true;
+
+					int upDirectionX[] = { 0,0,0,0,0,0,0 };
+					int upDirectionY[] = { -1,-2,-3,-4,-5,-6,-7 };
+					bool isUP = true;
+
+					int downDirectionX[] = { 0,0,0,0,0,0,0 };
+					int downDirectionY[] = { 1,2,3,4,5,6,7 };
+					bool isDown = true;
+
+					int rightDirectionX[] = { 1,2,3,4,5,6,7 };
+					int rightDirectionY[] = { 0,0,0,0,0,0,0 };
+					bool isRight = true;
+
+					int leftDirectionX[] = { -1,-2,-3,-4,-5,-6,-7 };
+					int leftDirectionY[] = { 0,0,0,0,0,0,0 };
+					bool isLeft = true;
+
+					//대각선
+					for (int j = 0; j < 7; j++) {
+						if (posX + downAndRightDirectionX[j] < 8 && posY + downAndRightDirectionY[j] < 8)
+						{
+							ArrayPaint(j, isDownAndRight, posX, posY, downAndRightDirectionX, downAndRightDirectionY, pPiece);
+						}
+						if (posX + upAndRightDirectionX[j] < 8 && posY + upAndRightDirectionY[j] >= 0)
+						{
+							ArrayPaint(j, isDownAndLeft, posX, posY, upAndRightDirectionX, upAndRightDirectionY, pPiece);
+						}
+						if (posX + downAndLeftDirectionX[j] >= 0 && posY + downAndLeftDirectionY[j] >= 0)
+						{
+							ArrayPaint(j, isUpAndRight, posX, posY, downAndLeftDirectionX, downAndLeftDirectionY, pPiece);
+						}
+						if (posX + upAndLeftDirectionX[j] >= 0 && posY + upAndLeftDirectionY[j] < 8)
+						{
+							ArrayPaint(j, isUpAndLeft, posX, posY, upAndLeftDirectionX, upAndLeftDirectionY, pPiece);
+						}
+					}
+					//가로, 세로
+					for (int j = 0; j < 7; j++) { 
+						if (posX + rightDirectionX[j] < 8)
+						{
+							ArrayPaint(j, isRight, posX, posY, rightDirectionX, rightDirectionY, pPiece);
+						}
+						if (posY + downDirectionY[j] < 8)
+						{
+							ArrayPaint(j, isDown, posX, posY, downDirectionX, downDirectionY, pPiece);
+						}
+						if (posX + leftDirectionX[j] >= 0)
+						{
+							ArrayPaint(j, isLeft, posX, posY, leftDirectionX, leftDirectionY, pPiece);
+						}
+						if (posY + upDirectionY[j] >= 0)
+						{
+							ArrayPaint(j, isUP, posX, posY, upDirectionX, upDirectionY, pPiece);
+						}
+					}
+				}
+				else if (pPiece->GetPieceInfo().eChessType == CT_BISHOP)
+				{
+					int posX = pPiece->GetPieceInfo().iPosX;
+					int posY = pPiece->GetPieceInfo().iPosY;
+
+					int downAndRightDirectionX[] = { 1,2,3,4,5,6,7 };
+					int downAndRightDirectionY[] = { 1,2,3,4,5,6,7 };
+					bool isDownAndRight = true;
+
+					int downAndLeftDirectionX[] = { -1,-2,-3,-4,-5,-6,-7 };
+					int downAndLeftDirectionY[] = { -1,-2,-3,-4,-5,-6,-7 };
+					bool isDownAndLeft = true;
+
+					int upAndRightDirectionX[] = { 1,2,3,4,5,6,7 };
+					int upAndRightDirectionY[] = { -1,-2,-3,-4,-5,-6,-7 };
+					bool isUpAndRight = true;
+
+					int upAndLeftDirectionX[] = { -1,-2,-3,-4,-5,-6,-7 };
+					int upAndLeftDirectionY[] = { 1,2,3,4,5,6,7 };
+					bool isUpAndLeft = true;
+
+					for (int j = 0; j < 7; j++) {
+						if (posX + downAndRightDirectionX[j] < 8 && posY + downAndRightDirectionY[j] < 8)
+						{
+							ArrayPaint(j, isDownAndRight, posX, posY, downAndRightDirectionX, downAndRightDirectionY, pPiece);
+						}
+						if (posX + upAndRightDirectionX[j] < 8 && posY + upAndRightDirectionY[j] >= 0)
+						{
+							ArrayPaint(j, isDownAndLeft, posX, posY, upAndRightDirectionX, upAndRightDirectionY, pPiece);
+						}
+						if (posX + downAndLeftDirectionX[j] >= 0 && posY + downAndLeftDirectionY[j] >= 0)
+						{
+							ArrayPaint(j, isUpAndRight, posX, posY, downAndLeftDirectionX, downAndLeftDirectionY, pPiece);
+						}
+						if (posX + upAndLeftDirectionX[j] >= 0 && posY + upAndLeftDirectionY[j] < 8)
+						{
+							ArrayPaint(j, isUpAndLeft, posX, posY, upAndLeftDirectionX, upAndLeftDirectionY, pPiece);
+						}
+					}
+				}
+				else if (pPiece->GetPieceInfo().eChessType == CT_KNIGHT)
+				{
+					int posX = pPiece->GetPieceInfo().iPosX;
+					int posY = pPiece->GetPieceInfo().iPosY;
+
+					int directionX[] = { -2 ,-1, 1, 2, 2, 1, -1,-2 };
+					int directionY[] = { -1 ,-2,-2,-1, 1, 2, 2, 1 };
+
+					for (int j = 0; j < 8; j++) {
+						if (posX + directionX[j] < 8 && posY + directionY[j] < 8 && posX + directionX[j] >= 0 && posY + directionY[j] >= 0)
+						{
+							ArrayPaint(j, true, posX, posY, directionX, directionY, pPiece);
+						}
+					}
+				}
+				else if (pPiece->GetPieceInfo().eChessType == CT_ROOK)
+				{
+					int posX = pPiece->GetPieceInfo().iPosX;
+					int posY = pPiece->GetPieceInfo().iPosY;
+
+					int upDirectionX[] = { 0,0,0,0,0,0,0 };
+					int upDirectionY[] = { -1,-2,-3,-4,-5,-6,-7 };
+					bool isUP = true;
+
+					int downDirectionX[] = { 0,0,0,0,0,0,0 };
+					int downDirectionY[] = { 1,2,3,4,5,6,7 };
+					bool isDown = true;
+
+					int rightDirectionX[] = { 1,2,3,4,5,6,7 };
+					int rightDirectionY[] = { 0,0,0,0,0,0,0 };
+					bool isRight = true;
+
+					int leftDirectionX[] = { -1,-2,-3,-4,-5,-6,-7 };
+					int leftDirectionY[] = { 0,0,0,0,0,0,0 };
+					bool isLeft = true;
+
+					for (int j = 0; j < 7; j++) {
+						if (posX + rightDirectionX[j] < 8)
+						{
+							ArrayPaint(j, isRight, posX, posY, rightDirectionX, rightDirectionY, pPiece);
+						}
+						if (posY + downDirectionY[j] < 8)
+						{
+							ArrayPaint(j, isDown, posX, posY, downDirectionX, downDirectionY, pPiece);
+						}
+						if (posX + leftDirectionX[j] >= 0)
+						{
+							ArrayPaint(j, isLeft, posX, posY, leftDirectionX, leftDirectionY, pPiece);
+						}
+						if (posY + upDirectionY[j] >= 0)
+						{
+							ArrayPaint(j, isUP, posX, posY, upDirectionX, upDirectionY, pPiece);
+						}
+					}
+				}
+				else if (pPiece->GetPieceInfo().eChessType == CT_PAWN)
+				{
+					if (pPiece->GetPieceInfo().ePieceColorType == PIECE_COLOR_BLACK) //블랙
+					{
+						
+					}
+					else if((pPiece->GetPieceInfo().ePieceColorType == PIECE_COLOR_WHITE)) // 화이트
+					{
+						
+					}
+				}
+		
+				
 			}
 		}
 	}
 }
 
+void ChessPieceManager::ArrayPaint(int addNum, bool isPaint, int x,int y,int arrX[],int arrY[],ChessPiece* pPiece)
+{
+	if (isPaint)
+	{
+		if (m_ChessArray[y + arrY[addNum]][x + arrX[addNum]] == NULL) // 빈칸 이면
+		{
+			m_pBoard[y + arrY[addNum]][x + arrX[addNum]]->ChangeBitMap(GET_SINGLE(ResManager)->GetBitMap("RES\\block03.bmp"));
+		}
+		else //뭔가 있음.
+		{
+			if (pPiece->GetPieceInfo().ePieceColorType == PIECE_COLOR_BLACK) //화이트 팀이였을경우
+			{
+				if (m_ChessArray[y + arrY[addNum]][x + arrX[addNum]]->GetPieceInfo().ePieceColorType == PIECE_COLOR_WHITE)
+				{
+					m_pBoard[y + arrY[addNum]][x + arrX[addNum]]->ChangeBitMap(GET_SINGLE(ResManager)->GetBitMap("RES\\block04.bmp"));
+					isPaint = false;
+				}
+			}
+			else if (pPiece->GetPieceInfo().ePieceColorType == PIECE_COLOR_WHITE)
+			{
+				if (m_ChessArray[y + arrY[addNum]][x + arrX[addNum]]->GetPieceInfo().ePieceColorType == PIECE_COLOR_BLACK)
+				{
+					m_pBoard[y + arrY[addNum]][x + arrX[addNum]]->ChangeBitMap(GET_SINGLE(ResManager)->GetBitMap("RES\\block04.bmp"));
+					isPaint = false;
+				}
+			}
+		}
+			//적이 없는데 자리가 없다. -> 출력없음
+		
+	}
+	
+}
 void ChessPieceManager::BoardReturn()
 {
 	//나중에 스택형식으로 쌓아둬서 팝 ->타일 복원 으로 바꾸기

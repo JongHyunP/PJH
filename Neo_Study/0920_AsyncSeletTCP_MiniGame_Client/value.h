@@ -66,5 +66,7 @@ typedef struct _tagPieceInfo
 {
 	CHESSPIECE_TYPE		eChessType;
 	PIECE_COLOR_TYPE	ePieceColorType;
+	int					iPosX;
+	int					iPosY;
 	//int					iPlayerNum; 나중에 추가
 }PIECEINFO,*PPIECEINFO;
