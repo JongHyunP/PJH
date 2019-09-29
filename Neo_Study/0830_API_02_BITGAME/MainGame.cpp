@@ -2,6 +2,9 @@
 #include "mecro.h"
 #include "ResManager.h"
 #include "Card.h"
+//#include "..\..\..\..\..\..\Administrator\source\repos\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //네오플용
+#include "..\..\..\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //집용
+
 
 MainGame* MainGame::m_sThis = nullptr;
 
@@ -70,7 +73,7 @@ void MainGame::Update()
 		m_pSelectOne = nullptr;
 		m_pSelectTwo = nullptr;
 		m_eState = GAME_STATE_WAIT;
-		InvalidateRect(m_hWnd, NULL, true);
+		InvalidateRect(m_hWnd, NULL, false);
 	}
 }
 
@@ -101,7 +104,7 @@ void MainGame::Input(POINT pt)
 				}
 			}
 
-			InvalidateRect(m_hWnd, NULL, true);
+			InvalidateRect(m_hWnd, NULL, false);
 		}
 	}
 }

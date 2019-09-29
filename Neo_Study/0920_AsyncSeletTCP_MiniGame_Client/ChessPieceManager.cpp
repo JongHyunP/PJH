@@ -53,7 +53,7 @@ bool ChessPieceManager::Init(HWND hWnd, HDC hdc)
 	ChessPiece* pRookB = CreatePiece("RookB0", CT_ROOK, PIECE_COLOR_BLACK,0,0);
 	m_ChessArray[0][0] = pRookB;
 	ChessPiece* pRookB2 = CreatePiece("RookB1", CT_ROOK, PIECE_COLOR_BLACK, 700, 0);
-	m_ChessArray[7][0] = pRookB2;
+	m_ChessArray[0][7] = pRookB2;
 
 	for (int i = 0; i < 8; i++)
 	{
@@ -64,30 +64,30 @@ bool ChessPieceManager::Init(HWND hWnd, HDC hdc)
 	}
 	
 	//말 생성 - 화이트
-	ChessPiece* pKingW = CreatePiece("KingW", CT_KING, PIECE_COLOR_WHITE,400,700);
-	m_ChessArray[4][7] = pKingW;
-	ChessPiece* pQueenW = CreatePiece("QueenW", CT_QUEEN, PIECE_COLOR_WHITE,300,700);
-	m_ChessArray[3][7] = pQueenW;
-	ChessPiece* pBishopW = CreatePiece("BishopW0", CT_BISHOP, PIECE_COLOR_WHITE,200,700);
-	m_ChessArray[2][7] = pBishopW;
-	ChessPiece* pBishopW2 = CreatePiece("BishopW1", CT_BISHOP, PIECE_COLOR_WHITE, 500, 700);
-	m_ChessArray[5][7] = pBishopW2;
-	ChessPiece* pKnightW = CreatePiece("KnightW0", CT_KNIGHT, PIECE_COLOR_WHITE,100,700);
-	m_ChessArray[1][7] = pKnightW;
-	ChessPiece* pKnightW2 = CreatePiece("KnightW1", CT_KNIGHT, PIECE_COLOR_WHITE, 600, 700);
-	m_ChessArray[6][7] = pKnightW2;
+	//ChessPiece* pKingW = CreatePiece("KingW", CT_KING, PIECE_COLOR_WHITE,400,700);
+	//m_ChessArray[7][4] = pKingW;
+	//ChessPiece* pQueenW = CreatePiece("QueenW", CT_QUEEN, PIECE_COLOR_WHITE,300,700);
+	//m_ChessArray[3][7] = pQueenW;
+	//ChessPiece* pBishopW = CreatePiece("BishopW0", CT_BISHOP, PIECE_COLOR_WHITE,200,700);
+	//m_ChessArray[2][7] = pBishopW;
+	//ChessPiece* pBishopW2 = CreatePiece("BishopW1", CT_BISHOP, PIECE_COLOR_WHITE, 500, 700);
+	//m_ChessArray[5][7] = pBishopW2;
+	//ChessPiece* pKnightW = CreatePiece("KnightW0", CT_KNIGHT, PIECE_COLOR_WHITE,100,700);
+	//m_ChessArray[1][7] = pKnightW;
+	//ChessPiece* pKnightW2 = CreatePiece("KnightW1", CT_KNIGHT, PIECE_COLOR_WHITE, 600, 700);
+	//m_ChessArray[6][7] = pKnightW2;
 	ChessPiece* pRookW = CreatePiece("RookW0", CT_ROOK, PIECE_COLOR_WHITE,0,700);
-	m_ChessArray[0][7] = pRookW;
-	ChessPiece* pRookW2 = CreatePiece("RookW1", CT_ROOK, PIECE_COLOR_WHITE, 700, 700);
-	m_ChessArray[7][7] = pRookW2;
+	m_ChessArray[7][0] = pRookW;
+	//ChessPiece* pRookW2 = CreatePiece("RookW1", CT_ROOK, PIECE_COLOR_WHITE, 700, 700);
+	//m_ChessArray[7][7] = pRookW2;
 
-	for (int i = 0; i < 8; i++)
-	{
-		stringstream intTostring; // int 형변환용
-		intTostring << i;
-		ChessPiece* pPawnW = CreatePiece(("PawnW"+ intTostring.str()), CT_PAWN, PIECE_COLOR_WHITE, i * 100, 600);
-		m_ChessArray[i][6] = pPawnW;
-	}
+	//for (int i = 0; i < 8; i++)
+	//{
+	//	stringstream intTostring; // int 형변환용
+	//	intTostring << i;
+	//	ChessPiece* pPawnW = CreatePiece(("PawnW"+ intTostring.str()), CT_PAWN, PIECE_COLOR_WHITE, i * 100, 600);
+	//	m_ChessArray[i][6] = pPawnW;
+	//}
 
 	return true;
 }
@@ -343,9 +343,9 @@ void ChessPieceManager::PieceMovableArea(ChessPiece * pPiece)
 			{
 				if (pPiece->GetPieceInfo().eChessType == CT_KING)
 				{
-					int posX = pPiece->GetPieceInfo().iPosX;
-					int posY = pPiece->GetPieceInfo().iPosY;
-
+					int posX = pPiece->GetPieceInfo().iPosX / 100;
+					int posY = pPiece->GetPieceInfo().iPosY / 100;
+					cout<<posX <<"," <<posY<<endl;
 					//비교 대상
 					int directionX[] = { 0,0,-1,1,-1,1,1,-1 };
 					int directionY[] = { -1,1,0,0 ,-1,-1,1,1 };
@@ -490,8 +490,9 @@ void ChessPieceManager::PieceMovableArea(ChessPiece * pPiece)
 				}
 				else if (pPiece->GetPieceInfo().eChessType == CT_ROOK)
 				{
-					int posX = pPiece->GetPieceInfo().iPosX;
-					int posY = pPiece->GetPieceInfo().iPosY;
+					int posX = pPiece->GetPieceInfo().iPosX/100;
+					int posY = pPiece->GetPieceInfo().iPosY/100;
+					cout << posX << "," << posY << endl;
 
 					int upDirectionX[] = { 0,0,0,0,0,0,0 };
 					int upDirectionY[] = { -1,-2,-3,-4,-5,-6,-7 };
@@ -532,7 +533,56 @@ void ChessPieceManager::PieceMovableArea(ChessPiece * pPiece)
 				{
 					if (pPiece->GetPieceInfo().ePieceColorType == PIECE_COLOR_BLACK) //블랙
 					{
-						
+						int posX = pPiece->GetPieceInfo().iPosX / 100;
+						int posY = pPiece->GetPieceInfo().iPosY / 100;
+
+						cout << posX << "," << posY << endl;
+						//적 발견 표기
+						int attackDirectionX[] = { -1,1 };
+						int attackDirectionY[] = { -1, -1 };
+
+						for (int j = 0; j < 2; j++) {
+							if (posX + attackDirectionX[j] < 8 && posY + attackDirectionY[j] < 8 && posX + attackDirectionX[j] >= 0 && posY + attackDirectionY[j] >= 0)
+							{
+								//정보를 못받아옴
+								if (m_ChessArray[posY + attackDirectionY[j]][posX + attackDirectionX[j]]->GetPieceInfo().ePieceColorType == PIECE_COLOR_WHITE)
+								{
+									m_pBoard[posY + attackDirectionY[j]][posX + attackDirectionX[j]]->ChangeBitMap(GET_SINGLE(ResManager)->GetBitMap("RES\\block04.bmp"));
+								}
+							}
+						}
+
+						if (posY == 1) //처음 움직이는경우.
+						{
+							
+							int directionX[] = { 0,0 };
+							int directionY[] = { 1,2 };
+
+					     	//앞에 누가있는지 확인
+							if (posY + directionY[j] < 8)
+							{
+								if (m_ChessArray[posY + directionY[0]][posX + directionX[0]] == NULL)
+								{
+									m_pBoard[posY + directionY[0]][posX + directionX[0]]->ChangeBitMap(GET_SINGLE(ResManager)->GetBitMap("RES\\block03.bmp"));
+
+									if (m_ChessArray[posY + directionY[1]][posX + directionX[1]] == NULL)
+									{
+										m_pBoard[posY + directionY[1]][posX + directionX[1]]->ChangeBitMap(GET_SINGLE(ResManager)->GetBitMap("RES\\block03.bmp"));
+									}
+								}
+							}
+						}
+						else //처음 움직이는게 아닌경우
+						{
+							if (posY + 1 < 8)
+							{
+								if (m_ChessArray[posY + 1][posX] == NULL) // 바로 앞에 한칸만 검사.
+								{
+									m_pBoard[posY + 1][posX]->ChangeBitMap(GET_SINGLE(ResManager)->GetBitMap("RES\\block03.bmp"));
+								}
+							}
+						}
+
 					}
 					else if((pPiece->GetPieceInfo().ePieceColorType == PIECE_COLOR_WHITE)) // 화이트
 					{
@@ -550,25 +600,33 @@ void ChessPieceManager::ArrayPaint(int addNum, bool isPaint, int x,int y,int arr
 {
 	if (isPaint)
 	{
-		if (m_ChessArray[y + arrY[addNum]][x + arrX[addNum]] == NULL) // 빈칸 이면
+		if (m_ChessArray[x + arrX[addNum]][y + arrY[addNum]] == NULL) // 빈칸 이면
 		{
-			m_pBoard[y + arrY[addNum]][x + arrX[addNum]]->ChangeBitMap(GET_SINGLE(ResManager)->GetBitMap("RES\\block03.bmp"));
+			m_pBoard[x + arrX[addNum]][y + arrY[addNum]]->ChangeBitMap(GET_SINGLE(ResManager)->GetBitMap("RES\\block03.bmp"));
 		}
 		else //뭔가 있음.
 		{
-			if (pPiece->GetPieceInfo().ePieceColorType == PIECE_COLOR_BLACK) //화이트 팀이였을경우
+			if (pPiece->GetPieceInfo().ePieceColorType == PIECE_COLOR_BLACK) //블랙 팀이였을경우
 			{
-				if (m_ChessArray[y + arrY[addNum]][x + arrX[addNum]]->GetPieceInfo().ePieceColorType == PIECE_COLOR_WHITE)
+				if (m_ChessArray[x + arrX[addNum]][y + arrY[addNum]]->GetPieceInfo().ePieceColorType == PIECE_COLOR_WHITE) //적팀
 				{
-					m_pBoard[y + arrY[addNum]][x + arrX[addNum]]->ChangeBitMap(GET_SINGLE(ResManager)->GetBitMap("RES\\block04.bmp"));
+					m_pBoard[x + arrX[addNum]][y + arrY[addNum]]->ChangeBitMap(GET_SINGLE(ResManager)->GetBitMap("RES\\block04.bmp"));
+					isPaint = false;
+				}
+				else  //아군
+				{
 					isPaint = false;
 				}
 			}
 			else if (pPiece->GetPieceInfo().ePieceColorType == PIECE_COLOR_WHITE)
 			{
-				if (m_ChessArray[y + arrY[addNum]][x + arrX[addNum]]->GetPieceInfo().ePieceColorType == PIECE_COLOR_BLACK)
+				if (m_ChessArray[x + arrX[addNum]][y + arrY[addNum]]->GetPieceInfo().ePieceColorType == PIECE_COLOR_BLACK)
 				{
-					m_pBoard[y + arrY[addNum]][x + arrX[addNum]]->ChangeBitMap(GET_SINGLE(ResManager)->GetBitMap("RES\\block04.bmp"));
+					m_pBoard[x + arrX[addNum]][y + arrY[addNum]]->ChangeBitMap(GET_SINGLE(ResManager)->GetBitMap("RES\\block04.bmp"));
+					isPaint = false;
+				}
+				else // 아군
+				{
 					isPaint = false;
 				}
 			}

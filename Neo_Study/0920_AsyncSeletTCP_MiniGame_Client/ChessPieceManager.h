@@ -24,6 +24,7 @@ private:
 
 	GAME_STATE							m_eState;
 	HWND								m_hWnd;
+	bool								m_bDoPaint;
 public:
 	bool Init(HWND hWnd, HDC hdc);
 	void Draw(HDC hdc);

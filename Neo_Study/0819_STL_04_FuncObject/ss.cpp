@@ -149,27 +149,14 @@ int main()
 	//int dx[] = { -1,1 };
 	//int dy[] = { -1, -1 };
 
-	//for (int j = 0; j < 2; j++) {
-	//	if (x + dx[j] < 8 && y + dy[j] < 8 && x + dx[j] >= 0 && y + dy[j] >= 0)
-	//	{
-	//		if (array[y + dy[j]][x + dx[j]] == 1) {
-	//			count1++;
-	//		}
-	//	}
-	//}
-
-	// 공격할수있을때 - 블랙
-	//int dx[] = { -1,1 };
-	//int dy[] = { 1, 1 };
-
-	//for (int j = 0; j < 2; j++) {
-	//	if (x + dx[j] < 8 && y + dy[j] < 8 && x + dx[j] >= 0 && y + dy[j] >= 0)
-	//	{
-	//		if (array[y + dy[j]][x + dx[j]] == 1) {
-	//			count1++;
-	//		}
-	//	}
-	//}
+	/*for (int j = 0; j < 2; j++) {
+		if (x + dx[j] < 8 && y + dy[j] < 8 && x + dx[j] >= 0 && y + dy[j] >= 0)
+		{
+			if (array[y + dy[j]][x + dx[j]] == 1) {
+				count1++;
+			}
+		}
+	}*/
 
 	//전진 , 처음일때 - 화이트
 	//int dx[] = { 0,0 };
@@ -196,6 +183,19 @@ int main()
 	//	}
 	//}
 
+
+	// 공격할수있을때 - 블랙
+	//int dx[] = { -1,1 };
+	//int dy[] = { 1, 1 };
+
+	//for (int j = 0; j < 2; j++) {
+	//	if (x + dx[j] < 8 && y + dy[j] < 8 && x + dx[j] >= 0 && y + dy[j] >= 0)
+	//	{
+	//		if (array[y + dy[j]][x + dx[j]] == 1) {
+	//			count1++;
+	//		}
+	//	}
+	//}
 	//전진 , 처음일때 - 블랙
 
 	/*int dx[] = { 0,0 };

@@ -2,8 +2,8 @@
 #include <WinSock2.h>
 #include <Windows.h>
 #include "MainGame.h"
-#include "..\..\..\..\..\..\Administrator\source\repos\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //네오플용
-//#include "..\..\..\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //집용
+//#include "..\..\..\..\..\..\Administrator\source\repos\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //네오플용
+#include "..\..\..\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //집용
 
 //콘솔창 띄우기
 #ifdef UNICODE
@@ -109,7 +109,6 @@ void SendPos()
 	packet.data.iIndex = g_iIndex;
 	packet.data.wX = g_mapPlayer[g_iIndex]->x;
 	packet.data.wY = g_mapPlayer[g_iIndex]->y;
-	send(g_sock, (const char*)&packet, sizeof(packet), 0);
 	send(g_sock, (const char*)&packet, sizeof(packet), 0);
 }
 
@@ -237,7 +236,7 @@ void ProcessSocketMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}
 }
 
-void ProcessPacket(char* szBuf, int len)
+void ProcessPacket(char* szBuf, int len) //패킷의 종류에 따라 실행한다.
 {
 	PACKET_HEADER header;
 
@@ -257,7 +256,7 @@ void ProcessPacket(char* szBuf, int len)
 	{
 		PACKET_USER_DATA packet;
 		memcpy(&packet, szBuf, header.wLen);
-
+		
 		for (auto iter = g_mapPlayer.begin(); iter != g_mapPlayer.end(); iter++)
 		{
 			delete iter->second;
