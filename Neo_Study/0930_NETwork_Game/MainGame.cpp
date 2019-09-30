@@ -1,37 +1,47 @@
-#pragma once
 #include "MainGame.h"
-#include "ResManager.h"
+#include "ResourceManager.h"
+#include "SceneManager.h"
 #include "Card.h"
 
-MainGame* MainGame::m_sThis = nullptr;
+DEFINITION_SINGLE(MainGame)
 
 MainGame::MainGame()
 {
-	
 }
 
 
 MainGame::~MainGame()
 {
-	
+	for (auto iter = m_vecCard.begin(); iter != m_vecCard.end(); iter++)
+	{
+		SAFE_DELETE(*iter);
+	}
+	m_vecCard.clear();
+
+	DESTROY_SINGLE(ResourceManager);
+	DESTROY_SINGLE(SceneManager);
 }
 
-bool MainGame::Init(HWND hWnd, HDC hdc, HINSTANCE hInst)
+bool MainGame::Init(HWND hWnd, HDC hdc)
 {
-	m_eState = GAME_STATE_WAIT;
+	//리소스 관리자 초기화
+	if (!GET_SINGLE(ResourceManager)->Init(hdc))
+	{
+		return false;
+	}
 
+	if (!GET_SINGLE(SceneManager)->Init())
+	{
+		return false;
+	}
+
+	m_eState = GAME_STATE_WAIT;
 	m_pSelectOne = nullptr;
 	m_pSelectTwo = nullptr;
 
 	m_dwCount = 0;
 	m_hWnd = hWnd;
 	srand(GetTickCount());
-
-	//리소스 관리자 초기화
-	if (!GET_SINGLE(ResManager)->Init(hdc))
-	{
-		return false;
-	}
 
 	int iArray[20];
 
@@ -54,14 +64,16 @@ bool MainGame::Init(HWND hWnd, HDC hdc, HINSTANCE hInst)
 		intToString << iArray[i];
 
 		Card* pNew = new Card();
-		pNew->Init(GET_SINGLE(ResManager)->GetBitMap("RES\\0"+ intToString.str()+".bmp"), GET_SINGLE(ResManager)->GetBitMap("RES\\back.bmp"),
+		pNew->Init(GET_SINGLE(ResourceManager)->GetBitMap("RES\\0" + intToString.str() + ".bmp"), GET_SINGLE(ResourceManager)->GetBitMap("RES\\back.bmp"),
 			(i % 10) * CARD_WIDTH + 10 * (i % 10), (i / 10) * CARD_HEIGHT + 10 * (i / 10), iArray[i]);
 
 		m_vecCard.push_back(pNew);
 	}
 
+
 	return true;
 }
+
 
 void MainGame::Update()
 {
@@ -118,21 +130,8 @@ void MainGame::Draw(HDC hdc)
 {
 	for (auto iter = m_vecCard.begin(); iter != m_vecCard.end(); iter++)
 	{
-		(*iter)->Draw(GET_SINGLE(ResManager)->GetBackBuffer());
+		(*iter)->Draw(GET_SINGLE(ResourceManager)->GetBackBuffer());
 	}
 
-	GET_SINGLE(ResManager)->DrawScene(hdc);
-}
-
-void MainGame::Release()
-{
-	for (auto iter = m_vecCard.begin(); iter != m_vecCard.end(); iter++)
-	{
-		SAFE_DELETE(*iter);
-	}
-	m_vecCard.clear();
-
-	DESTROY_SINGLE(ResManager);
-
-	SAFE_DELETE(m_sThis);
+	GET_SINGLE(ResourceManager)->DrawScene(hdc);
 }

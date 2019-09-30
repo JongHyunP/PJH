@@ -1,7 +1,12 @@
 #pragma once
+#include <WinSock2.h>
+#include <Windows.h>
 #include "MainGame.h"
 #include "..\..\..\..\..\..\Administrator\source\repos\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //네오플용
 //#include "..\..\..\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //집용
+//sh1
+
+using namespace std;
 
 //콘솔창 띄우기
 #ifdef UNICODE
@@ -15,8 +20,8 @@ using namespace std;
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 void ProcessSocketMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 void ProcessPacket(char* szBuf, int len);
-
 HINSTANCE g_hInst;
+
 LPCTSTR lpszClass = TEXT("CardGame");
 
 #define BUFSIZE 512
@@ -24,12 +29,7 @@ LPCTSTR lpszClass = TEXT("CardGame");
 
 SOCKET g_sock;
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nCmdShow)
-{
-	/*_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	_CrtDumpMemoryLeaks();
-	_CrtSetBreakAlloc(174);*/
-
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nCmdShow) {
 	HWND hWnd;
 	MSG Message;
 	WNDCLASS WndClass;
@@ -68,7 +68,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 	serveraddr.sin_family = AF_INET;
 	serveraddr.sin_port = htons(9000);
 	serveraddr.sin_addr.s_addr = inet_addr("127.0.0.1");
-	int retval = connect(g_sock, (sockaddr*)& serveraddr, sizeof(serveraddr));
+	int retval = connect(g_sock, (sockaddr*)&serveraddr, sizeof(serveraddr));
 	if (retval == SOCKET_ERROR)
 	{
 		//cout << "err on connect" << endl;
@@ -80,14 +80,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 	{
 		return -1;
 	}
-	//메인
+
+
 	while (GetMessage(&Message, NULL, 0, 0))
 	{
-
 		TranslateMessage(&Message);
-
 		DispatchMessage(&Message);
-
 	}
 
 	closesocket(g_sock);
@@ -114,7 +112,7 @@ void SendPos()
 	packet.data.iIndex = g_iIndex;
 	packet.data.wX = g_mapPlayer[g_iIndex]->x;
 	packet.data.wY = g_mapPlayer[g_iIndex]->y;
-	send(g_sock, (const char*)& packet, sizeof(packet), 0);
+	send(g_sock, (const char*)&packet, sizeof(packet), 0);
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
@@ -126,22 +124,26 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	switch (iMessage)
 	{
 	case WM_CREATE:
-		hdc = GetDC(hWnd);
 		SetTimer(hWnd, 1, 10, NULL);
-		MainGame::GetInstance()->Init(hWnd, hdc, g_hInst);
+		hdc = GetDC(hWnd);
+		if (!GET_SINGLE(MainGame)->Init(hWnd, hdc))
+		{
+			DESTROY_SINGLE(MainGame);
+			return 0;
+		}
 		ReleaseDC(hWnd, hdc);
 		return 0;
 	case WM_SOCKET:
 		ProcessSocketMessage(hWnd, iMessage, wParam, lParam);
-		InvalidateRect(hWnd, NULL, true);
+		InvalidateRect(hWnd, NULL, false);
 		return 0;
 	case WM_TIMER:
-		MainGame::GetInstance()->Update();
+		GET_SINGLE(MainGame)->Update();
 		return 0;
 	case WM_LBUTTONDOWN:
 		pt.x = LOWORD(lParam);
 		pt.y = HIWORD(lParam);
-		MainGame::GetInstance()->Input(pt);
+		GET_SINGLE(MainGame)->Input(pt);
 		return 0;
 	case WM_KEYDOWN:
 		switch (wParam)
@@ -166,10 +168,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 		InvalidateRect(hWnd, NULL, true);
 		return 0;
-
-	case  WM_PAINT:
+	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-		MainGame::GetInstance()->Draw(hdc);
+		GET_SINGLE(MainGame)->Draw(hdc);
 		for (auto iter = g_mapPlayer.begin(); iter != g_mapPlayer.end(); iter++)
 		{
 			char szPrint[128];
@@ -179,14 +180,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		}
 		EndPaint(hWnd, &ps);
 		return 0;
+	case WM_GETMINMAXINFO:
+		((MINMAXINFO*)lParam)->ptMaxTrackSize.x = 1600; // 최대사이즈로 일단 실행됨.
+		((MINMAXINFO*)lParam)->ptMaxTrackSize.y = 800;
+		((MINMAXINFO*)lParam)->ptMinTrackSize.x = 1600;
+		((MINMAXINFO*)lParam)->ptMinTrackSize.y = 800;
+		return 0;
 	case WM_DESTROY:
-		KillTimer(hWnd, 1);
 		for (auto iter = g_mapPlayer.begin(); iter != g_mapPlayer.end(); iter++)
 		{
 			delete iter->second;
 		}
 		g_mapPlayer.clear();
-		MainGame::GetInstance()->Release();
+		DESTROY_SINGLE(MainGame);
 		PostQuitMessage(0);
 		return 0;
 	}
@@ -253,7 +259,7 @@ void ProcessPacket(char* szBuf, int len) //패킷의 종류에 따라 실행한다.
 	{
 		PACKET_USER_DATA packet;
 		memcpy(&packet, szBuf, header.wLen);
-		
+
 		for (auto iter = g_mapPlayer.begin(); iter != g_mapPlayer.end(); iter++)
 		{
 			delete iter->second;
@@ -280,30 +286,3 @@ void ProcessPacket(char* szBuf, int len) //패킷의 종류에 따라 실행한다.
 	break;
 	}
 }
-
-//INT_PTR CALLBACK SettingDlg(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-//{
-//	HWND hRadio;
-//	switch (message)
-//	{
-//	case WM_INITDIALOG:
-//	//	hRadio = GetDlgItem(hDlg, IDC_RADIO1);
-//	//	SendMessage(hRadio, BM_SETCHECK, BST_CHECKED, 0);
-//		break;
-//	case WM_COMMAND:
-//		if (LOWORD(wParam) == IDOK)
-//		{
-//			if (IsDlgButtonChecked(hDlg, IDC_RADIO1) == BST_CHECKED)
-//				//GameManager::GetInstance()->SetGameMode(GAME_MODE_EASY);
-//
-//				EndDialog(hDlg, LOWORD(wParam));
-//		}
-//		else if (LOWORD(wParam) == IDCANCEL)
-//		{
-//			EndDialog(hDlg, LOWORD(wParam));
-//		}
-//		break;
-//	}
-//
-//	return (INT_PTR)FALSE;
-//}

@@ -1,4 +1,3 @@
-#pragma once
 #include "BitMap.h"
 
 BitMap::BitMap()

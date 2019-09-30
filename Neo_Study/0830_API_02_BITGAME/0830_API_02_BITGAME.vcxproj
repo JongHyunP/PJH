@@ -23,13 +23,13 @@
     <ProjectGuid>{C27B2564-C04A-48DC-8174-13E96E975FB1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>My0830API02BITGAME</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -102,8 +102,10 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <SDLCheck>false</SDLCheck>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -150,26 +152,13 @@
   <ItemGroup>
     <ClInclude Include="BitMap.h" />
     <ClInclude Include="Card.h" />
+    <ClInclude Include="defines.h" />
     <ClInclude Include="MainGame.h" />
-    <ClInclude Include="mecro.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="ResManager.h" />
+    <ClInclude Include="value.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="0830_API_02_BITGAME.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Res\00.bmp" />
-    <Image Include="Res\01.bmp" />
-    <Image Include="Res\02.bmp" />
-    <Image Include="Res\03.bmp" />
-    <Image Include="Res\04.bmp" />
-    <Image Include="Res\05.bmp" />
-    <Image Include="Res\06.bmp" />
-    <Image Include="Res\07.bmp" />
-    <Image Include="Res\08.bmp" />
-    <Image Include="Res\09.bmp" />
-    <Image Include="Res\back.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,5 +1,4 @@
 #pragma once
-#include <Windows.h>
 #include "value.h"
 
 enum RES_TYPE
@@ -19,14 +18,17 @@ enum RES_TYPE
 };
 
 class BitMap;
-class ResManager
+
+class ResourceManager
 {
-	DECLARE_SINGLE(ResManager)
+	DECLARE_SINGLE(ResourceManager)
+
 private:
 	map<string, BitMap*>	m_mapBitMap;
 	HDC						m_hMemDC;
 	HBITMAP					m_hBitMap;
 	HBITMAP					m_hOldBitMap;
+
 public:
 	bool Init(HDC hdc);
 	void InitBackBuffer(HDC hdc);

@@ -14,13 +14,19 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="01.Core">
-      <UniqueIdentifier>{4891f22a-8122-435a-9a2c-5aba0e7115a8}</UniqueIdentifier>
+      <UniqueIdentifier>{2e7cc731-61bb-4d17-bcea-2ae6ec95a555}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.Resource">
-      <UniqueIdentifier>{ee953b42-0ae0-4678-8bd9-b7d19dacb3f8}</UniqueIdentifier>
+      <UniqueIdentifier>{2dba6fdd-c201-474b-8c36-84bdd203f7ac}</UniqueIdentifier>
     </Filter>
     <Filter Include="03.Card">
-      <UniqueIdentifier>{6bcf6276-0d79-476d-95c8-bf8094fc93f9}</UniqueIdentifier>
+      <UniqueIdentifier>{801db4a3-fa98-423b-926f-8446269078e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Scene">
+      <UniqueIdentifier>{67f09e9a-7ba2-4a14-9385-44fe514d9960}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Scene\01.Layer">
+      <UniqueIdentifier>{8d550686-be25-4aa0-a6ff-77a9571081a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -30,7 +36,7 @@
     <ClCompile Include="MainGame.cpp">
       <Filter>01.Core</Filter>
     </ClCompile>
-    <ClCompile Include="ResManager.cpp">
+    <ClCompile Include="ResourceManager.cpp">
       <Filter>02.Resource</Filter>
     </ClCompile>
     <ClCompile Include="BitMap.cpp">
@@ -39,18 +45,33 @@
     <ClCompile Include="Card.cpp">
       <Filter>03.Card</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>04.Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>04.Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="InGameScene.cpp">
+      <Filter>04.Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="LobbyScene.cpp">
+      <Filter>04.Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>04.Scene\01.Layer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="value.h">
+    <ClInclude Include="defines.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="defines.h">
+    <ClInclude Include="value.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="MainGame.h">
       <Filter>01.Core</Filter>
     </ClInclude>
-    <ClInclude Include="ResManager.h">
+    <ClInclude Include="ResourceManager.h">
       <Filter>02.Resource</Filter>
     </ClInclude>
     <ClInclude Include="BitMap.h">
@@ -59,10 +80,20 @@
     <ClInclude Include="Card.h">
       <Filter>03.Card</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="0830_API_02_BITGAME.rc">
-      <Filter>리소스 파일</Filter>
-    </ResourceCompile>
+    <ClInclude Include="Scene.h">
+      <Filter>04.Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>04.Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="InGameScene.h">
+      <Filter>04.Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyScene.h">
+      <Filter>04.Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>04.Scene\01.Layer</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -20,10 +20,10 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{9EDDF381-B62B-43A9-B522-42994437AABA}</ProjectGuid>
+    <ProjectGuid>{40373292-E410-45BB-A5D9-5654262ABFB6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>My0920AsyncSeletTCPMiniGameClient</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <RootNamespace>My0930NETworkGame</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -42,8 +42,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -87,13 +87,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>false</ConformanceMode>
+      <ConformanceMode>true</ConformanceMode>
       <SDLCheck>false</SDLCheck>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <AdditionalDependencies>msimg32.lib;ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -102,12 +101,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>false</ConformanceMode>
+      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>msimg32.lib;ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -144,37 +142,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BitMap.cpp" />
-    <ClCompile Include="BoardTile.cpp" />
-    <ClCompile Include="ChessBishop.cpp" />
-    <ClCompile Include="ChessKing.cpp" />
-    <ClCompile Include="ChessKnight.cpp" />
-    <ClCompile Include="ChessPawn.cpp" />
-    <ClCompile Include="ChessPiece.cpp" />
-    <ClCompile Include="ChessPieceManager.cpp" />
-    <ClCompile Include="ChessQueen.cpp" />
-    <ClCompile Include="ChessRook.cpp" />
+    <ClCompile Include="Card.cpp" />
+    <ClCompile Include="InGameScene.cpp" />
+    <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="LobbyScene.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainGame.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="ResManager.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BitMap.h" />
-    <ClInclude Include="BoardTile.h" />
-    <ClInclude Include="ChessBishop.h" />
-    <ClInclude Include="ChessKing.h" />
-    <ClInclude Include="ChessKnight.h" />
-    <ClInclude Include="ChessPawn.h" />
-    <ClInclude Include="ChessPiece.h" />
-    <ClInclude Include="ChessPieceManager.h" />
-    <ClInclude Include="ChessQueen.h" />
-    <ClInclude Include="ChessRook.h" />
+    <ClInclude Include="Card.h" />
     <ClInclude Include="defines.h" />
-    <ClInclude Include="Flags.h" />
+    <ClInclude Include="InGameScene.h" />
+    <ClInclude Include="Layer.h" />
+    <ClInclude Include="LobbyScene.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="value.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="ResManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

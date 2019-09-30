@@ -26,7 +26,7 @@ void Card::Draw(HDC hdc)
 	if (m_bOpen)
 		m_pBitMap->Draw(hdc, m_iX, m_iY, false);
 	else
-		m_pBackBitMap->Draw(hdc, m_iX, m_iY,false);
+		m_pBackBitMap->Draw(hdc, m_iX, m_iY, false);
 }
 
 bool Card::Input(POINT pt)

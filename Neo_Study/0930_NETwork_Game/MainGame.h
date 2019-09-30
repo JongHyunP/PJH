@@ -8,14 +8,13 @@ enum GAME_STATE
 	GAME_STATE_SHOW
 };
 
-class ResManager;
 class Card;
 
 class MainGame
 {
+	DECLARE_SINGLE(MainGame)
+
 private:
-	static MainGame* m_sThis;
-	ResManager*		m_pResManager;
 	vector<Card*>	m_vecCard;
 	HWND			m_hWnd;
 	GAME_STATE		m_eState;
@@ -23,24 +22,13 @@ private:
 	Card*			m_pSelectTwo;
 	DWORD			m_dwCount;
 
-	MainGame();
 public:
 
-	static MainGame* GetInstance()
-	{
-		if (m_sThis == nullptr)
-			m_sThis = new MainGame();
-
-		return m_sThis;
-	}
-
-	bool Init(HWND hWnd, HDC hdc, HINSTANCE hInst);
+	bool Init(HWND hWnd, HDC hdc);
 	void Draw(HDC hdc);
-	void Update();
 	void Input(POINT pt);
-
+	void Update();
 	void Release();
 
-	~MainGame();
 };
 
