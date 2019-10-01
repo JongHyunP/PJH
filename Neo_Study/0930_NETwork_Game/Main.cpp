@@ -23,9 +23,6 @@ HINSTANCE g_hInst;
 
 LPCTSTR lpszClass = TEXT("CardGame");
 
-#define BUFSIZE 512
-#define WM_SOCKET (WM_USER+1)
-
 SOCKET g_sock;
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nCmdShow) {
@@ -98,6 +95,7 @@ class Playerh
 public:
 	int x;
 	int y;
+	int arr[20];
 };
 
 unordered_map<int, Playerh*> g_mapPlayer;
@@ -139,7 +137,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		ReleaseDC(hWnd, hdc);
 		return 0;
 	case WM_SOCKET:
-		ProcessSocketMessage(hWnd, iMessage, wParam, lParam);
+		GET_SINGLE(MainGame)->ProcessSocketMessage(hWnd, iMessage, wParam, lParam);
 		InvalidateRect(hWnd, NULL, false);
 		return 0;
 	case WM_TIMER:
@@ -276,6 +274,34 @@ void ProcessPacket(char* szBuf, int len) //패킷의 종류에 따라 실행한다.
 			Playerh* pNew = new Playerh();
 			pNew->x = packet.data[i].wX;
 			pNew->y = packet.data[i].wY;
+			for (int j = 0; j < 20; j++)
+			{
+				pNew->arr[j] = packet.data[i].wArr[j];
+				cout << pNew->arr[j] << " ";
+			}
+			g_mapPlayer.insert(make_pair(packet.data[i].iIndex, pNew));
+		}
+	}
+	break;
+	case PACKET_INDEX_CARD_DATA:
+	{
+		PACKET_CARD_DATA packet;
+		memcpy(&packet, szBuf, header.wLen);
+
+		for (auto iter = g_mapPlayer.begin(); iter != g_mapPlayer.end(); iter++)
+		{
+			delete iter->second;
+		}
+		g_mapPlayer.clear();
+
+		for (int i = 0; i < packet.wCount; i++)
+		{
+			Playerh* pNew = new Playerh();
+			for (int j = 0; j < 20; j++)
+			{
+				pNew->arr[j] = packet.data[i].wArr[j];
+				cout << pNew->arr[j] << " ";
+			}
 			g_mapPlayer.insert(make_pair(packet.data[i].iIndex, pNew));
 		}
 	}

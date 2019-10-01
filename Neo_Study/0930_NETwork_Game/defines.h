@@ -31,3 +31,7 @@
 
 //ΩÃ±€≈Ê ¡¶∞≈ ∏ﬁ≈©∑Œ
 #define	DESTROY_SINGLE(Type) Type::DestroyInst()
+
+
+#define BUFSIZE 512
+#define WM_SOCKET (WM_USER+1)

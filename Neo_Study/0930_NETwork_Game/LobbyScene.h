@@ -9,5 +9,7 @@ private:
 private:
 	LobbyScene();
 	virtual ~LobbyScene();
+public:
+	virtual bool Init();
 };
 

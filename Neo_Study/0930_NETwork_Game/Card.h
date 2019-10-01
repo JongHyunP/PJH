@@ -14,6 +14,10 @@ private:
 	int			m_iY;
 	int			m_iId;
 	bool		m_bOpen;
+
+public:
+	int			m_CardArray[20];
+
 public:
 	inline int GetID()
 	{
