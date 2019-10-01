@@ -2,8 +2,7 @@
 #include <WinSock2.h>
 #include <Windows.h>
 #include "MainGame.h"
-#include "..\..\..\..\..\..\Administrator\source\repos\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //네오플용
-//#include "..\..\..\Study_Server-NEO-\0918_SERVER_01\Common\PACKET_HEADER.h" //집용
+
 //sh1
 
 using namespace std;
@@ -113,6 +112,12 @@ void SendPos()
 	packet.data.wX = g_mapPlayer[g_iIndex]->x;
 	packet.data.wY = g_mapPlayer[g_iIndex]->y;
 	send(g_sock, (const char*)&packet, sizeof(packet), 0);
+}
+
+void SendCard()
+{
+	PACKET_SEND_CARDINFO packet;
+
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)

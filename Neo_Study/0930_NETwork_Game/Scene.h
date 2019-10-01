@@ -16,6 +16,11 @@ protected:
 public:
 	virtual bool Init();
 
-	class Layer* CreateLayer
+public:
+	class Layer* CreateLayer(const string& strTag, int iZOrder = 0);
+
+public:
+	static bool LayerSort(Layer* pL1, Layer* pL2);
+
 };
 

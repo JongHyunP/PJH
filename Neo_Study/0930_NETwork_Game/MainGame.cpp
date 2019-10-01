@@ -126,6 +126,15 @@ void MainGame::Input(POINT pt)
 	}
 }
 
+void MainGame::SendCardInfo()
+{
+	PACKET_SEND_CARDINFO packet;
+
+	packet.header.wIndex = PACKET_INDEX_SEND_CARDINFO;
+	packet.header.wLen = sizeof(packet);
+	packet.data.iIndex = g_iIndex;
+}
+
 void MainGame::Draw(HDC hdc)
 {
 	for (auto iter = m_vecCard.begin(); iter != m_vecCard.end(); iter++)
