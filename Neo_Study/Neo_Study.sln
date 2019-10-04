@@ -78,6 +78,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0920_AsyncSeletTCP_MiniGame
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0930_NETwork_Game", "0930_NETwork_Game\0930_NETwork_Game.vcxproj", "{40373292-E410-45BB-A5D9-5654262ABFB6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1004_IOCP_CatchMind", "1004_IOCP_CatchMind\1004_IOCP_CatchMind.vcxproj", "{3C93A806-02E8-4B9E-8C79-87A8AB590EFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -374,6 +376,14 @@ Global
 		{40373292-E410-45BB-A5D9-5654262ABFB6}.Release|x64.Build.0 = Release|x64
 		{40373292-E410-45BB-A5D9-5654262ABFB6}.Release|x86.ActiveCfg = Release|Win32
 		{40373292-E410-45BB-A5D9-5654262ABFB6}.Release|x86.Build.0 = Release|Win32
+		{3C93A806-02E8-4B9E-8C79-87A8AB590EFF}.Debug|x64.ActiveCfg = Debug|x64
+		{3C93A806-02E8-4B9E-8C79-87A8AB590EFF}.Debug|x64.Build.0 = Debug|x64
+		{3C93A806-02E8-4B9E-8C79-87A8AB590EFF}.Debug|x86.ActiveCfg = Debug|Win32
+		{3C93A806-02E8-4B9E-8C79-87A8AB590EFF}.Debug|x86.Build.0 = Debug|Win32
+		{3C93A806-02E8-4B9E-8C79-87A8AB590EFF}.Release|x64.ActiveCfg = Release|x64
+		{3C93A806-02E8-4B9E-8C79-87A8AB590EFF}.Release|x64.Build.0 = Release|x64
+		{3C93A806-02E8-4B9E-8C79-87A8AB590EFF}.Release|x86.ActiveCfg = Release|Win32
+		{3C93A806-02E8-4B9E-8C79-87A8AB590EFF}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
