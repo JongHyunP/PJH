@@ -19,6 +19,9 @@
     <Filter Include="02.Resource">
       <UniqueIdentifier>{4de88c4d-7e76-4668-bcff-711fa087f7bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.Drawing">
+      <UniqueIdentifier>{076844d5-bd61-4391-9ec1-8f3e0f164b3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

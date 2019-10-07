@@ -71,7 +71,6 @@ bool MainGame::Init(HWND hWnd, HDC hdc)
 		m_vecCard.push_back(pNew);
 	}
 
-
 	return true;
 }
 
