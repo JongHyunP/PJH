@@ -3,13 +3,17 @@
 #include <iostream>
 #include <stdio.h>
 #include <tchar.h>
+#include <unordered_map>
 #include <SDKDDKVer.h>
+#include "..\..\..\..\..\source\repos\Study_Server-NEO-\1007_CatchMind_Server\Common\PACKET_HEADER_CATCH_MIND.h"
+
 
 using namespace std;
 
 #define MAX_BUFFER 1024
 #define SERVER_PORT 9000
-#define SERVER_IP		"192.168.200.115"
+//#define SERVER_IP		"192.168.200.115" 집
+#define SERVER_IP		"10.30.10.210" // 네오플
 
 struct stSOCKETINFO
 {
@@ -20,6 +24,27 @@ struct stSOCKETINFO
 	int				recvBytes;
 	int				sendBytes;
 };
+
+class Playerh
+{
+public:
+	int x;
+	int y;
+	int arr[20];
+};
+
+unordered_map<int, Playerh*> g_mapPlayer;
+int g_iIndex = 0;
+SOCKET g_sock;
+
+void SendPos()
+{
+	PACKET_SEND_POS packet;
+	packet.header.wIndex = PACKET_INDEX_SEND_POS;
+	packet.header.wLen = sizeof(packet);
+	packet.data.iIndex = g_iIndex;
+	send(g_sock, (const char*)&packet, sizeof(packet), 0);
+}
 
 int main()
 {
@@ -46,6 +71,7 @@ int main()
 	char	szOutMsg[MAX_BUFFER];
 	char	sz_socketbuf_[MAX_BUFFER];
 	stServerAddr.sin_family = AF_INET;
+
 	// 접속할 서버 포트 및 IP
 	stServerAddr.sin_port = htons(SERVER_PORT);
 	stServerAddr.sin_addr.s_addr = inet_addr(SERVER_IP);
@@ -57,6 +83,8 @@ int main()
 	}
 
 	cout << "Connection success..." << endl;
+
+	//주고받는것 시작하는 부분
 	while (true) {
 		 cout << ">>";
 		 cin >> szOutMsg;
@@ -73,6 +101,7 @@ int main()
 			szOutMsg << "]" <<  endl;
 
 		int nRecvLen = recv(clientSocket, sz_socketbuf_, 1024, 0);
+
 		if (nRecvLen == 0) {
 			 cout << "Client connection has been closed" <<  endl;
 			closesocket(clientSocket);
