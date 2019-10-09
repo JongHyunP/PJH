@@ -13,7 +13,9 @@ using namespace std;
 
 //사용자 정의 헤더
 #include "defines.h"
-
+#include "resource.h"
+#include "Types.h"
+#include "flag.h"
 
 //벡터나 리스트를 안전하게 소멸하는 용
 template <typename T>
@@ -25,6 +27,20 @@ void Safe_Delete_VecList(T& p)
 	for (iter = p.begin(); iter != iterEnd; ++iter)
 	{
 		SAFE_DELETE(*iter);
+	}
+
+	p.clear();
+}
+
+template <typename T>
+void Safe_Release_VecList(T& p)
+{
+	T::iterator iter;
+	T::iterator iterEnd = p.end();
+
+	for (iter = p.begin(); iter != iterEnd; ++iter)
+	{
+		SAFE_RELEASE(*iter);
 	}
 
 	p.clear();

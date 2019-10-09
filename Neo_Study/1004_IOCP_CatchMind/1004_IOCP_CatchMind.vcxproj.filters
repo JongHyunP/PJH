@@ -19,14 +19,20 @@
     <Filter Include="02.Resource">
       <UniqueIdentifier>{4de88c4d-7e76-4668-bcff-711fa087f7bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.Drawing">
+    <Filter Include="03.Scene">
       <UniqueIdentifier>{076844d5-bd61-4391-9ec1-8f3e0f164b3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Core\01.Timer">
+      <UniqueIdentifier>{6a2b9361-d17a-4aec-b2b9-35f1fb982e4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.Scene\01.Layer">
+      <UniqueIdentifier>{2dbddb7d-da2d-4314-ae16-e6535ced82e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Object">
+      <UniqueIdentifier>{d3b23b13-d4cb-4778-916b-39a200a98048}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="defines.h">
       <Filter>헤더 파일</Filter>
     </ClCompile>
@@ -38,6 +44,30 @@
     </ClCompile>
     <ClCompile Include="CBitMap.cpp">
       <Filter>02.Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Main2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneManager.cpp">
+      <Filter>03.Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\CScene.cpp">
+      <Filter>03.Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\CInGameScene.cpp">
+      <Filter>03.Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\CTimer.cpp">
+      <Filter>01.Core\01.Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\CLayer.cpp">
+      <Filter>03.Scene\01.Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CObj.cpp">
+      <Filter>04.Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -53,5 +83,42 @@
     <ClInclude Include="CBitMap.h">
       <Filter>02.Resource</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneManager.h">
+      <Filter>03.Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\CScene.h">
+      <Filter>03.Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\CInGameScene.h">
+      <Filter>03.Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="flag.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CTimer.h">
+      <Filter>01.Core\01.Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\CLayer.h">
+      <Filter>03.Scene\01.Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CObj.h">
+      <Filter>04.Object</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="1004_IOCP_CatchMind.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>

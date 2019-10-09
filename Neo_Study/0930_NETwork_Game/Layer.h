@@ -39,9 +39,5 @@ public:
 	{
 		return m_pScene;
 	}
-
-public:
-	static bool LayerSort(class Layer* pL1, class Layer* pL2);
-
 };
 

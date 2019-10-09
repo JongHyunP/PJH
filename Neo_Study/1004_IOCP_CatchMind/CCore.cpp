@@ -1,8 +1,10 @@
 #include "CCore.h"
 #include "CResManager.h"
-
+#include "Scene/SceneManager.h"
+#include "Core/CTimer.h"
 
 DEFINITION_SINGLE(CCore)
+bool CCore::m_bLoop = true;
 
 CCore::CCore()
 {
@@ -12,15 +14,45 @@ CCore::CCore()
 CCore::~CCore()
 {
 	DESTROY_SINGLE(CResManager);
+	DESTROY_SINGLE(CTimer);
+	DESTROY_SINGLE(SceneManager);
 }
 
-bool CCore::Init(HWND hWnd, HDC hdc)
+bool CCore::Init(HINSTANCE hInst)
 {
-	//리소스 관리자 초기화
-	if (!GET_SINGLE(CResManager)->Init(hdc))
+	m_hInst = hInst;
+
+	CoreRegisterClass();
+
+	//해상도 설정
+	m_tRS.iW = 1280;
+	m_tRS.iH = 720;
+
+	//창 만들기
+	Create(); 
+
+	// 화면 DC를 만들어줌
+	m_hDC = GetDC(m_hWnd);
+
+	//타이머 초기화
+	if (!GET_SINGLE(CTimer)->Init())
 	{
 		return false;
 	}
+
+	//장면관리자 초기화
+	if (!GET_SINGLE(SceneManager)->Init())
+	{
+		return false;
+	}
+
+	//리소스 관리자 초기화
+	/*if (!GET_SINGLE(CResManager)->Init(hdc))
+	{
+		return false;
+	}*/
+
+	return true;
 }
 
 void CCore::Draw(HDC hdc)
@@ -31,104 +63,129 @@ void CCore::Draw(HDC hdc)
 	GET_SINGLE(CResManager)->DrawScene(hdc);
 }
 
-void CCore::Update()
+int CCore::Run()
 {
-}
+	MSG msg;
 
-void CCore::Input(POINT pt)
-{
-}
-
-void CCore::ProcessSocketMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
-	SOCKET client_sock;
-	SOCKADDR_IN clientaddr;
-	int addrlen = 0;
-	int retval = 0;
-
-
-	if (WSAGETSELECTERROR(lParam))
+	while (m_bLoop)
 	{
-		int err_code = WSAGETSELECTERROR(lParam);
-		//err_display(WSAGETSELECTERROR(lParam));
-		return;
-	}
-
-	switch (WSAGETSELECTEVENT(lParam))
-	{
-	case FD_READ:
-	{
-		char szBuf[BUFSIZE];
-
-		retval = recv(wParam, szBuf, BUFSIZE, 0);
-		if (retval == SOCKET_ERROR)
+		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
-			if (WSAGetLastError() != WSAEWOULDBLOCK)
-			{
-				//cout << "err on recv!!" << endl;
-			}
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
 		}
-
-		ProcessPacket(szBuf, retval);
-	}
-	break;
-	case FD_CLOSE:
-		closesocket(wParam);
-		break;
-	}
-}
-
-void CCore::ProcessPacket(char * szBuf, int len)
-{
-	PACKET_HEADER header;
-
-	memcpy(&header, szBuf, sizeof(header));
-
-	switch (header.wIndex)
-	{
-	case PACKET_INDEX_LOGIN_RET:
-	{
-		PACKET_LOGIN_RET packet;
-		memcpy(&packet, szBuf, header.wLen);
-
-		m_iIndex = packet.iIndex;
-	}
-	break;
-	case PACKET_INDEX_USER_DATA:
-	{
-		PACKET_USER_DATA packet;
-		memcpy(&packet, szBuf, header.wLen);
-
-	}
-	break;
-	case PACKET_INDEX_CARD_DATA:
-	{
-		PACKET_CARD_DATA packet;
-		memcpy(&packet, szBuf, header.wLen);
-		for (auto iter = m_mapPlayer.begin(); iter != m_mapPlayer.end(); iter++)
+		//윈도우 데드타임일 경우
+		else
 		{
-			delete iter->second;
-		}
-		m_mapPlayer.clear();
-
-		for (int i = 0; i < packet.wCount; i++)
-		{
-			Card* pNew = new Card();
-			for (int j = 0; j < 20; j++)
-			{
-				pNew->m_CardArray[j] = packet.data[i].wArr[j];
-				cout << pNew->m_CardArray[j] << " ";
-			}
-			m_mapPlayer.insert(make_pair(packet.data[i].iIndex, pNew));
+			Logic();
 		}
 	}
-	break;
-	case PACKET_INDEX_SEND_POS:
-	{
-		PACKET_SEND_POS packet;
-		memcpy(&packet, szBuf, header.wLen);
+	
+	return (int)msg.wParam;
+}
 
+void CCore::Logic()
+{
+	//타이머 갱신
+	GET_SINGLE(CTimer)->Update();
+
+	float fDeltaTime = GET_SINGLE(CTimer)->GetDeltaTime();
+
+	Input(fDeltaTime);
+	Update(fDeltaTime);
+	LateUpdate(fDeltaTime);
+	Collision(fDeltaTime);
+	Render(fDeltaTime);
+
+}
+
+void CCore::Input(float fDeltaTime)
+{
+	GET_SINGLE(SceneManager)->Input(fDeltaTime);
+}
+
+int CCore::Update(float fDeltaTime)
+{
+	GET_SINGLE(SceneManager)->Update(fDeltaTime);
+	return 0;
+}
+
+int CCore::LateUpdate(float fDeltaTime)
+{
+	GET_SINGLE(SceneManager)->LateUpdate(fDeltaTime);
+	return 0;
+}
+
+void CCore::Collision(float fDeltaTime)
+{
+	GET_SINGLE(SceneManager)->Collision(fDeltaTime);
+}
+
+void CCore::Render(float fDeltaTime)
+{
+	GET_SINGLE(SceneManager)->Render(m_hDC,fDeltaTime);
+}
+
+ATOM CCore::CoreRegisterClass()
+{
+	WNDCLASSEXW wcex;
+
+	wcex.cbSize = sizeof(WNDCLASSEX);
+	
+	wcex.style = CS_HREDRAW | CS_VREDRAW;
+	wcex.lpfnWndProc = CCore::WndProc;
+	wcex.cbClsExtra = 0;
+	wcex.cbWndExtra = 0;
+	wcex.hInstance = m_hInst;
+	wcex.hIcon = LoadIcon(m_hInst, MAKEINTRESOURCE(IDI_ICON1));
+	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
+	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+	wcex.lpszMenuName = NULL;
+	wcex.lpszClassName = L"CatchMind";
+	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON1));
+
+	return RegisterClassExW(&wcex);
+}
+
+BOOL CCore::Create()
+{
+	m_hWnd = CreateWindowW(L"CatchMind", L"CatchMind", WS_OVERLAPPEDWINDOW,
+		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, m_hInst, nullptr);
+
+	if (!m_hWnd) //윈도우 생성 핸들 실패여부(null 인 경우)
+	{
+		return FALSE;
 	}
-	break;
+	// 실제 윈도우 타이틀바나 메뉴를 포함한 윈도우의 크기를 구해줌
+	RECT rc = { 0, 0, m_tRS.iW, m_tRS.iH };
+	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
+
+	SetWindowPos(m_hWnd, HWND_TOPMOST, 100, 100, rc.right - rc.left,
+		rc.bottom - rc.top, SWP_NOMOVE | SWP_NOZORDER);
+
+	ShowWindow(m_hWnd, SW_SHOW);
+	UpdateWindow(m_hWnd);
+
+	return TRUE;
+}
+
+LRESULT CCore::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
+{
+	HDC hdc;
+	PAINTSTRUCT ps;
+	POINT pt;
+
+	switch (iMessage)
+	{
+	case WM_PAINT:
+		hdc = BeginPaint(hWnd, &ps);
+
+		EndPaint(hWnd, &ps);
+		return 0;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
 	}
+
+	return(DefWindowProc(hWnd, iMessage, wParam, lParam));
 }

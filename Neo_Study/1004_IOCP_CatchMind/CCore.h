@@ -1,18 +1,38 @@
 #pragma once
 #include "value.h"
-#include "..\..\..\..\..\..\Administrator\source\repos\Study_Server-NEO-\\0918_SERVER_01\1004_CompletionPort_Model\PACKET_HEADER_CATCH_MIND.h" //네오플용
+#include "..\..\..\\Study_Server-NEO-\1007_CatchMind_Server\Common\PACKET_HEADER_CATCH_MIND.h"
 
 class CCore
 {
 	DECLARE_SINGLE(CCore)
 private:
 	int				m_iIndex = 0;
+
+private:
+	static	bool m_bLoop;
+
+private:
+	HINSTANCE	 m_hInst;
+	HWND		 m_hWnd;
+	HDC			 m_hDC;
+	RESOLUTION	 m_tRS;
+
 public:
-	bool Init(HWND hWnd, HDC hdc);
+	bool Init(HINSTANCE hInst);
 	void Draw(HDC hdc);
-	void Update();
-	void Input(POINT pt);
-	void ProcessSocketMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-	void ProcessPacket(char * szBuf, int len);
+	int Run();
+
+private:
+	void Logic();
+	void Input(float fDeltaTime);
+	int Update(float fDeltaTime);
+	int LateUpdate(float fDeltaTime);
+	void Collision(float fDeltaTime);
+	void Render(float fDeltaTime);
+private:
+	ATOM CoreRegisterClass();
+	BOOL Create();
+public:
+	static LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 };
 
