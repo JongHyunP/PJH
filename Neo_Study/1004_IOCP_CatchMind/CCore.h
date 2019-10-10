@@ -1,6 +1,5 @@
 #pragma once
 #include "value.h"
-#include "..\..\..\\Study_Server-NEO-\1007_CatchMind_Server\Common\PACKET_HEADER_CATCH_MIND.h"
 
 class CCore
 {
@@ -19,7 +18,6 @@ private:
 
 public:
 	bool Init(HINSTANCE hInst);
-	void Draw(HDC hdc);
 	int Run();
 
 private:

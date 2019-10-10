@@ -23,13 +23,13 @@
     <ProjectGuid>{3C93A806-02E8-4B9E-8C79-87A8AB590EFF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>My1004IOCPCatchMind</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -145,13 +145,16 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Core\CTimer.cpp" />
+    <ClCompile Include="CRef.cpp" />
     <ClCompile Include="CResManager.cpp" />
     <ClCompile Include="defines.h" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Main2.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Object\CBox.cpp" />
     <ClCompile Include="Object\CObj.cpp" />
+    <ClCompile Include="Object\CStaticObj.cpp" />
     <ClCompile Include="Scene\CInGameScene.cpp" />
     <ClCompile Include="Scene\CLayer.cpp" />
     <ClCompile Include="Scene\CScene.cpp" />
@@ -163,9 +166,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Core\CTimer.h" />
+    <ClInclude Include="CRef.h" />
     <ClInclude Include="CResManager.h" />
     <ClInclude Include="flag.h" />
+    <ClInclude Include="Object\CBox.h" />
     <ClInclude Include="Object\CObj.h" />
+    <ClInclude Include="Object\CStaticObj.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene\CInGameScene.h" />
     <ClInclude Include="Scene\CLayer.h" />

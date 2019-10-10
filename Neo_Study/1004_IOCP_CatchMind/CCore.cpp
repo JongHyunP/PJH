@@ -8,6 +8,8 @@ bool CCore::m_bLoop = true;
 
 CCore::CCore()
 {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//_CrtSetBreakAlloc(); // 주석번호 검색()
 }
 
 
@@ -47,20 +49,12 @@ bool CCore::Init(HINSTANCE hInst)
 	}
 
 	//리소스 관리자 초기화
-	/*if (!GET_SINGLE(CResManager)->Init(hdc))
+	if (!GET_SINGLE(CResManager)->Init(m_hDC))
 	{
 		return false;
-	}*/
+	}
 
 	return true;
-}
-
-void CCore::Draw(HDC hdc)
-{
-	//백버퍼에 출력 해주고.
-
-	//마지막 출력
-	GET_SINGLE(CResManager)->DrawScene(hdc);
 }
 
 int CCore::Run()
@@ -124,6 +118,11 @@ void CCore::Collision(float fDeltaTime)
 void CCore::Render(float fDeltaTime)
 {
 	GET_SINGLE(SceneManager)->Render(m_hDC,fDeltaTime);
+
+	//백버퍼에 출력 해주고.
+
+	//마지막 출력
+	//GET_SINGLE(CResManager)->DrawScene(hdc);
 }
 
 ATOM CCore::CoreRegisterClass()

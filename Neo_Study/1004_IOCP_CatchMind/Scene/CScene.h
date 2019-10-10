@@ -15,7 +15,7 @@ protected:
 
 public:
 	class CLayer* CreateLayer(const string& strTag, int iZOrder =0);
-
+	class CLayer* FindLayer(const string& strTag);
 public:
 	static bool LayerSort(CLayer* pL1, CLayer* pL2);
 

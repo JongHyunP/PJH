@@ -12,10 +12,12 @@ private:
 public:
 	~CLayer();
 private:
-	class CScene* m_pScene;
-	string m_strTag;
-	int m_iZOrder;
-	list<class CObj*> m_ObjList;
+	class CScene*		m_pScene;
+	string				m_strTag;
+	int					m_iZOrder;
+	list<class CObj*>	m_ObjList;
+	bool				m_bLayerEnable;
+	bool				m_bLayerLife;
 
 public:
 	void SetTag(const string& strTag)
@@ -42,6 +44,26 @@ public:
 	{
 		return m_pScene;
 	}
+
+public:
+	void SetEnable(bool bEnable)
+	{
+		m_bLayerEnable = bEnable;
+	}
+	void Die()
+	{
+		m_bLayerLife = false;
+	}
+	bool GetEnable() const
+	{
+		return m_bLayerEnable;
+	}
+	bool GetLife() const
+	{
+		return m_bLayerLife;
+	}
+public:
+	void AddObject(class CObj* pObj);
 
 public:
 	void Input(float fDeltaTime);
