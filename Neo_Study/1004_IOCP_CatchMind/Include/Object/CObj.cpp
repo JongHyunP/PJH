@@ -1,10 +1,14 @@
 #include "CObj.h"
 #include "..\Scene\CLayer.h"
+#include "../Scene/CScene.h"
+#include "../Scene/SceneManager.h"
+#include "../Resources/CResourceManager.h"
+#include "../Resources/CTexture.h"
 
 list<CObj*> CObj::m_ObjectList;
 unordered_map<string, CObj*> CObj::m_mapPrototype;
 
-CObj::CObj() 
+CObj::CObj() :m_pTexture(NULL)
 {
 
 }
@@ -12,10 +16,18 @@ CObj::CObj()
 CObj::CObj(const CObj & obj)
 {
 	*this = obj;
+
+	//기존에 복사 해주는 객체가 텍스쳐를 가지고있다면 공유 
+	if (m_pTexture)
+	{
+		m_pTexture->AddRef();
+	}
 }
 
 CObj::~CObj()
 {
+	// 삭제시 레퍼런스 카운터 감소
+	SAFE_RELEASE(m_pTexture);
 }
 
 void CObj::AddObj(CObj * pObj)
@@ -98,6 +110,26 @@ void CObj::ErasePrototype()
 	Safe_Release_Map(m_mapPrototype);
 }
 
+void CObj::SetTexture(CTexture* pTexture)
+{
+	//기존 텍스쳐 날리고
+	SAFE_RELEASE(m_pTexture);
+	m_pTexture = pTexture;
+
+	if (pTexture)
+	{ //null이 아닐떄만 카운터 추가해주기
+		pTexture->AddRef();
+	}
+}
+
+void CObj::SetTexture(const string& strKey, const wchar_t* pFileName, const string& strPathKey)
+{
+	SAFE_RELEASE(m_pTexture);
+
+	m_pTexture = GET_SINGLE(CResourceManager)->LoadTexture(
+		strKey, pFileName, strPathKey);
+}
+
 void CObj::Input(float fDeltaTime)
 {
 }
@@ -118,6 +150,12 @@ void CObj::Collision(float fDeltaTime)
 
 void CObj::Render(HDC hdc, float fDeltaTime)
 {
+	if (m_pTexture)
+	{
+		POSITION tPos = m_tPos - m_tSize * m_tPivot;
+
+		BitBlt(hdc, tPos.x, tPos.y, m_tSize.x, m_tSize.y, m_pTexture->GetDC(), 0, 0, SRCCOPY);
+	}
 }
 
 CObj * CObj::CreateCloneObj(const string & strPrototypeKey, const string & strTag,

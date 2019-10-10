@@ -1,5 +1,5 @@
 #pragma once
-#include "..\\CRef.h"
+#include "../Core/CRef.h"
 
 class CObj : 
 	public CRef
@@ -45,10 +45,11 @@ public:
 	}
 
 protected:
-	string		m_strTag;
-	POSITION	m_tPos;  //위치
-	_SIZE		m_tSize; //크기
-	POSITION	m_tPivot; //피봇
+	string			m_strTag;
+	POSITION		m_tPos;  //위치
+	_SIZE			m_tSize; //크기
+	POSITION		m_tPivot; //피봇
+	class CTexture* m_pTexture;
 public:
 	string GetTag() const
 	{
@@ -62,7 +63,10 @@ public:
 	{
 		return m_tSize;
 	}
-
+	POSITION GetPivot() const
+	{
+		return m_tPivot;
+	}
 public:
 	void SetTag(const string& strTag)
 	{
@@ -90,7 +94,19 @@ public:
 		m_tSize.x = x;
 		m_tSize.y = y;
 	}
-
+	void SetPivot(const _SIZE& tPivot)
+	{
+		m_tPivot = tPivot;
+	}
+	void SetPivot(float x, float y)
+	{
+		m_tPivot.x = x;
+		m_tPivot.y = y;
+	}
+public:
+	void SetTexture(class CTexture* pTexture);
+	void SetTexture(const string& strKey, const wchar_t* pFileName = NULL,
+					const string& strPathKey = TEXTURE_PATH);
 public:
 	virtual bool Init() = 0 ;
 	virtual void Input(float fDeltaTime);

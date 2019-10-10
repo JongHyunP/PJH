@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.757
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0819_STL_01_Overloading", "Neo_Study\Neo_Study.vcxproj", "{1E4DFF1C-A3EA-4E7D-AD94-354D0C8A3763}"
 EndProject
@@ -78,7 +78,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0920_AsyncSeletTCP_MiniGame
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0930_NETwork_Game", "0930_NETwork_Game\0930_NETwork_Game.vcxproj", "{40373292-E410-45BB-A5D9-5654262ABFB6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1004_IOCP_CatchMind", "1004_IOCP_CatchMind\1004_IOCP_CatchMind.vcxproj", "{3C93A806-02E8-4B9E-8C79-87A8AB590EFF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1004_IOCP_CatchMind", "1004_IOCP_CatchMind\Include\1004_IOCP_CatchMind.vcxproj", "{3C93A806-02E8-4B9E-8C79-87A8AB590EFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

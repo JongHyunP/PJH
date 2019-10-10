@@ -21,7 +21,11 @@ using namespace std;
 
 //패킷헤더 링크
 //#include "..\..\..\\Study_Server-NEO-\1007_CatchMind_Server\Common\PACKET_HEADER_CATCH_MIND.h" //집
-#include "..\..\..\..\..\source\repos\Study_Server-NEO-\1007_CatchMind_Server\Common\PACKET_HEADER_CATCH_MIND.h" //네오플
+//#include "..\..\..\..\..\source\repos\Study_Server-NEO-\1007_CatchMind_Server\Common\PACKET_HEADER_CATCH_MIND.h" //네오플
+
+//Path Key
+#define ROOT_PATH		"RootPath"
+#define	TEXTURE_PATH	"TexturePath"
 
 //벡터나 리스트를 안전하게 소멸하는 용
 template <typename T>

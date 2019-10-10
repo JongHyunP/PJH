@@ -1,5 +1,5 @@
 #pragma once
-#include "value.h"
+#include "../value.h"
 
 class CRef
 {

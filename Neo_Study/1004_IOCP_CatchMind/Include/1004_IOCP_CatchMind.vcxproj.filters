@@ -31,22 +31,16 @@
     <Filter Include="04.Object">
       <UniqueIdentifier>{d3b23b13-d4cb-4778-916b-39a200a98048}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Core\02.Path">
+      <UniqueIdentifier>{24c461f4-d133-4a7f-9a39-56e7576d2ede}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Object\01.Stage">
+      <UniqueIdentifier>{26d98141-9e06-4f46-a371-6cf6501f5176}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="defines.h">
       <Filter>헤더 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CCore.cpp">
-      <Filter>01.Core</Filter>
-    </ClCompile>
-    <ClCompile Include="CResManager.cpp">
-      <Filter>02.Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="CBitMap.cpp">
-      <Filter>02.Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="Main2.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>소스 파일</Filter>
@@ -69,28 +63,31 @@
     <ClCompile Include="Object\CObj.cpp">
       <Filter>04.Object</Filter>
     </ClCompile>
-    <ClCompile Include="CRef.cpp">
-      <Filter>01.Core</Filter>
-    </ClCompile>
     <ClCompile Include="Object\CStaticObj.cpp">
       <Filter>04.Object</Filter>
     </ClCompile>
     <ClCompile Include="Object\CBox.cpp">
       <Filter>04.Object</Filter>
     </ClCompile>
+    <ClCompile Include="Core\PathManager.cpp">
+      <Filter>01.Core\02.Path</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\CCore.cpp">
+      <Filter>01.Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\CRef.cpp">
+      <Filter>01.Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources\CResourceManager.cpp">
+      <Filter>02.Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources\CTexture.cpp">
+      <Filter>02.Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="value.h">
       <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CCore.h">
-      <Filter>01.Core</Filter>
-    </ClInclude>
-    <ClInclude Include="CResManager.h">
-      <Filter>02.Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="CBitMap.h">
-      <Filter>02.Resource</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>헤더 파일</Filter>
@@ -119,14 +116,26 @@
     <ClInclude Include="Object\CObj.h">
       <Filter>04.Object</Filter>
     </ClInclude>
-    <ClInclude Include="CRef.h">
-      <Filter>01.Core</Filter>
-    </ClInclude>
     <ClInclude Include="Object\CStaticObj.h">
       <Filter>04.Object</Filter>
     </ClInclude>
     <ClInclude Include="Object\CBox.h">
       <Filter>04.Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PathManager.h">
+      <Filter>01.Core\02.Path</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CCore.h">
+      <Filter>01.Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CRef.h">
+      <Filter>01.Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\CResourceManager.h">
+      <Filter>02.Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\CTexture.h">
+      <Filter>02.Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

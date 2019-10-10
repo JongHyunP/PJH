@@ -16,8 +16,11 @@ CBox::~CBox()
 
 bool CBox::Init()
 {
-	SetPos(100.f, 100.f);
-	SetSize(100.f, 100.f);
+	SetPos(0.f, 0.f);
+	SetSize(1023.f, 435.f);
+	SetPivot(0.0f, 0.0f);
+
+	SetTexture("Box", L"login.bmp");
 
 	return true;
 }
@@ -47,7 +50,6 @@ void CBox::Collision(float fDeltaTime)
 void CBox::Render(HDC hdc, float fDeltaTime)
 {
 	CStaticObj::Render(hdc,fDeltaTime);
-	Rectangle(hdc, m_tPos.x, m_tPos.y, m_tPos.x + m_tSize.x, m_tPos.y + m_tSize.y);
 }
 
 CBox * CBox::Clone()

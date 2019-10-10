@@ -1,7 +1,10 @@
 #include "CCore.h"
-#include "CResManager.h"
-#include "Scene/SceneManager.h"
-#include "Core/CTimer.h"
+//#include "CResManager.h"
+#include "../Scene/SceneManager.h"
+#include "../Core/CTimer.h"
+#include "../Core/PathManager.h"
+#include "../Resources/CResourceManager.h"
+#include "../Resources/CTexture.h"
 
 DEFINITION_SINGLE(CCore)
 bool CCore::m_bLoop = true;
@@ -15,9 +18,12 @@ CCore::CCore()
 
 CCore::~CCore()
 {
-	DESTROY_SINGLE(CResManager);
 	DESTROY_SINGLE(CTimer);
+	DESTROY_SINGLE(PathManager);
+	DESTROY_SINGLE(CResourceManager);
 	DESTROY_SINGLE(SceneManager);
+
+	ReleaseDC(m_hWnd, m_hDC);
 }
 
 bool CCore::Init(HINSTANCE hInst)
@@ -42,14 +48,20 @@ bool CCore::Init(HINSTANCE hInst)
 		return false;
 	}
 
-	//장면관리자 초기화
-	if (!GET_SINGLE(SceneManager)->Init())
+	//경로 관리자 초기화
+	if (!GET_SINGLE(PathManager)->Init())
 	{
 		return false;
 	}
 
 	//리소스 관리자 초기화
-	if (!GET_SINGLE(CResManager)->Init(m_hDC))
+	if (!GET_SINGLE(CResourceManager)->Init(hInst,m_hDC))
+	{
+		return false;
+	}
+
+	//장면관리자 초기화
+	if (!GET_SINGLE(SceneManager)->Init())
 	{
 		return false;
 	}
@@ -117,12 +129,17 @@ void CCore::Collision(float fDeltaTime)
 
 void CCore::Render(float fDeltaTime)
 {
-	GET_SINGLE(SceneManager)->Render(m_hDC,fDeltaTime);
+	//더블버퍼링
+	CTexture* pBackBuffer = GET_SINGLE(CResourceManager)->GetBackBuffer();
 
-	//백버퍼에 출력 해주고.
+	Rectangle(pBackBuffer->GetDC(), 0, 0, 1280, 720);
 
-	//마지막 출력
-	//GET_SINGLE(CResManager)->DrawScene(hdc);
+	GET_SINGLE(SceneManager)->Render(pBackBuffer->GetDC(),fDeltaTime);
+
+	// 마지막 출력
+	BitBlt(m_hDC, 0, 0, m_tRS.iW, m_tRS.iH, pBackBuffer->GetDC(), 0, 0, SRCCOPY);
+
+	SAFE_RELEASE(pBackBuffer);
 }
 
 ATOM CCore::CoreRegisterClass()
