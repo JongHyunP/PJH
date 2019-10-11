@@ -1,23 +1,21 @@
 #pragma once
-#include "CStaticObj.h"
-class CBox :
-	public CStaticObj
+#include "CObj.h"
+class CUI :
+	public CObj
 {
-private:
-	friend class CObj;
-	friend class CScene;
+protected:
+	CUI();
+	CUI(const CUI& ui);
+	virtual ~CUI();
 
-private:
-	CBox();
-	CBox(const CBox& box);
-	~CBox();
 public:
-	virtual bool Init();
+	virtual bool Init() = 0;
 	virtual void Input(float fDeltaTime);
 	virtual int Update(float fDeltaTime);
 	virtual int LateUpdate(float fDeltaTime);
 	virtual void Collision(float fDeltaTime);
 	virtual void Render(HDC hdc, float fDeltaTime);
-	virtual CBox* Clone();
+	virtual CUI* Clone() =0 ;
+
 };
 

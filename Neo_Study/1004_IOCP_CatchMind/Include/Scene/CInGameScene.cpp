@@ -1,6 +1,8 @@
 #include "CInGameScene.h"
 #include "CLayer.h"
 #include "..\Object\CBox.h"
+#include "..\Object\Room.h"
+#include "../Object/Lobby.h"
 
 CInGameScene::CInGameScene()
 {
@@ -23,6 +25,12 @@ bool CInGameScene::Init()
 	CBox* pBox = CObj::CreateObj<CBox>("Box", pLayer);
 
 	SAFE_RELEASE(pBox);  //오브젝트를 레이어만 가지고 있으니 릴리즈 해줌
+
+	CLayer* pRoomLayer = FindLayer("Room");
+
+	Room* pRoom = CObj::CreateObj<Room>("Room", pRoomLayer);
+
+	SAFE_RELEASE(pRoom);
 
 	return true;
 }

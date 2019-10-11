@@ -194,14 +194,18 @@ LRESULT CCore::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	switch (iMessage)
 	{
 	case WM_PAINT:
+	{
 		hdc = BeginPaint(hWnd, &ps);
 
 		EndPaint(hWnd, &ps);
-		return 0;
+	}
+	break;
+	//윈도우 종료
 	case WM_DESTROY:
 		PostQuitMessage(0);
-		return 0;
+		break;
+	default:
+		return DefWindowProc(hWnd, iMessage, wParam, lParam);
 	}
-
-	return(DefWindowProc(hWnd, iMessage, wParam, lParam));
+	return 0;
 }

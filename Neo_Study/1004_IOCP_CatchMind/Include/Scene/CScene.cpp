@@ -3,8 +3,10 @@
 
 CScene::CScene()
 {
-	CLayer* pLayer = CreateLayer("Default");
-	pLayer = CreateLayer("UI", INT_MAX);
+	CLayer* pLayer = CreateLayer("UI", INT_MAX);
+	pLayer = CreateLayer("HUD", INT_MAX-1);
+	pLayer = CreateLayer("Default",1);
+	pLayer = CreateLayer("Room",2);
 }
 
 CScene::~CScene()

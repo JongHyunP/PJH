@@ -17,10 +17,10 @@ CBox::~CBox()
 bool CBox::Init()
 {
 	SetPos(0.f, 0.f);
-	SetSize(1023.f, 435.f);
+	SetSize(1280.f, 720.f);
 	SetPivot(0.0f, 0.0f);
 
-	SetTexture("Box", L"login.bmp");
+	SetTexture("Box", L"BackGround.bmp");
 
 	return true;
 }

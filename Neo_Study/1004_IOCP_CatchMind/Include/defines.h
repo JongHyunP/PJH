@@ -31,3 +31,6 @@
 
 //教臂沛 力芭 皋农肺
 #define	DESTROY_SINGLE(Type) Type::DestroyInst()
+
+//饭凉风记
+#define GETREOULUTION CCore::GetInstance()->GetResolution()

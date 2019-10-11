@@ -1,6 +1,7 @@
 #pragma once
 #include "CStaticObj.h"
-class CBox :
+
+class Lobby :
 	public CStaticObj
 {
 private:
@@ -8,9 +9,10 @@ private:
 	friend class CScene;
 
 private:
-	CBox();
-	CBox(const CBox& box);
-	~CBox();
+	Lobby();
+	Lobby(const Lobby& lobby);
+	~Lobby();
+
 public:
 	virtual bool Init();
 	virtual void Input(float fDeltaTime);
@@ -18,6 +20,6 @@ public:
 	virtual int LateUpdate(float fDeltaTime);
 	virtual void Collision(float fDeltaTime);
 	virtual void Render(HDC hdc, float fDeltaTime);
-	virtual CBox* Clone();
+	virtual Lobby* Clone();
 };
 

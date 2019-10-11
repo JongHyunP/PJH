@@ -34,8 +34,14 @@
     <Filter Include="01.Core\02.Path">
       <UniqueIdentifier>{24c461f4-d133-4a7f-9a39-56e7576d2ede}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04.Object\01.Stage">
+    <Filter Include="04.Object\01.Room">
       <UniqueIdentifier>{26d98141-9e06-4f46-a371-6cf6501f5176}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Object\02.UI">
+      <UniqueIdentifier>{69b2818a-6c33-4a58-86e1-6cf91eb9394f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Object\03.Lobby">
+      <UniqueIdentifier>{f699e814-de8d-42a7-8968-841559a0e2e6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +89,21 @@
     </ClCompile>
     <ClCompile Include="Resources\CTexture.cpp">
       <Filter>02.Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Room.cpp">
+      <Filter>04.Object\01.Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\CStratScene.cpp">
+      <Filter>03.Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CUI.cpp">
+      <Filter>04.Object\02.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CUIPanel.cpp">
+      <Filter>04.Object\02.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Lobby.cpp">
+      <Filter>04.Object\03.Lobby</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +157,21 @@
     </ClInclude>
     <ClInclude Include="Resources\CTexture.h">
       <Filter>02.Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Room.h">
+      <Filter>04.Object\01.Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\CStratScene.h">
+      <Filter>03.Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CUI.h">
+      <Filter>04.Object\02.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CUIPanel.h">
+      <Filter>04.Object\02.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Lobby.h">
+      <Filter>04.Object\03.Lobby</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -15,5 +15,5 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	DESTROY_SINGLE(CCore);
 
-	return 0;
+	return iRev;
 }

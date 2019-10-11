@@ -19,7 +19,12 @@ private:
 public:
 	bool Init(HINSTANCE hInst);
 	int Run();
-
+	
+public:
+	RESOLUTION GetResolution() const
+	{
+		return m_tRS;
+	}
 private:
 	void Logic();
 	void Input(float fDeltaTime);

@@ -154,7 +154,14 @@ void CObj::Render(HDC hdc, float fDeltaTime)
 	{
 		POSITION tPos = m_tPos - m_tSize * m_tPivot;
 
-		BitBlt(hdc, tPos.x, tPos.y, m_tSize.x, m_tSize.y, m_pTexture->GetDC(), 0, 0, SRCCOPY);
+		if (m_pTexture->GetColorKeyEnable())
+		{
+			TransparentBlt(hdc, tPos.x, tPos.y, m_tSize.x, m_tSize.y, m_pTexture->GetDC(), 0, 0, m_tSize.x, m_tSize.y, m_pTexture->GetColorKey());
+		}
+		else
+		{
+			BitBlt(hdc, tPos.x, tPos.y, m_tSize.x, m_tSize.y, m_pTexture->GetDC(), 0, 0, SRCCOPY);
+		}
 	}
 }
 

@@ -1,5 +1,6 @@
 #include "SceneManager.h"
 #include "CInGameScene.h"
+#include "CStratScene.h"
 
 DEFINITION_SINGLE(SceneManager)
 
@@ -14,7 +15,7 @@ SceneManager::~SceneManager()
 
 bool SceneManager::Init()
 {
-	CreateScene<CInGameScene>(SC_CURRENT);
+	CreateScene<CStratScene>(SC_CURRENT);
 	return true;
 }
 
