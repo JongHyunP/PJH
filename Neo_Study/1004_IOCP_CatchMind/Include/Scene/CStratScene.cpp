@@ -36,14 +36,22 @@ bool CStratScene::Init()
 
 	CUIButton* pStartBtn = CObj::CreateObj<CUIButton>("StartButton", pLayer);
 
-	pStartBtn->SetPos(552, 472);
-	pStartBtn->SetSize(62, 51);
-	pStartBtn->SetTexture("StartButton", L"LoginButton.bmp");
+	pStartBtn->SetPos(800, 500);
+	pStartBtn->SetSize(155, 97);
+	pStartBtn->SetTexture("StartButton", L"startbutton.bmp");
 
 	CColliderRect* pRC = (CColliderRect*)pStartBtn->GetCollider("ButtonBody");
+
 	POSITION tPos = pStartBtn->GetPosition();
-	pRC->SetRect(tPos.x, tPos.y, tPos.x + 61, tPos.y + 51);
+	pRC->SetRect(0.f, 0.f, 155, 97);
+	pRC->AddCollisionFunction(CS_ENTER, pStartBtn, &CUIButton::MouseOn);
+	pRC->AddCollisionFunction(CS_LEAVE, pStartBtn, &CUIButton::MouseOut);
+
+
 	SAFE_RELEASE(pRC);
+
+	pStartBtn->SetCallback(this, &CStratScene::StartButtonCallback);
+
 	SAFE_RELEASE(pStartBtn);
 
 	return true;

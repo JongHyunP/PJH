@@ -111,5 +111,7 @@ public:
 
 protected:
 	bool CollisionRectToRect(const RECTANGLE& src, const RECTANGLE& dest);
+
+	bool CollisionRectToPoint(const RECTANGLE& src, const POSITION& dest);
 };
 

@@ -7,6 +7,8 @@ CScene::CScene()
 	pLayer = CreateLayer("HUD", INT_MAX-1);
 	pLayer = CreateLayer("Default",1);
 	pLayer = CreateLayer("Room",2);
+
+	m_eSceneType = SC_CURRENT;
 }
 
 CScene::~CScene()

@@ -1,5 +1,6 @@
 #include "CColliderRect.h"
 #include "../Object/CObj.h"
+#include "CColliderPoint.h"
 
 CColliderRect::CColliderRect()
 {
@@ -59,6 +60,8 @@ bool CColliderRect::Collision(CCollider* pDest)
 	{
 	case CT_RECT:
 		return CollisionRectToRect(m_tWorldInfo,((CColliderRect*)pDest)->GetWorldInfo());
+	case CT_POINT:
+		return CollisionRectToPoint(m_tWorldInfo, ((CColliderPoint*)pDest)->GetPoint());
 	}
 
 

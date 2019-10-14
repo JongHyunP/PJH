@@ -1,5 +1,4 @@
 #pragma once
-
 #include "..\\value.h"
 
 class CLayer

@@ -1,6 +1,7 @@
 #include "CInputManager.h"
 #include  "../Object/CMouse.h"
 #include "../Scene/CLayer.h"
+#include "../Collider/CColliderManager.h"
 
 DEFINITION_SINGLE(CInputManager)
 
@@ -11,6 +12,7 @@ CInputManager::CInputManager() : m_pCreateKey(NULL), m_pMouse(NULL)
 
 CInputManager::~CInputManager()
 {
+	CObj::EraseObj(m_pMouse);
 	SAFE_RELEASE(m_pMouse);
 	Safe_Delete_Map(m_mapKey);
 }
@@ -26,8 +28,8 @@ bool CInputManager::Init(HWND hWnd)
 
 	//마우스 생성 
 	m_pMouse = CObj::CreateObj<CMouse>("Mouse");
-	m_pMouse->SetSize(32, 31);
-	m_pMouse->SetTexture("Mouse", L"pencil.bmp");
+	m_pMouse->SetSize(32, 32);
+	//m_pMouse->SetTexture("Mouse", L"mouse.bmp");
 
 
 	return true;
@@ -77,6 +79,7 @@ void CInputManager::Update(float fDeltaTime)
 	}
 	m_pMouse->Update(fDeltaTime);
 	m_pMouse->LateUpdate(fDeltaTime);
+	GET_SINGLE(CColliderManager)->AddObject(m_pMouse);
 }
 
 bool CInputManager::KeyDown(const string& strKey) const

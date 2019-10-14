@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 #include "CInGameScene.h"
 #include "CStratScene.h"
+#include "../Collider/CColliderManager.h"
 
 DEFINITION_SINGLE(SceneManager)
 
@@ -53,6 +54,10 @@ SCENE_CHANGE SceneManager::ChangeScene()
 		SAFE_DELETE(m_pScene);
 		m_pScene = m_pNextScene;
 		m_pNextScene = NULL;
+
+		GET_SINGLE(CColliderManager)->Clear();
+
+		m_pScene->SetSceneType(SC_CURRENT);
 
 		return SC_CHANGE;
 	}

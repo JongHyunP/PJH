@@ -11,8 +11,17 @@ protected:
 	virtual ~CScene() = 0 ; //추상클래스
 
 protected:
-	list<class CLayer*> m_LayerList;
-
+	list<class CLayer*>		m_LayerList;
+	SCENE_CREATE			m_eSceneType;
+public:
+	void SetSceneType(SCENE_CREATE eType)
+	{
+		m_eSceneType = eType;
+	}
+	SCENE_CREATE GetSceneType() const
+	{
+		return m_eSceneType;
+	}
 public:
 	class CLayer* CreateLayer(const string& strTag, int iZOrder =0);
 	class CLayer* FindLayer(const string& strTag);

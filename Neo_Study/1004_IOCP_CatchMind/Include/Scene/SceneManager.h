@@ -23,6 +23,9 @@ public:
 	T* CreateScene(SCENE_CREATE sc)
 	{
 		T* pScene = new T;
+
+		pScene->SetSceneType(sc);
+
 		if (!pScene->Init())
 		{
 			SAFE_DELETE(pScene);

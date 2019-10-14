@@ -23,5 +23,8 @@ public:
 	virtual void Collision(float fDeltaTime);
 	virtual void Render(HDC hdc, float fDeltaTime);
 	virtual CMouse* Clone();
+public:
+	void Hit(class CCollider* pSrc,
+		class CCollider* pDest, float fDeltaTime);
 };
 

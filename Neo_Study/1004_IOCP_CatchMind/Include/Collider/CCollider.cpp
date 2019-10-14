@@ -66,3 +66,28 @@ bool CCollider::CollisionRectToRect(const RECTANGLE& src, const RECTANGLE& dest)
 
 	return true;
 }
+
+bool CCollider::CollisionRectToPoint(const RECTANGLE & src, const POSITION & dest)
+{
+	if (dest.x < src.left)
+	{
+		return false;
+	}
+	else if (dest.x > src.right)
+	{
+		return false;
+	}
+	else if (dest.y < src.top)
+	{
+		return false;
+	}
+	else if (dest.y > src.botton)
+	{
+		return false;
+	}
+
+	return true;
+
+
+	return false;
+}

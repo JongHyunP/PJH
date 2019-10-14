@@ -1,6 +1,6 @@
 #include "CUIPanel.h"
 #include "../Core/CInputManager.h"
-
+#include "../Object/CMouse.h"
 
 CUIPanel::CUIPanel()
 {
@@ -50,6 +50,8 @@ void CUIPanel::Collision(float fDeltaTime)
 void CUIPanel::Render(HDC hdc, float fDeltaTime)
 {
 	CUI::Render(hdc,fDeltaTime);
+	SetROP2(hdc, R2_NOT);
+
 }
 
 CUIPanel * CUIPanel::Clone()

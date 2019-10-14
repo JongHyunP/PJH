@@ -117,6 +117,7 @@ void CCore::Logic()
 	{
 		return;
 	}
+
 	Collision(fDeltaTime);
 	Render(fDeltaTime);
 

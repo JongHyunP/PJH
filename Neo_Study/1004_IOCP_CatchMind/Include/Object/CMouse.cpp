@@ -1,5 +1,6 @@
 #include "CMouse.h"
 #include "../Core/CCore.h"
+#include "../Collider/CColliderPoint.h"
 
 CMouse::CMouse()
 {
@@ -18,11 +19,15 @@ CMouse::~CMouse()
 bool CMouse::Init()
 {
 	POINT pt;
-	//스크린좌표 기준으로 나온다.
+	//스크린좌표 기준
 	GetCursorPos(&pt);
 	ScreenToClient(WINDOWHANDLE, &pt);
 
 	m_tPos = pt;
+
+	CColliderPoint* pColl = AddCollider<CColliderPoint>("Mouse");
+
+	SAFE_RELEASE(pColl);
 
 	return true;
 }
@@ -30,6 +35,7 @@ bool CMouse::Init()
 void CMouse::Input(float fDeltaTime)
 {
 	CUI::Input(fDeltaTime);
+
 }
 
 int CMouse::Update(float fDeltaTime)
@@ -66,4 +72,8 @@ void CMouse::Render(HDC hdc, float fDeltaTime)
 CMouse* CMouse::Clone()
 {
 	return new CMouse(*this);
+}
+
+void CMouse::Hit(CCollider * pSrc, CCollider * pDest, float fDeltaTime)
+{
 }

@@ -3,7 +3,8 @@
 enum SCENE_CREATE
 {
 	SC_CURRENT,
-	SC_NEXT
+	SC_NEXT,
+	SC_END
 };
 
 enum SCENE_CHANGE

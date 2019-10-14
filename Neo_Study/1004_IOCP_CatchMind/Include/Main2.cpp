@@ -5,7 +5,7 @@
 #include <tchar.h>
 #include <unordered_map>
 #include <SDKDDKVer.h>
-#include "..\..\..\..\..\source\repos\Study_Server-NEO-\1007_CatchMind_Server\Common\PACKET_HEADER_CATCH_MIND.h"
+//#include "..\..\..\..\..\source\repos\Study_Server-NEO-\1007_CatchMind_Server\Common\PACKET_HEADER_CATCH_MIND.h"
 //#include "..\..\..\\Study_Server-NEO-\1007_CatchMind_Server\Common\PACKET_HEADER_CATCH_MIND.h"
 
 using namespace std;
@@ -14,6 +14,8 @@ using namespace std;
 #define SERVER_PORT 9000
 //#define SERVER_IP		"192.168.200.115" 집
 #define SERVER_IP		"10.30.10.210" // 네오플
+
+// 클라용 IOCP 임시 
 
 struct stSOCKETINFO
 {
@@ -24,27 +26,6 @@ struct stSOCKETINFO
 	int				recvBytes;
 	int				sendBytes;
 };
-
-class Playerh
-{
-public:
-	int x;
-	int y;
-	int arr[20];
-};
-
-unordered_map<int, Playerh*> g_mapPlayer;
-int g_iIndex = 0;
-SOCKET g_sock;
-
-void SendPos()
-{
-	PACKET_SEND_POS packet;
-	packet.header.wIndex = PACKET_INDEX_SEND_POS;
-	packet.header.wLen = sizeof(packet);
-	packet.data.iIndex = g_iIndex;
-	send(g_sock, (const char*)&packet, sizeof(packet), 0);
-}
 
 int main()
 {
