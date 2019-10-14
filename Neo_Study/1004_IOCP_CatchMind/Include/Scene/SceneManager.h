@@ -12,11 +12,12 @@ private:
 public:
 	bool Init();
 	void Input(float fDeltaTime);
-	int Update(float fDeltaTime);
-	int LateUpdate(float fDeltaTime);
+	SCENE_CHANGE Update(float fDeltaTime);
+	SCENE_CHANGE LateUpdate(float fDeltaTime);
 	void Collision(float fDeltaTime);
 	void Render(HDC hdc, float fDeltaTime);
-
+private:
+	SCENE_CHANGE ChangeScene();
 public:
 	template <typename T>
 	T* CreateScene(SCENE_CREATE sc)

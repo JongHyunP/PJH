@@ -34,3 +34,9 @@
 
 //·¹Á¹·ç¼Ç
 #define GETREOULUTION CCore::GetInstance()->GetResolution()
+
+#define WINDOWHANDLE CCore::GetInstance()->GetWindowHandle()
+
+#define KEYDOWN(key)	CInputManager::GetInstance()->KeyDown(key)
+#define KEYPRESS(key)	CInputManager::GetInstance()->KeyPress(key)
+#define KEYUP(key)		CInputManager::GetInstance()->KeyUp(key)

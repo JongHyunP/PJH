@@ -22,10 +22,24 @@ CObj::CObj(const CObj & obj)
 	{
 		m_pTexture->AddRef();
 	}
+
+	m_ColliderList.clear();
+
+	list<CCollider*>::const_iterator iter;
+	list<CCollider*>::const_iterator iterEnd = obj.m_ColliderList.end();
+
+	for (iter = obj.m_ColliderList.begin(); iter != iterEnd; ++iter)
+	{
+		CCollider* pColl = (*iter)->Clone();
+		pColl->SetObj(this);
+
+		m_ColliderList.push_back(pColl);
+	}
 }
 
 CObj::~CObj()
 {
+	Safe_Release_VecList(m_ColliderList);
 	// 삭제시 레퍼런스 카운터 감소
 	SAFE_RELEASE(m_pTexture);
 }
@@ -110,6 +124,23 @@ void CObj::ErasePrototype()
 	Safe_Release_Map(m_mapPrototype);
 }
 
+CCollider* CObj::GetCollider(const string& strTag)
+{
+	list<CCollider*>::iterator iter;
+	list<CCollider*>::iterator iterEnd = m_ColliderList.end();
+
+	for (iter = m_ColliderList.begin(); iter != iterEnd; ++iter)
+	{
+		if ((*iter)->GetTag() == strTag)
+		{
+			(*iter)->AddRef();
+			return *iter;
+		}
+	}
+
+	return NULL;
+}
+
 void CObj::SetTexture(CTexture* pTexture)
 {
 	//기존 텍스쳐 날리고
@@ -136,11 +167,59 @@ void CObj::Input(float fDeltaTime)
 
 int CObj::Update(float fDeltaTime)
 {
+	list<CCollider*>::iterator iter;
+	list<CCollider*>::iterator iterEnd = m_ColliderList.end();
+
+	for (iter = m_ColliderList.begin(); iter != iterEnd; )
+	{
+		if (!(*iter)->GetEnable())
+		{
+			++iter;
+			continue;
+		}
+
+		(*iter)->Update(fDeltaTime);
+
+		if (!(*iter)->GetLife())
+		{
+			SAFE_RELEASE((*iter));
+			iter = m_ColliderList.erase(iter);
+			iterEnd = m_ColliderList.end();
+		}
+		else
+		{
+			++iter;
+		}
+	}
 	return 0;
 }
 
 int CObj::LateUpdate(float fDeltaTime)
 {
+	list<CCollider*>::iterator iter;
+	list<CCollider*>::iterator iterEnd = m_ColliderList.end();
+
+	for (iter = m_ColliderList.begin(); iter != iterEnd; )
+	{
+		if (!(*iter)->GetEnable())
+		{
+			++iter;
+			continue;
+		}
+
+		(*iter)->LateUpdate(fDeltaTime);
+
+		if (!(*iter)->GetLife())
+		{
+			SAFE_RELEASE((*iter));
+			iter = m_ColliderList.erase(iter);
+			iterEnd = m_ColliderList.end();
+		}
+		else
+		{
+			++iter;
+		}
+	}
 	return 0;
 }
 
@@ -161,6 +240,31 @@ void CObj::Render(HDC hdc, float fDeltaTime)
 		else
 		{
 			BitBlt(hdc, tPos.x, tPos.y, m_tSize.x, m_tSize.y, m_pTexture->GetDC(), 0, 0, SRCCOPY);
+		}
+	}
+
+	list<CCollider*>::iterator iter;
+	list<CCollider*>::iterator iterEnd = m_ColliderList.end();
+
+	for (iter = m_ColliderList.begin(); iter != iterEnd; )
+	{
+		if (!(*iter)->GetEnable())
+		{
+			++iter;
+			continue;
+		}
+
+		(*iter)->Render(hdc,fDeltaTime);
+
+		if (!(*iter)->GetLife())
+		{
+			SAFE_RELEASE((*iter));
+			iter = m_ColliderList.erase(iter);
+			iterEnd = m_ColliderList.end();
+		}
+		else
+		{
+			++iter;
 		}
 	}
 }

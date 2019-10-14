@@ -185,3 +185,20 @@ typedef struct _tagPosition
 	}
 
 }POSITION, *PPOSITION, _SIZE, *_PSIZE;
+
+typedef struct _tagRectangle
+{
+	float left;
+	float top;
+	float right;
+	float botton;
+
+	_tagRectangle() :
+		left(0.f),
+		top(0.f),
+		right(0.f),
+		botton(0.f)
+	{
+
+	}
+}RECTANGLE, *PRECTANGLE;

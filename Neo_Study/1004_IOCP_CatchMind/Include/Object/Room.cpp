@@ -20,8 +20,8 @@ Room::~Room()
 
 bool Room::Init()
 {
-	SetPos(100.f, 0.f);
-	SetSize(1005.f, 720.f);
+	SetPos(0.f, 0.f);
+	SetSize(1024.f, 768.f);
 	SetPivot(0.0f, 0.0f);
 
 	SetTexture("Room", L"Room.bmp");

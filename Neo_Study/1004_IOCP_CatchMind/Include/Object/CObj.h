@@ -1,5 +1,6 @@
 #pragma once
 #include "../Core/CRef.h"
+#include "../Collider/CCollider.h"
 
 class CObj : 
 	public CRef
@@ -50,6 +51,55 @@ protected:
 	_SIZE			m_tSize; //크기
 	POSITION		m_tPivot; //피봇
 	class CTexture* m_pTexture;
+	list<CCollider*>  m_ColliderList;
+
+public:
+	const list<CCollider*>* GetColliderList() const
+	{
+		return &m_ColliderList;
+	}
+	CCollider* GetCollider(const string& strTag);
+
+public:
+	template <typename T>
+	void AddCollisionFunction(const string& strTag,COLLISION_STATE eState, T* pObj, void(T::* pFunc)(CCollider*, CCollider*, float))
+	{
+		list<CCollider*>::iterator iter;
+		list<CCollider*>::iterator iterEnd = m_ColliderList.end();
+
+		for (iter = m_ColliderList.begin(); iter != iterEnd; ++iter)
+		{
+			if ((*iter)->GetTag() == strTag)
+			{
+				(*iter)->AddCollisionFunction(eState, pObj, pFunc);
+				break;
+			}
+		}
+
+	}
+
+	template <typename T>
+	T* AddCollider(const string& strTag)
+	{
+		T* pCollider = new T;
+		pCollider->SetObj(this);
+		pCollider->SetTag(strTag);
+
+		if (!pCollider->Init())
+		{
+			SAFE_RELEASE(pCollider);
+			return NULL;
+		}
+
+		pCollider->AddRef();
+		m_ColliderList.push_back(pCollider);
+
+		return pCollider;
+	}
+	bool CheckCollider()
+	{
+		return !m_ColliderList.empty(); //비어있으면 false 충돌체있으면 true
+	}
 public:
 	string GetTag() const
 	{

@@ -1,5 +1,5 @@
 #include "CUIPanel.h"
-
+#include "../Core/CInputManager.h"
 
 
 CUIPanel::CUIPanel()
@@ -23,7 +23,11 @@ bool CUIPanel::Init()
 
 void CUIPanel::Input(float fDeltaTime)
 {
-	CUI::Input(fDeltaTime);
+	//CUI::Input(fDeltaTime);
+	if (KEYDOWN("Enter"))
+	{
+		MessageBox(NULL, L"로그인중", L"로그인중", MB_OK);
+	}
 }
 
 int CUIPanel::Update(float fDeltaTime)

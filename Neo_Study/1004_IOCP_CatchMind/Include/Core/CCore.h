@@ -25,6 +25,10 @@ public:
 	{
 		return m_tRS;
 	}
+	HWND GetWindowHandle() const
+	{
+		return m_hWnd;
+	}
 private:
 	void Logic();
 	void Input(float fDeltaTime);

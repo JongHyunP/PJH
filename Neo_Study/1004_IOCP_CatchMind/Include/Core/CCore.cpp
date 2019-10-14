@@ -5,6 +5,9 @@
 #include "../Core/PathManager.h"
 #include "../Resources/CResourceManager.h"
 #include "../Resources/CTexture.h"
+#include "../Core/CInputManager.h"
+#include "../Collider/CColliderManager.h"
+#include "../Object/CMouse.h"
 
 DEFINITION_SINGLE(CCore)
 bool CCore::m_bLoop = true;
@@ -20,8 +23,11 @@ CCore::~CCore()
 {
 	DESTROY_SINGLE(CTimer);
 	DESTROY_SINGLE(PathManager);
+	DESTROY_SINGLE(CColliderManager);
 	DESTROY_SINGLE(CResourceManager);
 	DESTROY_SINGLE(SceneManager);
+	DESTROY_SINGLE(CInputManager);
+
 
 	ReleaseDC(m_hWnd, m_hDC);
 }
@@ -33,8 +39,8 @@ bool CCore::Init(HINSTANCE hInst)
 	CoreRegisterClass();
 
 	//해상도 설정
-	m_tRS.iW = 1280;
-	m_tRS.iH = 720;
+	m_tRS.iW = 1024;
+	m_tRS.iH = 768;
 
 	//창 만들기
 	Create(); 
@@ -50,6 +56,11 @@ bool CCore::Init(HINSTANCE hInst)
 
 	//경로 관리자 초기화
 	if (!GET_SINGLE(PathManager)->Init())
+	{
+		return false;
+	}
+	//입력 관리자 초기화
+	if (!GET_SINGLE(CInputManager)->Init(m_hWnd))
 	{
 		return false;
 	}
@@ -98,8 +109,14 @@ void CCore::Logic()
 	float fDeltaTime = GET_SINGLE(CTimer)->GetDeltaTime();
 
 	Input(fDeltaTime);
-	Update(fDeltaTime);
-	LateUpdate(fDeltaTime);
+	if (Update(fDeltaTime) == SC_CHANGE)
+	{
+		return;
+	}
+	if (LateUpdate(fDeltaTime) == SC_CHANGE)
+	{
+		return;
+	}
 	Collision(fDeltaTime);
 	Render(fDeltaTime);
 
@@ -107,24 +124,32 @@ void CCore::Logic()
 
 void CCore::Input(float fDeltaTime)
 {
+	GET_SINGLE(CInputManager)->Update(fDeltaTime);
 	GET_SINGLE(SceneManager)->Input(fDeltaTime);
 }
 
 int CCore::Update(float fDeltaTime)
 {
-	GET_SINGLE(SceneManager)->Update(fDeltaTime);
-	return 0;
+	SCENE_CHANGE sceneChange;
+
+	sceneChange = GET_SINGLE(SceneManager)->Update(fDeltaTime);
+
+	return sceneChange;
 }
 
 int CCore::LateUpdate(float fDeltaTime)
 {
-	GET_SINGLE(SceneManager)->LateUpdate(fDeltaTime);
-	return 0;
+	SCENE_CHANGE sceneChange;
+
+	sceneChange = GET_SINGLE(SceneManager)->LateUpdate(fDeltaTime);
+	return sceneChange;
 }
 
 void CCore::Collision(float fDeltaTime)
 {
 	GET_SINGLE(SceneManager)->Collision(fDeltaTime);
+
+	GET_SINGLE(CColliderManager)->Collision(fDeltaTime);
 }
 
 void CCore::Render(float fDeltaTime)
@@ -132,9 +157,13 @@ void CCore::Render(float fDeltaTime)
 	//더블버퍼링
 	CTexture* pBackBuffer = GET_SINGLE(CResourceManager)->GetBackBuffer();
 
-	Rectangle(pBackBuffer->GetDC(), 0, 0, 1280, 720);
+	//Rectangle(pBackBuffer->GetDC(), 0, 0, 1280, 720);
 
 	GET_SINGLE(SceneManager)->Render(pBackBuffer->GetDC(),fDeltaTime);
+
+	//마지막에 마우스
+	CMouse* pMouse = GET_SINGLE(CInputManager)->GetMouse();
+	pMouse->Render(pBackBuffer->GetDC(), fDeltaTime);
 
 	// 마지막 출력
 	BitBlt(m_hDC, 0, 0, m_tRS.iW, m_tRS.iH, pBackBuffer->GetDC(), 0, 0, SRCCOPY);

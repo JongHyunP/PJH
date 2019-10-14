@@ -1,5 +1,7 @@
 #include "CLayer.h"
 #include "..\\Object\CObj.h"
+#include "../Collider/CColliderManager.h"
+
 
 CLayer::CLayer() : 
 	m_iZOrder(0),
@@ -152,6 +154,8 @@ void CLayer::Collision(float fDeltaTime)
 		}
 		else
 		{
+			GET_SINGLE(CColliderManager)->AddObject(*iter);
+
 			++iter;
 		}
 	}

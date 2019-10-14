@@ -8,6 +8,8 @@
 #include <string>
 #include <sstream>
 #include <memory>
+#include <typeinfo>
+#include <functional>
 
 #include <crtdbg.h> // 메모리릭 검사용
 

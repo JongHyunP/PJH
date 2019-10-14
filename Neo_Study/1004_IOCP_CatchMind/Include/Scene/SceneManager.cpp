@@ -24,16 +24,16 @@ void SceneManager::Input(float fDeltaTime)
 	m_pScene->Input(fDeltaTime);
 }
 
-int SceneManager::Update(float fDeltaTime)
+SCENE_CHANGE SceneManager::Update(float fDeltaTime)
 {
 	m_pScene->Update(fDeltaTime);
-	return 0;
+	return ChangeScene();
 }
 
-int SceneManager::LateUpdate(float fDeltaTime)
+SCENE_CHANGE SceneManager::LateUpdate(float fDeltaTime)
 {
 	m_pScene->LateUpdate(fDeltaTime);
-	return 0;
+	return ChangeScene();
 }
 
 void SceneManager::Collision(float fDeltaTime)
@@ -44,5 +44,18 @@ void SceneManager::Collision(float fDeltaTime)
 void SceneManager::Render(HDC hdc, float fDeltaTime)
 {
 	m_pScene->Render(hdc,fDeltaTime);
+}
+
+SCENE_CHANGE SceneManager::ChangeScene()
+{
+	if (m_pNextScene)
+	{
+		SAFE_DELETE(m_pScene);
+		m_pScene = m_pNextScene;
+		m_pNextScene = NULL;
+
+		return SC_CHANGE;
+	}
+	return SC_NONE;
 }
 

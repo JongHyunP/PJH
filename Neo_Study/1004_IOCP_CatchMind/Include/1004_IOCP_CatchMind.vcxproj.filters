@@ -43,6 +43,12 @@
     <Filter Include="04.Object\03.Lobby">
       <UniqueIdentifier>{f699e814-de8d-42a7-8968-841559a0e2e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Core\03.Input">
+      <UniqueIdentifier>{9c4bcb49-460c-4e6f-9a79-7dae2112b1b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.Collider">
+      <UniqueIdentifier>{4bffd2ce-d35f-44e5-860f-27e981675f5d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="defines.h">
@@ -81,9 +87,6 @@
     <ClCompile Include="Core\CCore.cpp">
       <Filter>01.Core</Filter>
     </ClCompile>
-    <ClCompile Include="Core\CRef.cpp">
-      <Filter>01.Core</Filter>
-    </ClCompile>
     <ClCompile Include="Resources\CResourceManager.cpp">
       <Filter>02.Resource</Filter>
     </ClCompile>
@@ -104,6 +107,27 @@
     </ClCompile>
     <ClCompile Include="Object\Lobby.cpp">
       <Filter>04.Object\03.Lobby</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\CInputManager.cpp">
+      <Filter>01.Core\03.Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CUIButton.cpp">
+      <Filter>04.Object\02.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\CCollider.cpp">
+      <Filter>05.Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\CColliderManager.cpp">
+      <Filter>05.Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\CColliderRect.cpp">
+      <Filter>05.Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\CRef.cpp">
+      <Filter>01.Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CMouse.cpp">
+      <Filter>04.Object\02.UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,9 +173,6 @@
     <ClInclude Include="Core\CCore.h">
       <Filter>01.Core</Filter>
     </ClInclude>
-    <ClInclude Include="Core\CRef.h">
-      <Filter>01.Core</Filter>
-    </ClInclude>
     <ClInclude Include="Resources\CResourceManager.h">
       <Filter>02.Resource</Filter>
     </ClInclude>
@@ -172,6 +193,27 @@
     </ClInclude>
     <ClInclude Include="Object\Lobby.h">
       <Filter>04.Object\03.Lobby</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CInputManager.h">
+      <Filter>01.Core\03.Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CUIButton.h">
+      <Filter>04.Object\02.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\CCollider.h">
+      <Filter>05.Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\CColliderManager.h">
+      <Filter>05.Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\CColliderRect.h">
+      <Filter>05.Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CRef.h">
+      <Filter>01.Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CMouse.h">
+      <Filter>04.Object\02.UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -17,7 +17,7 @@ CBox::~CBox()
 bool CBox::Init()
 {
 	SetPos(0.f, 0.f);
-	SetSize(1280.f, 720.f);
+	SetSize(1024.f, 768.f);
 	SetPivot(0.0f, 0.0f);
 
 	SetTexture("Box", L"BackGround.bmp");
