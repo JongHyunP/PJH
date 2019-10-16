@@ -4,6 +4,7 @@
 class CCore
 {
 	DECLARE_SINGLE(CCore)
+
 private:
 	int				m_iIndex = 0;
 
