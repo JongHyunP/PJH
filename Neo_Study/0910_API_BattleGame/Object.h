@@ -1,6 +1,20 @@
 #pragma once
 #include <Windows.h>
 
+/**
+ * @file Object.h
+ * @brief 오브젝트 클래스 헤더.
+ * @details .
+ */
+
+ /**
+  * @brief 오브젝트 클래스 헤더.
+  * @details 화면에 보여지는 블럭 정보역할을 합니다.
+  * @author JongHyun Park, whdgus1590@naver.com
+  * @date 2019-10
+  * @version 0.0.1
+  */
+
 class BitMap;
 
 class Object

@@ -1,7 +1,7 @@
 #include "ResManager.h"
-#include "mecro.h"
 #include "BitMap.h"
 
+DEFINITION_SINGLE(ResManager)
 
 ResManager::ResManager()
 {
@@ -31,7 +31,7 @@ void ResManager::DrawScene(HDC hdc) //화면 마지막에 그려주는애
 	BitBlt(hdc, 0, 0, WIN_X, WIN_Y, m_hMemDC, 0, 0, SRCCOPY);
 }
 
-void ResManager::Init(HDC hdc)
+bool ResManager::Init(HDC hdc)
 {
 	InitBackBuffer(hdc);
 	BitMap* pNewBit;
@@ -72,6 +72,7 @@ void ResManager::Init(HDC hdc)
 		m_mapBitMap.insert(make_pair(storagePathBlock[i], pNewBit));
 	}
 
+	return true;
 }
 
 BitMap* ResManager::GetBitMap(string strFileName)

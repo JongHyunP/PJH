@@ -1,7 +1,19 @@
 #pragma once
 #include <Windows.h>
 
-// 나중에 상속으로 에너미랑 묶어보자
+/**
+ * @file Player.h
+ * @brief 플레이어 클래스 헤더.
+ * @details .
+ */
+
+ /**
+  * @brief 플레이어 클래스 헤더.
+  * @details 플레이어에 대한 정보를 담고있습니다.
+  * @author JongHyun Park, whdgus1590@naver.com
+  * @date 2019-10
+  * @version 0.0.1
+  */
 
 class BitMap;
 
@@ -31,6 +43,7 @@ public:
 	~Player();
 	void Init(BitMap* pBitMap, float posX, float posY, int cx, int cy);
 	void Draw(HDC hdc, float posX, float posY);
+	void Input();
 	void Update();
 
 };

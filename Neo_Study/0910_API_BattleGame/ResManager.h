@@ -2,6 +2,20 @@
 #include <Windows.h>
 #include <map>
 #include <string>
+#include "mecro.h"
+/**
+ * @file ResManager.h
+ * @brief 리소스 클래스 헤더.
+ * @details .
+ */
+
+ /**
+  * @brief 리소스 클래스 헤더.
+  * @details 게임내의 리소스를 관리하는 클래스 입니다.
+  * @author JongHyun Park, whdgus1590@naver.com
+  * @date 2019-10
+  * @version 0.0.1
+  */
 
 using namespace std;
 #define WIN_X 800
@@ -73,7 +87,7 @@ enum RES_TYPE_ENEMY
 
 enum RES_TYPE_EXPLOSION
 {
-	//나중에 추가
+	
 };
 
 
@@ -81,6 +95,8 @@ class BitMap;
 
 class ResManager
 {
+	DECLARE_SINGLE(ResManager)
+
 private:
 	map<string, BitMap*>	m_mapBitMap;
 	HDC						m_hMemDC;
@@ -88,9 +104,7 @@ private:
 	HBITMAP					m_hOldBitMap;
 
 public:
-	ResManager();
-	~ResManager();
-	void Init(HDC hdc);
+	bool Init(HDC hdc);
 	void InitBackBuffer(HDC hdc);
 	HDC GetBackBuffer();
 	void DrawScene(HDC hdc);

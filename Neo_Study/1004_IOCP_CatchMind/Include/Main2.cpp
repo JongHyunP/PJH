@@ -30,21 +30,21 @@ struct stSOCKETINFO
 int main()
 {
 	WSADATA wsaData;
-	// 윈속 버전을 2.2로 초기화
+
 	int nRet = WSAStartup(MAKEWORD(2, 2), &wsaData);
 	if (nRet != 0) {
-		cout << "Error : " << WSAGetLastError() << endl;
+		cout << "Error >> " << WSAGetLastError() << endl;
 		return false;
 	}
 
 	// TCP 소켓 생성
 	SOCKET clientSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (clientSocket == INVALID_SOCKET) {
-		cout << "Error : " << WSAGetLastError() << endl;
+		cout << "Error >> " << WSAGetLastError() << endl;
 		return false;
 	}
 
-	cout << "socket initialize success." << endl;
+	cout << "소켓 이니셜라이즈 성공" << endl;
 
 	// 접속할 서버 정보를 저장할 구조체
 	SOCKADDR_IN stServerAddr;
@@ -59,11 +59,11 @@ int main()
 
 	nRet = connect(clientSocket, (sockaddr*)& stServerAddr, sizeof(sockaddr));
 	if (nRet == SOCKET_ERROR) {
-		cout << "Error : " << WSAGetLastError() << endl;
+		cout << "Error >> " << WSAGetLastError() << endl;
 		return false;
 	}
 
-	cout << "Connection success..." << endl;
+	cout << "< Connected >" << endl;
 
 	//주고받는것 시작하는 부분
 	while (true) {
