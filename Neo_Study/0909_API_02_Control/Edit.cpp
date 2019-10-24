@@ -59,7 +59,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
-		case ID_EDIT
+		case ID_EDIT:
 			switch (HIWORD(wParam))
 			{
 			case EN_CHANGE:

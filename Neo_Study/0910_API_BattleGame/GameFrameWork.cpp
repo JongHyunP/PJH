@@ -14,7 +14,7 @@ GameFrameWork::GameFrameWork()
 
 GameFrameWork::~GameFrameWork()
 {
-
+		
 }
 
 bool GameFrameWork::Init(HWND hWnd, HDC hdc)
@@ -57,6 +57,8 @@ void GameFrameWork::Release()
 
 void GameFrameWork::Animaition()
 {
+	// 플레이어의 이미지 애니메이션과 관련된 함수.
+
 	if (m_fElapseTime == 2)
 	{
 		m_fFrameCount = 0;

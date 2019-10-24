@@ -6,7 +6,6 @@
 /**
  * @file GameFrameWork.h
  * @brief 게임의 코어 헤더 파일.
- * @details 자세한 자세한.
  */
 
  /**

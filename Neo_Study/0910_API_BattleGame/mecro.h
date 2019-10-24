@@ -4,7 +4,6 @@
 /**
  * @file mecro.h
  * @brief 매크로 헤더.
- * @details  헤더.
  */
 
  /**
@@ -19,7 +18,7 @@
 #define SAFE_DELETE_ARRAY( p ) { if( p ) { delete[] ( p ); ( p ) = NULL; } }
 #define SAFE_RELEASE(p) { if ( (p) ) { (p)->Release(); (p) = 0; } }
 
-  //싱글톤 만들어주는 매크로
+//싱글톤 매크로
 #define DECLARE_SINGLE(Type) \
 	private: \
 		static Type*	m_pInst; \
@@ -38,7 +37,7 @@
 			Type(); \
 			~Type();
 
-// 싱글톤 정의.(CPP에 넣어주면됨.) 반드시 사용해야하기때문.
+// 싱글톤 정의.
 #define DEFINITION_SINGLE(Type) Type* Type::m_pInst = NULL;
 
 //싱글톤을 가져오는 메크로

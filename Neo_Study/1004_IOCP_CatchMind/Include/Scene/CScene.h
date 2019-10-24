@@ -36,6 +36,3 @@ public:
 	virtual void Collision(float fDeltaTime);
 	virtual void Render(HDC hdc,float fDeltaTime);
 };
-
-//부모클래스의 소멸자를 가상함수로 하는이유?
-//-> 자식의 소멸자를 호출하기 위해 

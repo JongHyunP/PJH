@@ -44,7 +44,7 @@ int main()
 		return false;
 	}
 
-	cout << "소켓 이니셜라이즈 성공" << endl;
+	cout << "Socket " << endl;
 
 	// 접속할 서버 정보를 저장할 구조체
 	SOCKADDR_IN stServerAddr;

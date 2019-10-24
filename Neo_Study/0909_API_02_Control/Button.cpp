@@ -59,7 +59,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		switch (LOWORD(wParam))
 		{
 		case 0:
-			MessageBox(hWnd,)
 			break;
 		case 1:
 			break;

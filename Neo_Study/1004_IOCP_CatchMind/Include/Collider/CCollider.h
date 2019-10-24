@@ -19,6 +19,7 @@ protected:
 	list<function<void(CCollider*, CCollider*, float)>> m_FuncList[CS_END];
 
 public:
+	//전역 함수용
 	void AddCollisionFunction(COLLISION_STATE eState, void(*pFunc)(CCollider*, CCollider*, float))
 	{
 		function<void(CCollider*, CCollider*, float)> func;
@@ -27,6 +28,8 @@ public:
 
 		m_FuncList[eState].push_back(func);
 	}
+
+	//멤버 함수용
 	template<typename T>
 	void AddCollisionFunction(COLLISION_STATE eState, T* pObj, void(T::*pFunc)(CCollider*, CCollider*, float))
 	{
@@ -37,6 +40,7 @@ public:
 		m_FuncList[eState].push_back(func);
 	}
 
+	//함수 호출용
 	void CallFunction(COLLISION_STATE eState, CCollider* pDest, float fDeltaTime)
 	{
 		list<function<void(CCollider*, CCollider*, float)>>::iterator iter;
